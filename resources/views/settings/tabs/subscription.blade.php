@@ -26,7 +26,9 @@
 
 		<!-- Invoices -->
 		@if (count($invoices) > 0)
-			@include('spark::settings.tabs.subscription.invoices')
+			@include('spark::settings.tabs.subscription.invoices.vat')
+
+			@include('spark::settings.tabs.subscription.invoices.history')
 		@endif
 
 		<!-- Cancel Subscription -->

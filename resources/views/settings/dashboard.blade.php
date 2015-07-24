@@ -23,6 +23,7 @@
 <div class="container-fluid spark-screen">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+
 			<!-- Tabs -->
 			<div class="spark-settings-tabs">
 				<ul class="nav nav-tabs" role="tablist">

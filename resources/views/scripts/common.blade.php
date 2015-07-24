@@ -1,3 +1,4 @@
+<!-- Vue.js Setup -->
 @if (Laravel\Spark\Spark::option('vue', true))
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.4/vue.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.3/vue-resource.min.js"></script>

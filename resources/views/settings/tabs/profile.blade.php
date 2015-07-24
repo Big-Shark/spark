@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div id="spark-settings-profile-screen" class="panel panel-default">
 	<div class="panel-heading">Update Profile</div>
 
 	<div class="panel-body">

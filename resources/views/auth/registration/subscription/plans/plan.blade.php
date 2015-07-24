@@ -1,4 +1,4 @@
-<!-- Individual Plan Display Block -->
+<!-- Registration -> Individual Plan Display Block -->
 <div class="panel panel-default spark-plan">
 	<div class="panel-heading text-center">@{{ plan.name }}</div>
 	<div class="panel-body">
@@ -36,7 +36,7 @@
 
 			<div>
 				<div class="spark-plan-discount">
-					@{{ plan.currencySymbol }}@{{ calculateDiscountPlanPrice(plan.price) }}
+					@{{ plan.currencySymbol }}@{{ getDiscountPlanPrice(plan.price) }}
 				</div>
 
 				<div class="spark-plan-discount-interval">

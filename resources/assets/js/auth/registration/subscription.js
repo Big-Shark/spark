@@ -92,7 +92,7 @@ var registrationScreen = new Vue({
         /*
          * Determine if the plan type selector is set to "monthly".
          */
-        shouldShowMonthlyPlans: function () {
+        shouldShowDefaultPlans: function () {
             return ! this.planTypeState;
         },
 
@@ -143,6 +143,7 @@ var registrationScreen = new Vue({
                         return plan.active;
                     });
 
+                    // If there is only one plan, automatically select it...
                     if (this.plans.length == 1) {
                         this.setSelectedPlan(this.plans[0]);
                     }
@@ -167,7 +168,7 @@ var registrationScreen = new Vue({
         /*
          * Calculate the discounted price for plan based on current coupon.
          */
-        calculateDiscountPlanPrice: function (price) {
+        getDiscountPlanPrice: function (price) {
             if (this.currentCoupon) {
                 if (this.currentCoupon.amountOff) {
                     price = price - this.currentCoupon.amountOff;
