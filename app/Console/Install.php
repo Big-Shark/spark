@@ -30,6 +30,7 @@ class Install extends Command
     {
         $this->installServiceProvider();
         $this->installMiddleware();
+        $this->installModels();
         $this->installMigration();
         $this->installSass();
         $this->installEnvironmentVariables();
@@ -40,7 +41,8 @@ class Install extends Command
                 ['<comment>Installing Spark Service Provider</comment>', '✔'],
                 ['<comment>Modifying Provider Configuration</comment>', '✔'],
                 ['<comment>Modifying CSRF Middleware</comment>', '✔'],
-                ['<comment>Installing Database Migration</comment>', '✔'],
+                ['<comment>Modifying User Eloquent Model</comment>', '✔'],
+                ['<comment>Modifying User Database Migration</comment>', '✔'],
                 ['<comment>Installing Spark Sass File</comment>', '✔'],
                 ['<comment>Installing Environment Variables</comment>', '✔'],
             ]
@@ -84,6 +86,19 @@ class Install extends Command
         copy(
             SPARK_PATH.'/resources/stubs/app/Http/Middleware/VerifyCsrfToken.php',
             app_path('Http/Middleware/VerifyCsrfToken.php')
+        );
+    }
+
+    /**
+     * Install the customized Spark models.
+     *
+     * @return void
+     */
+    protected function installModels()
+    {
+        copy(
+            SPARK_PATH.'/resources/stubs/app/User.php',
+            app_path('User.php')
         );
     }
 
