@@ -10,7 +10,7 @@
 				<spark-errors form="@{{ changePlanForm }}"></spark-errors>
 
 				<!-- Plan Selector -->
-				@include('spark::settings.tabs.subscription.change.selector')
+				@include('spark::settings.tabs.subscription.modals.change.selector')
 			</div>
 
 			<div class="modal-footer">
