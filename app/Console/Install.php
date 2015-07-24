@@ -30,8 +30,10 @@ class Install extends Command
     {
         $this->installServiceProvider();
         $this->installMiddleware();
+        $this->installRoutes();
         $this->installModels();
         $this->installMigration();
+        $this->installViews();
         $this->installSass();
         $this->installEnvironmentVariables();
 
@@ -41,8 +43,10 @@ class Install extends Command
                 ['<comment>Installing Spark Service Provider</comment>', '✔'],
                 ['<comment>Modifying Provider Configuration</comment>', '✔'],
                 ['<comment>Modifying CSRF Middleware</comment>', '✔'],
+                ['<comment>Modifying Routes</comment>', '✔'],
                 ['<comment>Modifying User Eloquent Model</comment>', '✔'],
                 ['<comment>Modifying User Database Migration</comment>', '✔'],
+                ['<comment>Installing Views</comment>', '✔'],
                 ['<comment>Installing Spark Sass File</comment>', '✔'],
                 ['<comment>Installing Environment Variables</comment>', '✔'],
             ]
@@ -77,6 +81,39 @@ class Install extends Command
     }
 
     /**
+     * Determine if the service provider needs to be added to the configuration.
+     *
+     * @param  string  $config
+     * @return bool
+     */
+    protected function serviceProviderShouldBeAddedToConfig($config)
+    {
+        return (str_contains($config, 'Laravel\Spark\Providers\SparkServiceProvider::class') &&
+            ! str_contains($config, 'App\Providers\SparkServiceProvider::class'));
+    }
+
+    /**
+     * Append the service provider to the configuration.
+     *
+     * @param  string  $config
+     * @return string
+     */
+    protected function appendServiceProviderToConfig($config)
+    {
+        $config = str_replace(
+            "SparkServiceProvider::class,\n",
+            "SparkServiceProvider::class,\n        App\Providers\SparkServiceProvider::class,\n",
+            $config
+        );
+
+        return str_replace(
+            "SparkServiceProvider::class\n",
+            "SparkServiceProvider::class,\n        App\Providers\SparkServiceProvider::class,\n",
+            $config
+        );
+    }
+
+    /**
      * Install the customized Spark middleware.
      *
      * @return void
@@ -86,6 +123,19 @@ class Install extends Command
         copy(
             SPARK_PATH.'/resources/stubs/app/Http/Middleware/VerifyCsrfToken.php',
             app_path('Http/Middleware/VerifyCsrfToken.php')
+        );
+    }
+
+    /**
+     * Install the routes for the application.
+     *
+     * @return void
+     */
+    protected function installRoutes()
+    {
+        copy(
+            SPARK_PATH.'/resources/stubs/app/Http/routes.php',
+            app_path('Http/routes.php')
         );
     }
 
@@ -116,29 +166,15 @@ class Install extends Command
     }
 
     /**
-     * Determine if the service provider needs to be added to the configuration.
+     * Install the default views for the application.
      *
-     * @param  string  $config
-     * @return bool
+     * @return void
      */
-    protected function serviceProviderShouldBeAddedToConfig($config)
+    protected function installViews()
     {
-        return (str_contains($config, 'Laravel\Spark\Providers\SparkServiceProvider::class') &&
-            ! str_contains($config, 'App\Providers\SparkServiceProvider::class'));
-    }
-
-    /**
-     * Append the service provider to the configuration.
-     *
-     * @param  string  $config
-     * @return string
-     */
-    protected function appendServiceProviderToConfig($config)
-    {
-        return str_replace(
-            "SparkServiceProvider::class,\n",
-            "SparkServiceProvider::class,\n        App\Providers\SparkServiceProvider::class,\n",
-            $config
+        copy(
+            SPARK_PATH.'/resources/views/home.blade.php',
+            base_path('resources/views/home.blade.php')
         );
     }
 
@@ -162,6 +198,12 @@ class Install extends Command
      */
     protected function installEnvironmentVariables()
     {
+        $env = file_get_contents(base_path('.env'));
+
+        if (str_contains($env, 'AUTHY_KEY=')) {
+            return;
+        }
+
         (new Filesystem)->append(
                     base_path('.env'),
                     PHP_EOL.'AUTHY_KEY='.PHP_EOL.PHP_EOL.
