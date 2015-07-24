@@ -25,7 +25,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<!-- Tabs -->
 			<div class="spark-settings-tabs">
-				<ul class="nav nav-tabs spark-tabs" role="tablist">
+				<ul class="nav nav-tabs" role="tablist">
 					@foreach (Laravel\Spark\Spark::settingsTabs()->tabs as $tab)
 						<li role="presentation"{!! $tab->key === $activeTab ? ' class="active"' : '' !!}>
 							<a href="#{{ $tab->key }}" aria-controls="{{ $tab->key }}" role="tab" data-toggle="tab">
