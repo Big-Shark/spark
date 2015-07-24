@@ -6,6 +6,8 @@ use Laravel\Spark\Auth\Registrar;
 use Laravel\Spark\Auth\Subscriber;
 use Laravel\Spark\Console\Install;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Spark\Billing\EmailInvoiceNotifier;
+use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
 use Laravel\Spark\Contracts\Auth\Registrar as RegistrarContract;
 use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
 
@@ -89,5 +91,7 @@ class SparkServiceProvider extends ServiceProvider
         $this->app->bindIf(RegistrarContract::class, function () {
             return new Registrar;
         });
+
+        $this->app->bindIf(InvoiceNotifier::class, EmailInvoiceNotifier::class);
     }
 }

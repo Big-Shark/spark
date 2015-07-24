@@ -3,9 +3,8 @@
 namespace Laravel\Spark\Http\Controllers\Billing;
 
 use Laravel\Spark\Spark;
-use Illuminate\Support\Facades\Mail;
 use Laravel\Cashier\WebhookController;
-use Illuminate\View\Expression as ViewExpression;
+use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
 
 class StripeController extends WebhookController
 {
@@ -27,18 +26,8 @@ class StripeController extends WebhookController
             return;
         }
 
-        $invoice = $user->findInvoice($payload['data']['object']['id']);
-
-        $invoiceData = array_merge([
-            'vendor' => 'Vendor',
-            'product' => 'Product',
-            'vat' => new ViewExpression(nl2br(e($user->extra_billing_info))),
-        ], Spark::generateInvoicesWith());
-
-        Mail::send('spark::emails.billing.invoice', function ($message) use ($user, $invoice, $invoiceData) {
-            $message->to($user->email, $user->name)
-                    ->subject('Your '.$invoiceData['product'].' Invoice')
-                    ->attachData($invoice->pdf($invoiceData), 'invoice.pdf');
-        });
+        app(InvoiceNotifier::class)->notify(
+            $user, $user->findInvoice($payload['data']['object']['id'])
+        );
     }
 }
