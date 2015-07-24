@@ -28,7 +28,7 @@ class Install extends Command
      */
     public function handle()
     {
-        $this->installServiceProvider();
+        $this->installServiceProviders();
         $this->installMiddleware();
         $this->installRoutes();
         $this->installModels();
@@ -40,15 +40,15 @@ class Install extends Command
         $this->table(
             ['Task', 'Status'],
             [
-                ['<comment>Installing Spark Service Provider</comment>', '✔'],
-                ['<comment>Modifying Provider Configuration</comment>', '✔'],
-                ['<comment>Modifying CSRF Middleware</comment>', '✔'],
-                ['<comment>Modifying Routes</comment>', '✔'],
-                ['<comment>Modifying User Eloquent Model</comment>', '✔'],
-                ['<comment>Modifying User Database Migration</comment>', '✔'],
-                ['<comment>Installing Views</comment>', '✔'],
-                ['<comment>Installing Spark Sass File</comment>', '✔'],
-                ['<comment>Installing Environment Variables</comment>', '✔'],
+                ['Installing Service Providers', '<info>✔</info>'],
+                ['Modifying Provider Configuration', '<info>✔</info>'],
+                ['Modifying CSRF Middleware', '<info>✔</info>'],
+                ['Modifying Routes', '<info>✔</info>'],
+                ['Modifying User Eloquent Model', '<info>✔</info>'],
+                ['Modifying User Database Migration', '<info>✔</info>'],
+                ['Installing Views', '<info>✔</info>'],
+                ['Installing Spark Sass File', '<info>✔</info>'],
+                ['Installing Environment Variables', '<info>✔</info>'],
             ]
         );
 
@@ -64,7 +64,7 @@ class Install extends Command
      *
      * @return void
      */
-    protected function installServiceProvider()
+    protected function installServiceProviders()
     {
         copy(
             SPARK_PATH.'/resources/stubs/app/Providers/SparkServiceProvider.php',
@@ -77,6 +77,12 @@ class Install extends Command
             file_put_contents(
                 config_path('app.php'), $this->appendServiceProviderToConfig($config)
             );
+        }
+
+        $config = file_get_contents(config_path('app.php'));
+
+        if (! str_contains($config, 'Laravel\Cashier\CashierServiceProvider')) {
+            $this->appendCashierServiceProviderToConfig($config);
         }
     }
 
@@ -111,6 +117,20 @@ class Install extends Command
             "SparkServiceProvider::class,\n        App\Providers\SparkServiceProvider::class,\n",
             $config
         );
+    }
+
+    /**
+     * Add the Cashier service provider to the configuration file.
+     *
+     * @return void
+     */
+    protected function appendCashierServiceProviderToConfig($config)
+    {
+        file_put_contents(config_path('app.php'), str_replace(
+            "App\Providers\SparkServiceProvider::class,\n",
+            "App\Providers\SparkServiceProvider::class,\n        Laravel\Cashier\CashierServiceProvider::class,\n",
+            $config
+        ));
     }
 
     /**
