@@ -14,11 +14,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->customizeRegistration();
+        if (method_exists($this, 'customizeRegistration')) {
+            $this->customizeRegistration();
+        }
 
-        $this->customizeProfileUpdates();
+        if (method_exists($this, 'customizeProfileUpdates')) {
+            $this->customizeProfileUpdates();
+        }
 
-        $this->customizeSubscriptionPlans();
+        if (method_exists($this, 'customizeSubscriptionPlans')) {
+            $this->customizeSubscriptionPlans();
+        }
 
         if ($this->twoFactorAuth) {
             Spark::withTwoFactorAuth();
