@@ -56,6 +56,22 @@ class SparkServiceProvider extends ServiceProvider
     }
 
     /**
+     * Customize the tabs on the settings screen.
+     *
+     * @return void
+     */
+    protected function customizeSettingsTabs()
+    {
+        Spark::settingsTabs()->configure(function ($tabs) {
+            return [
+                $tabs->profile(),
+                $tabs->security(),
+                $tabs->subscription(),
+            ];
+        });
+    }
+
+    /**
      * Customize Spark's profile update logic.
      *
      * @return void
