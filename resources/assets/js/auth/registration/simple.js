@@ -1,6 +1,9 @@
 var registerApp = new Vue({
     el: '#spark-register-screen',
 
+    /*
+     * Initial state of the component's data.
+     */
     data: {
         registerForm: {
             name: '', email: '', password: '', password_confirmation: '',
@@ -8,7 +11,11 @@ var registerApp = new Vue({
         }
     },
 
+
     methods: {
+        /*
+         * Initialize the registration process.
+         */
         register: function(e) {
             self = this;
 
