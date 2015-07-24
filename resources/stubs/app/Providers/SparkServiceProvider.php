@@ -67,6 +67,7 @@ class SparkServiceProvider extends ServiceProvider
                 $tabs->profile(),
                 $tabs->security(),
                 $tabs->subscription(),
+                // $tabs->make('Name', 'view', 'fa-icon'),
             ];
         });
     }
