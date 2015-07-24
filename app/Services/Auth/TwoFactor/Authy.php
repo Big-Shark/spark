@@ -9,16 +9,16 @@ use Laravel\Spark\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthentic
 
 class Authy implements Provider
 {
-	/**
-	 * Determine if the given user has two-factor authentication enabled.
-	 *
+    /**
+     * Determine if the given user has two-factor authentication enabled.
+     *
      * @param  \Laravel\Spark\Contracts\Auth\TwoFactor\Authenticatable  $user
      * @return bool
-	 */
-	public function isEnabled(TwoFactorAuthenticatable $user)
-	{
-		return isset($user->getTwoFactorAuthProviderOptions()['id']);
-	}
+     */
+    public function isEnabled(TwoFactorAuthenticatable $user)
+    {
+        return isset($user->getTwoFactorAuthProviderOptions()['id']);
+    }
 
     /**
      * Register the given user with the provider.
@@ -32,11 +32,11 @@ class Authy implements Provider
 
         $response = json_decode((new HttpClient)->post('https://api.authy.com/protected/json/users/new?api_key='.$key, [
             'form_params' => [
-            	'user' => [
-	                'email' => $user->getEmailForTwoFactorAuth(),
-	                'cellphone' => str_replace(['-', '.'], '', $user->getAuthPhoneNumber()),
-	                'country_code' => $user->getAuthCountryCode(),
-            	],
+                'user' => [
+                    'email' => $user->getEmailForTwoFactorAuth(),
+                    'cellphone' => str_replace(['-', '.'], '', $user->getAuthPhoneNumber()),
+                    'country_code' => $user->getAuthCountryCode(),
+                ],
             ],
         ])->getBody(), true);
 
@@ -77,14 +77,14 @@ class Authy implements Provider
      */
     public function delete(TwoFactorAuthenticatable $user)
     {
-		$key = env('AUTHY_KEY');
+        $key = env('AUTHY_KEY');
 
         $options = $user->getTwoFactorAuthProviderOptions();
 
-		(new HttpClient)->post(
-			'https://api.authy.com/protected/json/users/delete/'.$options['id'].'?api_key='.$key
-		);
+        (new HttpClient)->post(
+            'https://api.authy.com/protected/json/users/delete/'.$options['id'].'?api_key='.$key
+        );
 
-		$user->setTwoFactorAuthProviderOptions([]);
+        $user->setTwoFactorAuthProviderOptions([]);
     }
 }
