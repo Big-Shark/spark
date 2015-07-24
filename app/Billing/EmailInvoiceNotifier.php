@@ -11,15 +11,15 @@ use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
 
 class EmailInvoiceNotifier implements InvoiceNotifier
 {
-	/**
-	 * Notify the given user about a new invoice.
-	 *
-	 * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-	 * @param  \Laravel\Cashier\Invoice  $invoice
-	 * @return void
-	 */
-	public function notify(Authenticatable $user, Invoice $invoice)
-	{
+    /**
+     * Notify the given user about a new invoice.
+     *
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @param  \Laravel\Cashier\Invoice  $invoice
+     * @return void
+     */
+    public function notify(Authenticatable $user, Invoice $invoice)
+    {
         $invoiceData = array_merge([
             'vendor' => 'Vendor',
             'product' => 'Product',
@@ -31,5 +31,5 @@ class EmailInvoiceNotifier implements InvoiceNotifier
                     ->subject('Your '.$invoiceData['product'].' Invoice')
                     ->attachData($invoice->pdf($invoiceData), 'invoice.pdf');
         });
-	}
+    }
 }
