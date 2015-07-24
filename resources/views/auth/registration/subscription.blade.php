@@ -42,7 +42,7 @@
 		</div>
 
 		<!-- Current Coupon / Discont -->
-		<div class="row" v-if="registerForm.plan && ! freePlanIsSelected && currentCoupon">
+		<div class="row" v-if="currentCoupon && registerForm.plan && ! freePlanIsSelected">
 			@include('spark::auth.registration.subscription.coupon')
 		</div>
 

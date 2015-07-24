@@ -11,7 +11,7 @@
 
 <!-- Main Content -->
 @section('content')
-<div class="container-fluid spark-screen">
+<div id="spark-authenticate-screen" class="container-fluid spark-screen">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
