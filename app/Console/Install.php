@@ -52,6 +52,10 @@ class Install extends Command
             ]
         );
 
+        if ($this->confirm('Would you like to install NPM dependencies now?')) {
+            (new \Symfony\Component\Process\Process('npm install', base_path()))->run();
+        }
+
         if ($this->confirm('Would you like to run Gulp now?')) {
             (new \Symfony\Component\Process\Process('gulp', base_path()))->run();
         }
