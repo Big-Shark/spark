@@ -2,22 +2,49 @@
 
 namespace Laravel\Spark\Ux\Settings;
 
-class Tab {
+class Tab
+{
+    /**
+     * The tab key.
+     *
+     * @var string
+     */
+    public $key;
 
-	public $key;
+    /**
+     * The tag's displayable name.
+     *
+     * @var string
+     */
+    public $name;
 
-	public $name;
+    /**
+     * The view contents of the tab.
+     *
+     * @var string
+     */
+    public $view;
 
-	public $view;
+    /**
+     * The FontAwesome icon for the tab.
+     *
+     * @var string
+     */
+    public $icon;
 
-	public $icon;
-
-	public function __construct($name, $view, $icon)
-	{
-		$this->name = $name;
-		$this->view = $view;
-		$this->icon = $icon;
-		$this->key = str_slug($this->name);
-	}
-
+    /**
+     * Create a new tab instance.
+     *
+     * @param  string  $name
+     * @param  string  $view
+     * @param  string  $icon
+     * @return void
+     */
+    public function __construct($name, $view, $icon)
+    {
+        $this->name = $name;
+        $this->view = $view;
+        $this->icon = $icon;
+        $this->key = str_slug($this->name);
+    }
 }

@@ -16,9 +16,9 @@ $router->post('settings/user/plan', 'SettingsController@subscribe');
 $router->put('settings/user/plan', 'SettingsController@changeSubscriptionPlan');
 $router->delete('settings/user/plan', 'SettingsController@cancelSubscription');
 $router->post('settings/user/plan/resume', 'SettingsController@resumeSubscription');
-$router->get('settings/user/plan/invoice/{id}', 'SettingsController@downloadInvoice');
 $router->put('settings/user/card', 'SettingsController@updateCard');
 $router->put('settings/user/vat', 'SettingsController@updateExtraBillingInfo');
+$router->get('settings/user/plan/invoice/{id}', 'SettingsController@downloadInvoice');
 
 // Authentication Routes...
 $router->get('login', 'Auth\AuthController@getLogin');
