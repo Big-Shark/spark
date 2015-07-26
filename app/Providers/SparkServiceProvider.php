@@ -48,15 +48,22 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected function defineResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'spark');
+        $this->loadViewsFrom(SPARK_PATH.'/resources/views', 'spark');
 
         $this->publishes([
-            __DIR__.'/../../resources/views' => base_path('resources/views/vendor/spark'),
+            SPARK_PATH.'/resources/views' => base_path('resources/views/vendor/spark'),
         ]);
 
         $this->publishes([
-            __DIR__.'/../../resources/assets' => base_path('resources/assets/vendor/spark'),
+            SPARK_PATH.'/resources/assets' => base_path('resources/assets/vendor/spark'),
         ], 'spark-assets');
+
+        $this->publishes([
+            SPARK_PATH.'/resources/views/app.blade.php' => base_path('resources/views/vendor/spark/app.blade.php'),
+            SPARK_PATH.'/resources/views/settings/tabs/profile.blade.php' => base_path('resources/views/vendor/spark/settings/tabs/profile.blade.php'),
+            SPARK_PATH.'/resources/views/auth/registration/subscription/basics.blade.php' => base_path('resources/views/vendor/spark/auth/registration/subscription/basics.blade.php'),
+            SPARK_PATH.'/resources/views/auth/registration/simple/basics.blade.php' => base_path('resources/views/vendor/spark/auth/registration/simple/basics.blade.php'),
+        ], 'spark-basics');
     }
 
     /**

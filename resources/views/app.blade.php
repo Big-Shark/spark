@@ -27,7 +27,7 @@
 	<![endif]-->
 </head>
 <body>
-	<!-- Top Navigation -->
+	<!-- Navigation -->
 	@include('spark::nav')
 
 	<!-- Main Content -->

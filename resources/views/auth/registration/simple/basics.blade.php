@@ -1,13 +1,13 @@
 <div class="panel panel-default">
-	<div class="panel-heading">The Basics</div>
+	<div class="panel-heading">Register</div>
 	<div class="panel-body">
 		<spark-errors form="@{{ registerForm }}"></spark-errors>
 
-		<form class="form-horizontal spark-form" role="form" id="subscription-basics-form">
+		<form class="form-horizontal spark-form" role="form">
 			<div class="form-group">
 				<label class="col-md-4 control-label">Name</label>
 				<div class="col-md-6">
-					<input type="text" class="form-control spark-auth-first-field" name="name" v-model="registerForm.name">
+					<input type="text" class="form-control" name="name" v-model="registerForm.name">
 				</div>
 			</div>
 
@@ -32,29 +32,27 @@
 				</div>
 			</div>
 
-			<div v-if="freePlanIsSelected">
-				<div class="form-group">
-					<div class="col-sm-6 col-sm-offset-4">
-						<div class="checkbox">
-							<label>
-								<input type="checkbox" v-model="registerForm.terms"> I Accept The <a href="/terms" target="_blank">Terms Of Service</a>
-							</label>
-						</div>
+			<div class="form-group">
+				<div class="col-sm-6 col-sm-offset-4">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" v-model="registerForm.terms"> I Accept The <a href="/terms" target="_blank">Terms Of Service</a>
+						</label>
 					</div>
 				</div>
+			</div>
 
-				<div class="form-group">
-					<div class="col-sm-6 col-sm-offset-4">
-						<button type="submit" class="btn btn-primary" v-on="click: register" v-attr="disabled: registerForm.registering">
-							<span v-if="registerForm.registering">
-								<i class="fa fa-btn fa-spinner fa-spin"></i> Registering
-							</span>
+			<div class="form-group">
+				<div class="col-sm-6 col-sm-offset-4">
+					<button type="submit" class="btn btn-primary" v-on="click: register" v-attr="disabled: registerForm.registering">
+						<span v-if="registerForm.registering">
+							<i class="fa fa-btn fa-spinner fa-spin"></i> Registering
+						</span>
 
-							<span v-if=" ! registerForm.registering">
-								<i class="fa fa-btn fa-check-circle"></i> Register
-							</span>
-						</button>
-					</div>
+						<span v-if=" ! registerForm.registering">
+							<i class="fa fa-btn fa-check-circle"></i> Register
+						</span>
+					</button>
 				</div>
 			</div>
 		</form>
