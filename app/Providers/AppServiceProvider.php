@@ -8,6 +8,13 @@ use Illuminate\Support\ServiceProvider;
 class AppServiceProvider extends ServiceProvider
 {
     /**
+     * Automatically support two-factor authentication.
+     *
+     * @var bool
+     */
+    protected $twoFactorAuth = true;
+
+    /**
      * Bootstrap any application services.
      *
      * @return void
