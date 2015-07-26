@@ -2,6 +2,8 @@
 
 namespace Laravel\Spark\Ux\Settings;
 
+use Laravel\Spark\Spark;
+
 class Tabs
 {
     /**
@@ -38,7 +40,7 @@ class Tabs
     /**
      * Get the tab configuration for the "profile" tab.
      *
-     * @return array
+     * @return \Laravel\Spark\Ux\Settings\Tab
      */
     public function profile()
     {
@@ -48,7 +50,7 @@ class Tabs
     /**
      * Get the tab configuration for the "security" tab.
      *
-     * @return array
+     * @return \Laravel\Spark\Ux\Settings\Tab
      */
     public function security()
     {
@@ -58,11 +60,13 @@ class Tabs
     /**
      * Get the tab configuration for the "subscription" tab.
      *
-     * @return array
+     * @return \Laravel\Spark\Ux\Settings\Tab|null
      */
-    public function subscription()
+    public function subscription($force = false)
     {
-        return new Tab('Subscription', 'spark::settings.tabs.subscription', 'fa-credit-card');
+        if (Spark::plans()->paid() || $force) {
+            return new Tab('Subscription', 'spark::settings.tabs.subscription', 'fa-credit-card');
+        }
     }
 
     /**

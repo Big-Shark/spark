@@ -109,6 +109,17 @@ class Spark
     }
 
     /**
+     * Define a new free Spark plan.
+     *
+     * @param  string  $name
+     * @return \Laravel\Spark\Subscriptions\Plan
+     */
+    public static function free($name = 'Free')
+    {
+        return static::plan($name, 'free-plan')->free();
+    }
+
+    /**
      * Define a new Spark plan.
      *
      * @param  string  $name
