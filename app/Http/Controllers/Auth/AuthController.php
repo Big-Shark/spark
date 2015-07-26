@@ -130,7 +130,7 @@ class AuthController extends Controller
             }
         }
 
-        if (count($this->plans->active()) > 0) {
+        if (count($this->plans->paid()) > 0) {
             return view('spark::auth.registration.subscription');
         } else {
             return view('spark::auth.registration.simple');
@@ -145,7 +145,7 @@ class AuthController extends Controller
      */
     public function postRegister(Request $request)
     {
-        $withSubscription = count($this->plans->active()) > 0 &&
+        $withSubscription = count($this->plans->paid()) > 0 &&
                             $this->plans->find($request->plan) &&
                             $this->plans->find($request->plan)->price > 0;
 

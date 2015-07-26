@@ -146,6 +146,10 @@ var registrationScreen = new Vue({
                     // If there is only one plan, automatically select it...
                     if (this.plans.length == 1) {
                         this.setSelectedPlan(this.plans[0]);
+
+                        setTimeout(function () {
+                            $('.spark-first-field').filter(':visible:first').focus();
+                        }, 100);
                     }
                 });
         },
@@ -226,7 +230,7 @@ var registrationScreen = new Vue({
             this.setSelectedPlan(plan);
 
             setTimeout(function() {
-                $('.spark-auth-first-field')
+                $('.spark-first-field')
                         .filter(':visible:first')
                         .focus();
             }, 100);

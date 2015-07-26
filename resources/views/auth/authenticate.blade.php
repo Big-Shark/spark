@@ -4,7 +4,7 @@
 @section('scripts.footer')
 	<script>
 		$(function() {
-			$('.spark-auth-first-field').filter(':visible:first').focus();
+			$('.spark-first-field').filter(':visible:first').focus();
 		});
 	</script>
 @endsection
@@ -25,7 +25,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">E-Mail Address</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control spark-auth-first-field" name="email" value="{{ old('email') }}">
+								<input type="email" class="form-control spark-first-field" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 

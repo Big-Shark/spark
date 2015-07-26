@@ -4,7 +4,7 @@
 @section('scripts.footer')
 	<script>
 		$(function() {
-			$('.spark-auth-first-field').filter(':visible:first').focus();
+			$('.spark-first-field').filter(':visible:first').focus();
 		});
 	</script>
 @endsection
@@ -25,7 +25,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Verification Code</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control spark-auth-first-field" name="token">
+								<input type="text" class="form-control spark-first-field" name="token">
 							</div>
 						</div>
 
