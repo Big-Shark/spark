@@ -105,6 +105,8 @@ class SparkServiceProvider extends ServiceProvider
             return new Registrar;
         });
 
-        $this->app->bindIf(InvoiceNotifier::class, EmailInvoiceNotifier::class);
+        $this->app->bindIf(
+            InvoiceNotifier::class, EmailInvoiceNotifier::class
+        );
     }
 }
