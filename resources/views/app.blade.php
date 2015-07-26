@@ -7,11 +7,12 @@
 
 	<title>Laravel</title>
 
-	<!-- Styles -->
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-
+	<!-- Fonts -->
 	<link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 	<link href='//fonts.googleapis.com/css?family=Raleway:500,400,300,200,100' rel='stylesheet' type='text/css'>
+
+	<!-- Styles -->
+	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
 	@yield('styles', '')
 

@@ -39,7 +39,7 @@ class PasswordController extends Controller
      */
     public function getEmail()
     {
-        return view('spark::auth.password');
+        return view('spark::auth.password.email');
     }
 
     /**
@@ -54,6 +54,6 @@ class PasswordController extends Controller
             throw new NotFoundHttpException;
         }
 
-        return view('spark::auth.reset')->with('token', $token);
+        return view('spark::auth.password.reset')->with('token', $token);
     }
 }
