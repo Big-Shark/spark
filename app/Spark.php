@@ -20,7 +20,7 @@ class Spark
      *
      * @var string
      */
-    protected static $forcedPromo;
+    protected static $forcedPromotion;
 
     /**
      * The callback used to retrieve the users.
@@ -138,7 +138,7 @@ class Spark
      */
     public static function promotion($couponCode)
     {
-        static::$forcedPromo = $couponCode;
+        static::$forcedPromotion = $couponCode;
     }
 
     /**
@@ -146,9 +146,9 @@ class Spark
      *
      * @return string
      */
-    public static function forcedPromo()
+    public static function forcedPromotion()
     {
-        return static::$forcedPromo;
+        return static::$forcedPromotion;
     }
 
     /**
@@ -156,9 +156,9 @@ class Spark
      *
      * @return bool
      */
-    public static function forcingPromo()
+    public static function forcingPromotion()
     {
-        return isset(static::$forcedPromo);
+        return isset(static::$forcedPromotion);
     }
 
     /**

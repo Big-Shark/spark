@@ -26,8 +26,8 @@ $router->post('login', 'Auth\AuthController@postLogin');
 $router->get('logout', 'Auth\AuthController@getLogout');
 
 // TWo-Factor Authentication Routes...
-$router->get('auth/token', 'Auth\AuthController@getToken');
-$router->post('auth/token', 'Auth\AuthController@postToken');
+$router->get('login/token', 'Auth\AuthController@getToken');
+$router->post('login/token', 'Auth\AuthController@postToken');
 
 // Registration Routes...
 $router->get('register', 'Auth\AuthController@getRegister');
@@ -46,4 +46,4 @@ $router->get('spark/api/coupon/{code}', 'ApiController@getCoupon');
 $router->get('spark/api/user/coupon', 'ApiController@getCouponForUser');
 
 // Stripe Routes...
-$router->post('stripe/webhook', 'Billing\StripeController@handleWebhook');
+$router->post('stripe/webhook', 'Stripe\WebhookController@handleWebhook');

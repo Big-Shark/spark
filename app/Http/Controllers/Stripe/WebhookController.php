@@ -1,15 +1,17 @@
 <?php
 
-namespace Laravel\Spark\Http\Controllers\Billing;
+namespace Laravel\Spark\Http\Controllers\Stripe;
 
 use Laravel\Spark\Spark;
-use Laravel\Cashier\WebhookController;
 use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
+use Laravel\Cashier\WebhookController as BaseWebhookController;
 
-class StripeController extends WebhookController
+class WebhookController extends BaseWebhookController
 {
     /**
      * Handle a cancelled customer from a Stripe subscription.
+     *
+     * By default, this e-mails a copy of the invoice to the customer.
      *
      * @param  array  $payload
      * @return \Symfony\Component\HttpFoundation\Response

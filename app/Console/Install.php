@@ -4,6 +4,7 @@ namespace Laravel\Spark\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Process\Process;
 
 class Install extends Command
 {
@@ -19,7 +20,7 @@ class Install extends Command
      *
      * @var string
      */
-    protected $description = 'Install Spark scaffolding into the application';
+    protected $description = 'Install the Spark scaffolding into the application';
 
     /**
      * Execute the console command.
@@ -45,11 +46,11 @@ class Install extends Command
         );
 
         if ($this->confirm('Would you like to install NPM dependencies now?')) {
-            (new \Symfony\Component\Process\Process('npm install', base_path()))->run();
+            (new Process('npm install', base_path()))->run();
         }
 
         if ($this->confirm('Would you like to run Gulp now?')) {
-            (new \Symfony\Component\Process\Process('gulp', base_path()))->run();
+            (new Process('gulp', base_path()))->run();
         }
 
         $this->displayPostInstallationNotes();
@@ -221,11 +222,11 @@ class Install extends Command
         }
 
         (new Filesystem)->append(
-                    base_path('.env'),
-                    PHP_EOL.'AUTHY_KEY='.PHP_EOL.PHP_EOL.
-                    'STRIPE_KEY='.PHP_EOL.
-                    'STRIPE_SECRET='.PHP_EOL
-                );
+            base_path('.env'),
+            PHP_EOL.'AUTHY_KEY='.PHP_EOL.PHP_EOL.
+            'STRIPE_KEY='.PHP_EOL.
+            'STRIPE_SECRET='.PHP_EOL
+        );
     }
 
     /**

@@ -69,7 +69,7 @@ class AuthController extends Controller
 
             $request->session()->put('spark:auth:id', $user->id);
 
-            return redirect('auth/token');
+            return redirect('login/token');
         }
 
         return redirect()->intended($this->redirectPath());
@@ -101,7 +101,7 @@ class AuthController extends Controller
 
         $model = config('auth.model');
 
-        $user = (new $model)->find(
+        $user = (new $model)->findOrFail(
             $request->session()->pull('spark:auth:id')
         );
 
@@ -122,11 +122,11 @@ class AuthController extends Controller
      */
     public function getRegister(Request $request)
     {
-        if (Spark::forcingPromo() && ! $request->query('coupon')) {
+        if (Spark::forcingPromotion() && ! $request->query('coupon')) {
             if (count($request->query()) > 0) {
-                return redirect($request->fullUrl().'&coupon='.Spark::forcedPromo());
+                return redirect($request->fullUrl().'&coupon='.Spark::forcedPromotion());
             } else {
-                return redirect($request->fullUrl().'?coupon='.Spark::forcedPromo());
+                return redirect($request->fullUrl().'?coupon='.Spark::forcedPromotion());
             }
         }
 
@@ -241,24 +241,36 @@ class AuthController extends Controller
             $user = $registrar->create($request);
 
             if ($withSubscription) {
-                $plan = $this->plans->find($request->plan);
-
-                $subscription = $user->subscription($plan->id);
-
-                if ($plan->hasTrial()) {
-                    $subscription->trialFor(Carbon::now()->addDays($plan->trialDays));
-                }
-
-                if ($request->coupon) {
-                    $subscription->withCoupon($request->coupon);
-                }
-
-                $subscription->create($request->stripe_token, [
-                    'email' => $user->email,
-                ]);
+                $this->createSubscriptionOnStripe($request, $user);
             }
 
             return $user;
         });
+    }
+
+    /**
+     * Create the subscription on Stripe.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return void
+     */
+    protected function createSubscriptionOnStripe(Request $request, $user)
+    {
+        $plan = $this->plans->find($request->plan);
+
+        $subscription = $user->subscription($plan->id);
+
+        if ($plan->hasTrial()) {
+            $subscription->trialFor(Carbon::now()->addDays($plan->trialDays));
+        }
+
+        if ($request->coupon) {
+            $subscription->withCoupon($request->coupon);
+        }
+
+        $subscription->create($request->stripe_token, [
+            'email' => $user->email,
+        ]);
     }
 }

@@ -44,9 +44,9 @@ class SettingsController extends Controller
     public function showDashboard(Request $request)
     {
         $data = [
-            'user' => Spark::user(),
+            'activeTab' => $request->get('tab', Spark::firstSettingsTabKey()),
             'invoices' => [],
-            'activeTab' => $request->get('tab', Spark::firstSettingsTabKey())
+            'user' => Spark::user(),
         ];
 
         if (Auth::user()->stripe_id) {
@@ -73,9 +73,7 @@ class SettingsController extends Controller
         $originalEmail = Auth::user()->email;
 
         if (Spark::$updateProfilesWith) {
-            call_user_func(
-                Spark::$updateProfilesWith, $request
-            );
+            call_user_func(Spark::$updateProfilesWith, $request);
         } else {
             Auth::user()->fill($request->all())->save();
         }
@@ -269,8 +267,7 @@ class SettingsController extends Controller
         $plan = Spark::plans()->find($request->plan);
 
         $stripeCustomer = Auth::user()->stripe_id
-                                ? Auth::user()->subscription()->getStripeCustomer()
-                                : null;
+                ? Auth::user()->subscription()->getStripeCustomer() : null;
 
         Auth::user()->subscription($request->plan)
                 ->skipTrial()
