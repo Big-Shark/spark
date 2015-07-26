@@ -26,7 +26,9 @@ class EmailInvoiceNotifier implements InvoiceNotifier
             'vat' => new ViewExpression(nl2br(e($user->extra_billing_info))),
         ], Spark::generateInvoicesWith());
 
-        Mail::send('spark::emails.billing.invoice', [], function ($message) use ($user, $invoice, $invoiceData) {
+        $data = compact('user', 'invoice', 'invoiceData');
+
+        Mail::send('spark::emails.billing.invoice', $data, function ($message) use ($user, $invoice, $invoiceData) {
             $message->to($user->email, $user->name)
                     ->subject('Your '.$invoiceData['product'].' Invoice')
                     ->attachData($invoice->pdf($invoiceData), 'invoice.pdf');
