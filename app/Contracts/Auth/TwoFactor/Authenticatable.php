@@ -2,7 +2,9 @@
 
 namespace Laravel\Spark\Contracts\Auth\TwoFactor;
 
-interface Authenticatable
+use Illuminate\Contracts\Auth\Authenticatable as BaseAuthenticatable;
+
+interface Authenticatable extends BaseAuthenticatable
 {
 	/**
 	 * Get the e-mail address used for two-factor authentication.

@@ -40,15 +40,7 @@ class Install extends Command
         $this->table(
             ['Task', 'Status'],
             [
-                ['Installing Service Providers', '<info>✔</info>'],
-                ['Modifying Provider Configuration', '<info>✔</info>'],
-                ['Modifying CSRF Middleware', '<info>✔</info>'],
-                ['Modifying Routes', '<info>✔</info>'],
-                ['Modifying User Eloquent Model', '<info>✔</info>'],
-                ['Modifying User Database Migration', '<info>✔</info>'],
-                ['Installing Views', '<info>✔</info>'],
-                ['Installing Spark Sass File', '<info>✔</info>'],
-                ['Installing Environment Variables', '<info>✔</info>'],
+                ['Installing Spark Features', '<info>✔</info>'],
             ]
         );
 
@@ -243,7 +235,7 @@ class Install extends Command
      */
     protected function displayPostInstallationNotes()
     {
-        $this->comment(PHP_EOL.'Post Installation Notes:');
+        $this->comment('Post Installation Notes:');
 
         $this->line(PHP_EOL.'     → Set <info>AUTHY_KEY</info>, <info>STRIPE_KEY</info>, & <info>STRIPE_SECRET</info> Environment Variables');
     }

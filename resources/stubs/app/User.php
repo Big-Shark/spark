@@ -3,19 +3,17 @@
 namespace App;
 
 use Laravel\Cashier\Billable;
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Laravel\Cashier\Contracts\Billable as BillableContract;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Laravel\Spark\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatable;
 use Laravel\Spark\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatableContract;
 
-class User extends Model implements TwoFactorAuthenticatableContract, AuthenticatableContract,
-                                    BillableContract, CanResetPasswordContract
+class User extends Model implements TwoFactorAuthenticatableContract, BillableContract,
+                                    CanResetPasswordContract
 {
-    use Authenticatable, Billable, CanResetPassword, TwoFactorAuthenticatable;
+    use Billable, CanResetPassword, TwoFactorAuthenticatable;
 
     /**
      * The database table used by the model.
@@ -23,13 +21,6 @@ class User extends Model implements TwoFactorAuthenticatableContract, Authentica
      * @var string
      */
     protected $table = 'users';
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['trial_ends_at', 'subscription_ends_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -44,4 +35,11 @@ class User extends Model implements TwoFactorAuthenticatableContract, Authentica
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['trial_ends_at', 'subscription_ends_at'];
 }
