@@ -82,7 +82,7 @@ class SparkServiceProvider extends ServiceProvider
         }
 
         config([
-            'auth.password.email' => 'spark::emails.auth.password'
+            'auth.password.email' => 'spark::emails.auth.password.email'
         ]);
 
         $this->defineServices();

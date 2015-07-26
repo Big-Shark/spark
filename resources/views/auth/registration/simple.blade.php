@@ -11,6 +11,12 @@
 		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/common/errors.js')) !!}
 		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/auth/registration/simple.js')) !!}
 	</script>
+
+	<script>
+		$(function() {
+			$('.spark-first-field').filter(':visible:first').focus();
+		});
+	</script>
 @endsection
 
 <!-- Main Content -->

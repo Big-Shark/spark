@@ -66,7 +66,7 @@ class SparkServiceProvider extends ServiceProvider
             return [
                 $tabs->profile(),
                 $tabs->security(),
-                $tabs->subscription(),
+                Spark::plans()->paid() ? $tabs->subscription() : null
                 // $tabs->make('Name', 'view', 'fa-icon'),
             ];
         });

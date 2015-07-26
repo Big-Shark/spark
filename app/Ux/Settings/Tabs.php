@@ -30,7 +30,7 @@ class Tabs
      */
     public function configure(callable $callback)
     {
-        $this->tabs = call_user_func($callback, $this);
+        $this->tabs = array_filter(call_user_func($callback, $this));
 
         return $this;
     }
