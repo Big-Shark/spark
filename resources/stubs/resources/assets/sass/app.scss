@@ -1,6 +1,15 @@
+/*
+ * Variables...
+ */
 $font-family-sans-serif: "Raleway", Helvetica, Arial, sans-serif !default;
 $navbar-border-radius: 0;
 
+/*
+ * Bootstrap CSS...
+ */
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+/*
+ * Spark Styling...
+ */
 @import "vendor/laravel/spark/resources/assets/sass/spark";
