@@ -19,12 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->rememberToken();
 
-            // Two-Factor Authentication...
+            // Two-Factor Authentication Columns...
             $table->string('phone_country_code')->nullable();
             $table->string('phone_number')->nullable();
             $table->text('two_factor_options')->nullable();
 
-            // Cashier...
+            // Cashier Columns...
             $table->tinyInteger('stripe_active')->default(0);
             $table->string('stripe_id')->nullable();
             $table->string('stripe_subscription')->nullable();
