@@ -68,66 +68,10 @@ class Install extends Command
             app_path('Providers/SparkServiceProvider.php')
         );
 
-        $config = file_get_contents(config_path('app.php'));
-
-        if ($this->serviceProviderShouldBeAddedToConfig($config)) {
-            file_put_contents(
-                config_path('app.php'), $this->appendServiceProviderToConfig($config)
-            );
-        }
-
-        $config = file_get_contents(config_path('app.php'));
-
-        if (! str_contains($config, 'Laravel\Cashier\CashierServiceProvider')) {
-            $this->appendCashierServiceProviderToConfig($config);
-        }
-    }
-
-    /**
-     * Determine if the service provider needs to be added to the configuration.
-     *
-     * @param  string  $config
-     * @return bool
-     */
-    protected function serviceProviderShouldBeAddedToConfig($config)
-    {
-        return (str_contains($config, 'Laravel\Spark\Providers\SparkServiceProvider::class') &&
-            ! str_contains($config, 'App\Providers\SparkServiceProvider::class'));
-    }
-
-    /**
-     * Append the service provider to the configuration.
-     *
-     * @param  string  $config
-     * @return string
-     */
-    protected function appendServiceProviderToConfig($config)
-    {
-        $config = str_replace(
-            "SparkServiceProvider::class,\n",
-            "SparkServiceProvider::class,\n        App\Providers\SparkServiceProvider::class,\n",
-            $config
+        copy(
+            SPARK_PATH.'/resources/stubs/config/app.php',
+            config_path('app.php')
         );
-
-        return str_replace(
-            "SparkServiceProvider::class\n",
-            "SparkServiceProvider::class,\n        App\Providers\SparkServiceProvider::class,\n",
-            $config
-        );
-    }
-
-    /**
-     * Add the Cashier service provider to the configuration file.
-     *
-     * @return void
-     */
-    protected function appendCashierServiceProviderToConfig($config)
-    {
-        file_put_contents(config_path('app.php'), str_replace(
-            "App\Providers\SparkServiceProvider::class,\n",
-            "App\Providers\SparkServiceProvider::class,\n        Laravel\Cashier\CashierServiceProvider::class,\n",
-            $config
-        ));
     }
 
     /**
