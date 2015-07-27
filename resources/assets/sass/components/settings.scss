@@ -6,19 +6,20 @@
 
 	.spark-settings-tabs-stacked {
 		border-radius: $border-radius-base;
-		border-top: 1px solid rgba(0,0,0,.1);
-		border-right: 1px solid rgba(0,0,0,.1);
-		border-left: 1px solid rgba(0,0,0,.1);
 
 		a {
+			border-bottom: 1px solid rgba(0,0,0,.1);
 			border-left: 3px solid transparent;
 			color: #555;
-			border-bottom: 1px solid rgba(0,0,0,.1);
 
 			i {
 				color: #aaa;
 				position: relative;
 			}
+		}
+
+		li:last-child a {
+			border-bottom: 0;
 		}
 
 		li.active a {
