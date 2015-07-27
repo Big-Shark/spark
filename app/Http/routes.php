@@ -39,7 +39,7 @@ $router->post('password/email', 'Auth\PasswordController@postEmail');
 $router->get('password/reset/{token}', 'Auth\PasswordController@getReset');
 $router->post('password/reset', 'Auth\PasswordController@postReset');
 
-// API Routse...
+// API Routes...
 $router->get('spark/api/user', 'ApiController@getCurrentUser');
 $router->get('spark/api/plans', 'ApiController@getPlans');
 $router->get('spark/api/coupon/{code}', 'ApiController@getCoupon');
