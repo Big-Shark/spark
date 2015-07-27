@@ -12,10 +12,10 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="/">Home</a></li>
-
 				@if (Auth::check())
-					<!-- Authenticated -->
+					<li><a href="/">Home</a></li>
+				@else
+					<!-- Guest -->
 				@endif
 			</ul>
 
