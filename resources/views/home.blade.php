@@ -8,7 +8,7 @@
 				<div class="panel-heading">Home</div>
 
 				<div class="panel-body">
-					Your Application Dashboard.
+					Your Application's Dashboard.
 				</div>
 			</div>
 		</div>
