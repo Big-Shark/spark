@@ -15,7 +15,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Two Factor Authentication</div>
+				<div class="panel-heading">Two-Factor Authentication</div>
 				<div class="panel-body">
 					@include('spark::common.errors', ['form' => 'default'])
 
