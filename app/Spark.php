@@ -55,7 +55,7 @@ class Spark
      *
      * @var string
      */
-    public static $afterLoginRedirectPath = '/home';
+    public static $afterAuthRedirectTo = '/home';
 
     /**
      * The callback used to retrieve the user profile validator.
@@ -262,9 +262,9 @@ class Spark
      * @param  string  $path
      * @return void
      */
-    public static function afterLoginRedirectTo($path)
+    public static function afterAuthRedirectTo($path)
     {
-        static::$afterLoginRedirectPath = trim('/'.$path, '/');
+        static::$afterAuthRedirectTo = trim('/'.$path, '/');
     }
 
     /**

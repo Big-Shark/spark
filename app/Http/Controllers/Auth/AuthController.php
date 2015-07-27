@@ -283,6 +283,6 @@ class AuthController extends Controller
      */
     public function redirectPath()
     {
-        return Spark::$afterLoginRedirectPath;
+        return Spark::$afterAuthRedirectTo;
     }
 }
