@@ -9,7 +9,7 @@
 <div id="spark-settings-subscription-screen" v-cloak>
 	<div v-if="userIsLoaded && plansAreLoaded">
 
-		<!-- Coupon -->
+		<!-- Current Coupon -->
 		@include('spark::settings.tabs.subscription.coupon')
 
 		<!-- Subscribe -->
