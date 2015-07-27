@@ -82,6 +82,11 @@ class Install extends Command
     protected function installMiddleware()
     {
         copy(
+            SPARK_PATH.'/resources/stubs/app/Http/Middleware/Authenticate.php',
+            app_path('Http/Middleware/Authenticate.php')
+        );
+
+        copy(
             SPARK_PATH.'/resources/stubs/app/Http/Middleware/VerifyCsrfToken.php',
             app_path('Http/Middleware/VerifyCsrfToken.php')
         );
