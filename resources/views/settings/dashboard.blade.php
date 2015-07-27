@@ -22,11 +22,11 @@
 @section('content')
 <div class="container-fluid spark-screen">
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-3 col-md-offset-1">
 
 			<!-- Tabs -->
 			<div class="spark-settings-tabs">
-				<ul class="nav nav-tabs" role="tablist">
+				<ul class="nav spark-settings-tabs-stacked" role="tablist">
 					@foreach (Laravel\Spark\Spark::settingsTabs()->tabs as $tab)
 						<li role="presentation"{!! $tab->key === $activeTab ? ' class="active"' : '' !!}>
 							<a href="#{{ $tab->key }}" aria-controls="{{ $tab->key }}" role="tab" data-toggle="tab">
@@ -37,6 +37,9 @@
 				</ul>
 			</div>
 
+		</div>
+
+		<div class="col-md-7">
 			<!-- Tab Panes -->
 			<div class="tab-content">
 				@foreach (Laravel\Spark\Spark::settingsTabs()->tabs as $tab)
