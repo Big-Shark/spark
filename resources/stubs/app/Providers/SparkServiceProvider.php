@@ -113,14 +113,4 @@ class SparkServiceProvider extends ServiceProvider
                     'Feature 3',
                 ]);
     }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
 }
