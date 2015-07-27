@@ -30,7 +30,7 @@
 					@foreach (Laravel\Spark\Spark::settingsTabs()->tabs as $tab)
 						<li role="presentation"{!! $tab->key === $activeTab ? ' class="active"' : '' !!}>
 							<a href="#{{ $tab->key }}" aria-controls="{{ $tab->key }}" role="tab" data-toggle="tab">
-								<i class="fa fa-btn {{ $tab->icon }}"></i>{{ $tab->name }}
+								<i class="fa fa-btn {{ $tab->icon }}"></i>&nbsp;{{ $tab->name }}
 							</a>
 						</li>
 					@endforeach
