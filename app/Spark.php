@@ -51,6 +51,13 @@ class Spark
     public static $twoFactorAuth = false;
 
     /**
+     * The path to redirect to after authentication.
+     *
+     * @var string
+     */
+    public static $afterLoginRedirectPath = '/home';
+
+    /**
      * The callback used to retrieve the user profile validator.
      *
      * @var callable|null
@@ -247,6 +254,17 @@ class Spark
     public static function twoFactorProvider()
     {
         return new Authy;
+    }
+
+    /**
+     * Set the redirect path after authentication.
+     *
+     * @param  string  $path
+     * @return void
+     */
+    public static function afterLoginRedirectTo($path)
+    {
+        static::$afterLoginRedirectPath = trim('/'.$path, '/');
     }
 
     /**

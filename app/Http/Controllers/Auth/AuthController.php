@@ -176,6 +176,8 @@ class AuthController extends Controller
         }
 
         Auth::login($user);
+
+        return response()->json(['path' => $this->redirectPath()]);
     }
 
     /**
@@ -272,5 +274,15 @@ class AuthController extends Controller
         $subscription->create($request->stripe_token, [
             'email' => $user->email,
         ]);
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        return Spark::$afterLoginRedirectPath;
     }
 }

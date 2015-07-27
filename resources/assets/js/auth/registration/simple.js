@@ -26,7 +26,7 @@ var registerApp = new Vue({
 
             this.$http.post('/register', this.registerForm)
                 .success(function(response) {
-                    window.location = '/home';
+                    window.location = response.path;
                 })
                 .error(function(errors) {
                     this.registerForm.registering = false;
