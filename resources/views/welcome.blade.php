@@ -175,14 +175,7 @@
             </div>
         </div>
 
-        <!-- Pricing Heading -->
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1 splash-row-heading">
-                Simple Pricing
-            </div>
-        </div>
-
-        <!-- Pricing Table -->
+        <!-- Pricing Variables -->
         <?php $plans = Laravel\Spark\Spark::plans()->monthly(); ?>
 
         <?php
@@ -202,48 +195,58 @@
             }
         ?>
 
-        <div class="row splash-pricing-table-row text-center">
-            <div class="col-md-10 col-md-offset-1">
-                @foreach ($plans as $plan)
-                    @if ($plan->isActive())
-                        <div class="{{ $columns }}">
-                            <div class="panel panel-default">
-                                <div class="panel-heading splash-plan-heading">
-                                    {{ $plan->name }}
-                                </div>
+        <!-- Pricing Heading -->
+        @if (count($plans) > 0)
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 splash-row-heading">
+                    Simple Pricing
+                </div>
+            </div>
 
-                                <div class="panel-body">
-                                    <ul class="splash-plan-feature-list">
-                                        @foreach ($plan->features as $feature)
-                                            <li>{{ $feature }}</li>
-                                        @endforeach
-                                    </ul>
-
-                                    <hr>
-
-                                    <div class="splash-plan-price">
-                                        {{ $plan->currencySymbol }}{{ $plan->price }}
+            <!-- Pricing Table -->
+            <div class="row splash-pricing-table-row text-center">
+                <div class="col-md-10 col-md-offset-1">
+                    @foreach ($plans as $plan)
+                        @if ($plan->isActive())
+                            <div class="{{ $columns }}">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading splash-plan-heading">
+                                        {{ $plan->name }}
                                     </div>
 
-                                    <div class="splash-plan-interval">
-                                        {{ $plan->interval }}
+                                    <div class="panel-body">
+                                        <ul class="splash-plan-feature-list">
+                                            @foreach ($plan->features as $feature)
+                                                <li>{{ $feature }}</li>
+                                            @endforeach
+                                        </ul>
+
+                                        <hr>
+
+                                        <div class="splash-plan-price">
+                                            {{ $plan->currencySymbol }}{{ $plan->price }}
+                                        </div>
+
+                                        <div class="splash-plan-interval">
+                                            {{ $plan->interval }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endif
+                    @endforeach
+                </div>
             </div>
-        </div>
 
-        <!-- Call To Action Button -->
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1 text-center">
-                <button class="btn btn-primary splash-get-started-btn">
-                    Get Started!
-                </button>
+            <!-- Call To Action Button -->
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 text-center">
+                    <button class="btn btn-primary splash-get-started-btn">
+                        Get Started!
+                    </button>
+                </div>
             </div>
-        </div>
+        @endif
 
         <!-- Customers Heading -->
         <div class="row">
