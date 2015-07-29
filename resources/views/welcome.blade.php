@@ -34,6 +34,7 @@
                 <div class="pull-right splash-nav-list">
                     <ul class="list-inline">
                         <li class="splash-nav-link"><a href="/features">Features</a></li>
+                        <li class="splash-nav-link"><a href="/support">Support</a></li>
                         <li class="splash-nav-link splash-nav-link-highlight"><a href="/login">Login</a></li>
                         <li class="splash-nav-link splash-nav-link-highlight-border"><a href="/register">Register</a></li>
                     </ul>
