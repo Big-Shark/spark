@@ -23,7 +23,7 @@
 </head>
 <body>
     <!-- Main Content -->
-    <div class="container spark-splash-screen" style="font-family: 'Lato'">
+    <div class="container spark-splash-screen">
         <!-- Branding / Navigation -->
         <div class="row splash-nav">
             <div class="col-md-10 col-md-offset-1">
