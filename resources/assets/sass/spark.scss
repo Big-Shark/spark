@@ -4,6 +4,7 @@
 
 @import "elements/buttons";
 @import "elements/forms";
+@import "elements/modals";
 @import "elements/nav";
 @import "elements/panels";
 @import "elements/tooltips";
@@ -19,6 +20,10 @@
 /*
  * Misc.
  */
+
+body {
+	font-weight: 300;
+}
 
 [v-cloak] {
     display: none;
