@@ -183,34 +183,55 @@
         </div>
 
         <!-- Pricing Table -->
+        <?php $plans = Laravel\Spark\Spark::plans()->monthly(); ?>
+
+        <?php
+            switch (count($plans)) {
+                case 1:
+                    $columns = 'col-md-12';
+                    break;
+                case 2:
+                    $columns = 'col-md-6';
+                    break;
+                case 3:
+                    $columns = 'col-md-4';
+                    break;
+                case 4:
+                    $columns = 'col-md-3';
+                    break;
+            }
+        ?>
+
         <div class="row splash-pricing-table-row text-center">
             <div class="col-md-10 col-md-offset-1">
-                @foreach (Laravel\Spark\Spark::plans()->active() as $plan)
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-heading splash-plan-heading">
-                                {{ $plan->name }}
-                            </div>
-
-                            <div class="panel-body">
-                                <ul class="splash-plan-feature-list">
-                                    @foreach ($plan->features as $feature)
-                                        <li>{{ $feature }}</li>
-                                    @endforeach
-                                </ul>
-
-                                <hr>
-
-                                <div class="splash-plan-price">
-                                    {{ $plan->currencySymbol }}{{ $plan->price }}
+                @foreach ($plans as $plan)
+                    @if ($plan->isActive())
+                        <div class="{{ $columns }}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading splash-plan-heading">
+                                    {{ $plan->name }}
                                 </div>
 
-                                <div class="splash-plan-interval">
-                                    {{ $plan->interval }}
+                                <div class="panel-body">
+                                    <ul class="splash-plan-feature-list">
+                                        @foreach ($plan->features as $feature)
+                                            <li>{{ $feature }}</li>
+                                        @endforeach
+                                    </ul>
+
+                                    <hr>
+
+                                    <div class="splash-plan-price">
+                                        {{ $plan->currencySymbol }}{{ $plan->price }}
+                                    </div>
+
+                                    <div class="splash-plan-interval">
+                                        {{ $plan->interval }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             </div>
         </div>
