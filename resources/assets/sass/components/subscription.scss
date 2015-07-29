@@ -3,24 +3,28 @@
 */
 
 .spark-screen {
+    .btn {
+        font-weight: 300;
+    }
+
     .spark-subscription-inspiration-heading {
-        margin-top: 35px;
-        font-size: 46px;
+        font-size: 56px;
         font-weight: 200;
+        margin-top: 35px;
         text-align: center;
     }
 
     .spark-subscription-inspiration-subheading {
-        font-size: 30px;
+        font-size: 48px;
         font-weight: 200;
         margin-top: 10px;
-        margin-bottom: 35px;
+        margin-bottom: 50px;
         text-align: center;
     }
 
     .spark-subscription-inspiration-single {
-        font-size: 40px;
-        font-weight: 200;
+        font-size: 48px;
+        font-weight: 300;
         margin-top: 25px;
         margin-bottom: 40px;
         text-align: center;
@@ -40,7 +44,8 @@
     }
 
     .spark-plan .panel-heading {
-        font-size: 18px;
+        font-size: 28px;
+        font-weight: 300;
     }
 
     .spark-plan ul {
@@ -48,18 +53,23 @@
     }
 
     .spark-plan li {
+        font-size: 18px;
+        font-weight: 300;
         line-height: 30px;
         list-style: none;
         text-align: center;
     }
 
     .spark-plan .spark-plan-price {
-        font-size: 24px;
+        font-size: 28px;
+        font-weight: 300;
         text-align: center;
     }
 
     .spark-plan .spark-plan-interval {
         color: #aaa;
+        font-size: 16px;
+        font-weight: 300;
         margin-top: 5px;
         text-align: center;
         text-transform: uppercase;
@@ -71,12 +81,15 @@
 
     .spark-plan-discount {
         color: #5cb85c;
-        font-size: 24px;
+        font-size: 28px;
+        font-weight: 300;
         text-align: center;
     }
 
     .spark-plan-discount-interval {
         color: #aaa;
+        font-size: 16px;
+        font-weight: 300;
         margin-top: 5px;
         text-align: center;
         text-transform: uppercase;
@@ -87,7 +100,9 @@
     }
 
     .spark-plan-subscribe-button {
-        font-size: 16px;
+        font-size: 18px;
+        font-weight: 300;
+        padding: 12px 15px 12px 15px;
     }
 
     /*

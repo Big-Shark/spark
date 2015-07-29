@@ -1,5 +1,12 @@
-.panel-flush {
-	.panel-body, .panel-header {
-		padding: 0;
+.spark-screen {
+    .panel-heading {
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+	.panel-flush {
+		.panel-body, .panel-header {
+			padding: 0;
+		}
 	}
 }
