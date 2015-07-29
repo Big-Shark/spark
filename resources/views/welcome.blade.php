@@ -58,7 +58,7 @@
             </div>
 
             <!-- Browser Window -->
-            <div class="col-md-5">
+            <div class="col-md-5" class="splash-browser-window-container">
                 <div class="splash-browser-window">
                     <div class="splash-browser-dots-container">
                         <ul class="list-inline splash-browser-dots">
@@ -68,7 +68,7 @@
                         </ul>
                     </div>
                     <div>
-                        <img src="https://placehold.it/455x300">
+                        <img src="https://placehold.it/455x300" style="width: 100%">
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
         <!-- Feature Icons -->
         <div class="row splash-features-icon-row">
             <div class="col-md-10 col-md-offset-1 text-center">
-                <div class="col-md-4">
+                <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
                         <i class="fa fa-rocket"></i>
                     </div>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
                         <i class="fa fa-rocket"></i>
                     </div>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
                         <i class="fa fa-rocket"></i>
                     </div>
@@ -131,7 +131,7 @@
         <!-- Feature Icons -->
         <div class="row splash-features-icon-row">
             <div class="col-md-10 col-md-offset-1 text-center">
-                <div class="col-md-4">
+                <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
                         <i class="fa fa-rocket"></i>
                     </div>
@@ -145,7 +145,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
                         <i class="fa fa-rocket"></i>
                     </div>
@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
                         <i class="fa fa-rocket"></i>
                     </div>

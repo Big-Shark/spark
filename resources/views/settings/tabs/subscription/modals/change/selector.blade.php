@@ -2,8 +2,13 @@
 	<!-- Monthly / Available Plans -->
 	<div class="col-md-6">
 		<div class="spark-plan-change-selector-heading">
-			<span v-if="includesBothPlanIntervals"><strong>Monthly Plans</strong></span>
-			<span v-if=" ! includesBothPlanIntervals"><strong>Available Plans</strong></span>
+			<span v-if="includesBothPlanIntervals">
+				<strong>Monthly Plans</strong>
+			</span>
+
+			<span v-if=" ! includesBothPlanIntervals">
+				<strong>Available Plans</strong>
+			</span>
 		</div>
 
 		<div v-repeat="plan : defaultPlansExceptCurrent" style="margin-bottom: 10px;">

@@ -63,9 +63,15 @@
 			line-height: 35px;
 		}
 
+		.splash-browser-window-container {
+			margin: 0 auto;
+			max-width: 500px;
+		}
+
 		.splash-browser-window {
 			border: 1px solid #ccc;
 			border-radius: 4px;
+			max-width: 500px;
 		}
 
 		.splash-browser-dots-container {
@@ -109,7 +115,7 @@
 
 		.splash-feature-icon {
 			font-size: 42px;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 		}
 
 		.splash-feature-heading {
@@ -215,6 +221,24 @@
 		.splash-footer-social-icons {
 			color: #aaa;
 			font-size: 32px;
+		}
+	}
+}
+
+.spark-splash-screen {
+	.splash-browser-window {
+		@media screen and (max-width: 992px) {
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			margin: 35px auto 0px auto;
+		}
+	}
+
+	.splash-features-icon-row {
+		.splash-features-feature:not(:first-child) {
+			@media screen and (max-width: 992px) {
+				margin-top: 35px;
+			}
 		}
 	}
 }

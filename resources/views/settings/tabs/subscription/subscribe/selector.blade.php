@@ -2,8 +2,13 @@
 	<!-- Monthly / Available Plans -->
 	<div class="col-md-6">
 		<div style="margin-bottom: 15px;">
-			<span v-if="includesBothPlanIntervals"><strong>Monthly Plans</strong></span>
-			<span v-if=" ! includesBothPlanIntervals"><strong>Available Plans</strong></span>
+			<span v-if="includesBothPlanIntervals">
+				<strong>Monthly Plans</strong>
+			</span>
+
+			<span v-if=" ! includesBothPlanIntervals">
+				<strong>Available Plans</strong>
+			</span>
 		</div>
 
 		<div v-repeat="plan : defaultPlans" style="margin-bottom: 10px;">
