@@ -241,9 +241,11 @@
             <!-- Call To Action Button -->
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 text-center">
-                    <button class="btn btn-primary splash-get-started-btn">
-                        Get Started!
-                    </button>
+                    <a href="/register">
+                        <button class="btn btn-primary splash-get-started-btn">
+                            Get Started!
+                        </button>
+                    </a>
                 </div>
             </div>
         @endif
