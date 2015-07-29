@@ -1,11 +1,11 @@
 .navbar {
-	font-size: 16px;
+	font-size: $font-size-base;
 	font-weight: 300;
 	margin-bottom: 40px;
 
 	.dropdown-menu {
 		li {
-			font-size: 14px;
+			font-size: $font-size-base;
 
 			a {
 				font-weight: 300;

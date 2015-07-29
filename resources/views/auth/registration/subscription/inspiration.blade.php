@@ -1,11 +1,7 @@
 <!-- Plan Has Not Been Selected -->
 <div v-if="plans.length > 1 && ! registerForm.plan">
-	<div class="row spark-subscription-inspiration-heading">
-		Thanks for coming on board.
-	</div>
-
-	<div class="row spark-subscription-inspiration-subheading">
-		Select a plan to get started.
+	<div class="row spark-subscription-inspiration-single">
+		Which plan is for you?
 	</div>
 </div>
 
