@@ -11,14 +11,14 @@ class Plan implements JsonSerializable
      *
      * @var string
      */
-    protected $id;
+    public $id;
 
     /**
      * The human-readable name of the plan.
      *
      * @var string
      */
-    protected $name;
+    public $name;
 
     /**
      * The price of the plan.
@@ -27,49 +27,49 @@ class Plan implements JsonSerializable
      *
      * @var string
      */
-    protected $price;
+    public $price;
 
     /**
      * The currency symbol used by the plans.
      *
      * @var string
      */
-    protected $currencySymbol = '$';
+    public $currencySymbol = '$';
 
     /**
      * The number of trial days the plan receives.
      *
      * @var int
      */
-    protected $trialDays;
+    public $trialDays;
 
     /**
      * The "tier" of the plan.
      *
      * @var string
      */
-    protected $tier;
+    public $tier;
 
     /**
      * The features provided by the plan.
      *
      * @var array
      */
-    protected $features = [];
+    public $features = [];
 
     /**
      * The billing interval for the plan.
      *
      * @var string
      */
-    protected $interval = 'monthly';
+    public $interval = 'monthly';
 
     /**
      * Specifies whether the plan is active.
      *
      * @var bool
      */
-    protected $active = true;
+    public $active = true;
 
     /**
      * Create a new plan instance.
