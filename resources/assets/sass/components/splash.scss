@@ -1,5 +1,7 @@
 .spark-splash-screen {
+    color: #5a5a5a;
 	font-family: 'Lato';
+    -webkit-font-smoothing: antialiased;
 
 	.splash-nav {
 		margin-top: 40px;
@@ -194,8 +196,7 @@
 
 	.splash-footer {
 		border-top: 1px solid #ccc;
-		margin-top: 50px;
-		margin-bottom: 50px;
+		margin-bottom: 30px;
 		padding-top: 30px;
 
 		.splash-footer-company {
