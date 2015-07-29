@@ -127,6 +127,53 @@
             </div>
         </div>
 
+        <!-- Feature Icons -->
+        <div class="row splash-features-icon-row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <div class="col-md-4">
+                    <div class="splash-feature-icon">
+                        <i class="fa fa-rocket"></i>
+                    </div>
+
+                    <div class="splash-feature-heading">
+                        Amazing Deployment
+                    </div>
+
+                    <div class="splash-feature-text">
+                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="splash-feature-icon">
+                        <i class="fa fa-rocket"></i>
+                    </div>
+
+                    <div class="splash-feature-heading">
+                        Amazing Deployment
+                    </div>
+
+                    <div class="splash-feature-text">
+                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="splash-feature-icon">
+                        <i class="fa fa-rocket"></i>
+                    </div>
+
+                    <div class="splash-feature-heading">
+                        Amazing Deployment
+                    </div>
+
+                    <div class="splash-feature-text">
+                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Pricing Heading -->
         <div class="row">
             <div class="col-md-10 col-md-offset-1 splash-row-heading">
