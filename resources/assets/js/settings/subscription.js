@@ -1,7 +1,7 @@
 var settingsSubscriptionScreenForms = {
 	updateCard: function () {
 		return {
-			number: '', cvc: '', month: '', year: '',
+			number: '', cvc: '', month: '', year: '', zip: '',
 			errors: [], updating: false, updated: false
 		};
 	}
@@ -52,7 +52,7 @@ var settingsSubscriptionScreen = new Vue({
 		},
 
         cardForm: {
-            number: '', cvc: '', month: '', year: '', errors: []
+            number: '', cvc: '', month: '', year: '', zip: '', errors: []
         },
 
 		changePlanForm: {
@@ -333,7 +333,8 @@ var settingsSubscriptionScreen = new Vue({
                 number: this.cardForm.number,
                 cvc: this.cardForm.cvc,
                 exp_month: this.cardForm.month,
-                exp_year: this.cardForm.year
+                exp_year: this.cardForm.year,
+                address_zip: this.cardForm.zip
             };
 
             Stripe.card.createToken(payload, function(status, response) {
@@ -434,7 +435,8 @@ var settingsSubscriptionScreen = new Vue({
                 number: this.updateCardForm.number,
                 cvc: this.updateCardForm.cvc,
                 exp_month: this.updateCardForm.month,
-                exp_year: this.updateCardForm.year
+                exp_year: this.updateCardForm.year,
+                address_zip: this.updateCardForm.zip
             };
 
             Stripe.card.createToken(payload, function(status, response) {

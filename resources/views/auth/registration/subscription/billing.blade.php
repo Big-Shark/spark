@@ -43,6 +43,13 @@
 			</div>
 
 			<div class="form-group">
+				<label for="number" class="col-sm-4 control-label">ZIP / Postal Code</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" name="zip" v-model="cardForm.zip">
+				</div>
+			</div>
+
+			<div class="form-group">
 				<div class="col-sm-6 col-sm-offset-4">
 					<div class="checkbox">
 						<label>

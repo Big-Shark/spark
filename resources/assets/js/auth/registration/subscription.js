@@ -33,7 +33,7 @@ var registrationScreen = new Vue({
         },
 
         cardForm: {
-            number: '', cvc: '', month: '', year: '', errors: []
+            number: '', cvc: '', month: '', year: '', zip: '', errors: []
         }
     },
 
@@ -281,7 +281,8 @@ var registrationScreen = new Vue({
                 number: this.cardForm.number,
                 cvc: this.cardForm.cvc,
                 exp_month: this.cardForm.month,
-                exp_year: this.cardForm.year
+                exp_year: this.cardForm.year,
+                address_zip: this.cardForm.zip
             };
 
             Stripe.card.createToken(payload, function(status, response) {
