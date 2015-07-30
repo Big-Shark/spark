@@ -322,9 +322,9 @@
                 </div>
 
                 <div class="pull-right splash-footer-social-icons">
-                    <i class="fa fa-btn fa-facebook-square"></i>
-                    <i class="fa fa-btn fa-twitter-square"></i>
-                    <i class="fa fa-github-square"></i>
+                    <a href="http://facebook.com"><i class="fa fa-btn fa-facebook-square"></i></a>
+                    <a href="http://twitter.com"><i class="fa fa-btn fa-twitter-square"></i></a>
+                    <a href="http://github.com"><i class="fa fa-github-square"></i></a>
                 </div>
 
                 <div class="clearfix"></div>

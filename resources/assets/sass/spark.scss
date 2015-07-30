@@ -38,6 +38,15 @@ body {
 	height: 80px;
 	position: absolute;
 	width: 100%;
+
+	.footer-social-icons {
+		font-size: 32px;
+		padding-top: 18px;
+
+		a {
+			color: #777;
+		}
+	}
 }
 
 [v-cloak] {
