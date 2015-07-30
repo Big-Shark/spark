@@ -3,6 +3,18 @@
 	font-weight: 300;
 	margin-bottom: 40px;
 
+	.navbar-brand {
+		font-size: 28px;
+
+		i {
+			color: #e34c24;
+		}
+	}
+
+	.navbar-nav {
+		padding-top: 0px;
+	}
+
 	.dropdown-menu {
 		li {
 			font-size: $font-size-base;
