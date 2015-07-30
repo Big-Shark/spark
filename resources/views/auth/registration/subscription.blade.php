@@ -23,19 +23,19 @@
 
 <!-- Main Content -->
 @section('content')
-<div id="spark-register-screen" class="container-fluid spark-screen" v-cloak>
+<div id="spark-register-screen" class="container spark-screen" v-cloak>
 	<!-- Inspiration -->
 	<div>
 		@include('spark::auth.registration.subscription.inspiration')
 	</div>
 
 	<!-- Subscription Plan Selector -->
-	<div class="col-md-10 col-md-offset-1" v-if="plans.length > 1 && plansAreLoaded && ! registerForm.plan">
+	<div class="col-md-12" v-if="plans.length > 1 && plansAreLoaded && ! registerForm.plan">
 		@include('spark::auth.registration.subscription.plans.selector')
 	</div>
 
 	<!-- User Information -->
-	<div class="col-md-6 col-md-offset-3" v-if="registerForm.plan || plans.length == 1">
+	<div class="col-md-8 col-md-offset-2" v-if="registerForm.plan || plans.length == 1">
 		<!-- The Selected Plan -->
 		<div class="row" v-if="plans.length > 1">
 			@include('spark::auth.registration.subscription.plans.selected')
