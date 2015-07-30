@@ -46,7 +46,8 @@
 
 			<div class="pull-right" style="padding-top: 18px; font-size: 32px;">
 				<i class="fa fa-btn fa-facebook-square"></i>
-                <i class="fa fa-twitter-square"></i>
+                <i class="fa fa-btn fa-twitter-square"></i>
+                <i class="fa fa-github-square"></i>
 			</div>
 
 			<div class="clearfix"></div>

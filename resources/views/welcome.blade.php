@@ -37,6 +37,7 @@
                         MENU
                     </button>
                 </div>
+
                 <div id="primary-nav" class="navbar-collapse collapse splash-nav-list">
                     <ul class="nav navbar-nav navbar-right inline-list">
                         <li class="splash-nav-link active"><a href="/features">Features</a></li>
@@ -322,7 +323,8 @@
 
                 <div class="pull-right splash-footer-social-icons">
                     <i class="fa fa-btn fa-facebook-square"></i>
-                    <i class="fa fa-twitter-square"></i>
+                    <i class="fa fa-btn fa-twitter-square"></i>
+                    <i class="fa fa-github-square"></i>
                 </div>
 
                 <div class="clearfix"></div>
