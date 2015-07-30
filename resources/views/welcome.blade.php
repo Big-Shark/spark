@@ -46,7 +46,7 @@
 
         <!-- Inspiration -->
         <div class="row splash-inspiration-row">
-            <div class="col-md-5 col-md-offset-1">
+            <div class="col-md-4 col-md-offset-1">
                 <div id="splash-inspiration-heading">
                     Create Amazing Experiences.
                 </div>
@@ -58,7 +58,7 @@
             </div>
 
             <!-- Browser Window -->
-            <div class="col-md-5" class="splash-browser-window-container">
+            <div class="col-md-6" class="splash-browser-window-container">
                 <div class="splash-browser-window">
                     <div class="splash-browser-dots-container">
                         <ul class="list-inline splash-browser-dots">
