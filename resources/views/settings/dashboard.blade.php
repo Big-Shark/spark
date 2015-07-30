@@ -20,10 +20,10 @@
 
 <!-- Main Content -->
 @section('content')
-<div class="container-fluid spark-screen">
+<div class="container spark-screen">
 	<div class="row">
 		<!-- Tabs -->
-		<div class="col-md-3 col-md-offset-1">
+		<div class="col-md-4">
 			<div class="panel panel-default panel-flush">
 				<div class="panel-heading">
 					Settings
@@ -46,7 +46,7 @@
 		</div>
 
 		<!-- Tab Panes -->
-		<div class="col-md-7">
+		<div class="col-md-8">
 			<div class="tab-content">
 				@foreach (Laravel\Spark\Spark::settingsTabs()->tabs as $tab)
 					<div role="tabpanel" class="tab-pane{{ $tab->key == $activeTab ? ' active' : '' }}" id="{{ $tab->key }}">
