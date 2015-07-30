@@ -260,7 +260,7 @@
         <!-- Customer Testimonials -->
         <div class="row splash-customer-row">
             <div class="col-md-10 col-md-offset-1 text-center">
-                <div class="col-md-4">
+                <div class="col-md-4 splash-customer">
                     <div class="splash-customer-avatar">
                         <img src="https://s3.amazonaws.com/uifaces/faces/twitter/msurguy/128.jpg">
                     </div>
@@ -275,7 +275,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 splash-customer">
                     <div class="splash-customer-avatar">
                         <img src="https://s3.amazonaws.com/uifaces/faces/twitter/allisongrayce/128.jpg">
                     </div>
@@ -290,7 +290,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 splash-customer">
                     <div class="splash-customer-avatar">
                         <img src="https://s3.amazonaws.com/uifaces/faces/twitter/richcsmith/128.jpg">
                     </div>
