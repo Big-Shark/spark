@@ -9,7 +9,6 @@
 
 	<!-- Fonts -->
 	<link href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-	<link href='//fonts.googleapis.com/css?family=Raleway:500,400,300,200,100' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato:100,200,300,400,700' rel='stylesheet' type='text/css'>
 
 	<!-- Styles -->
@@ -34,25 +33,8 @@
 	<!-- Main Content -->
 	@yield('content')
 
-	<div style="margin-top: 125px;">
-		<!-- Push Footer -->
-	</div>
-
-	<footer class="footer">
-		<div class="container" style="color: #777;">
-			<div class="pull-left" style="padding-top: 28px;">
-				Copyright © Your Company
-			</div>
-
-			<div class="pull-right" style="padding-top: 18px; font-size: 32px;">
-				<i class="fa fa-btn fa-facebook-square"></i>
-                <i class="fa fa-btn fa-twitter-square"></i>
-                <i class="fa fa-github-square"></i>
-			</div>
-
-			<div class="clearfix"></div>
-		</div>
-	</footer>
+	<!-- Footer -->
+	@include('spark::footer')
 
 	<!-- Footer Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
