@@ -3,7 +3,7 @@
 	<div class="panel-body">
 		<spark-errors form="@{{ registerForm }}"></spark-errors>
 
-		<form class="form-horizontal spark-form" role="form" id="subscription-basics-form">
+		<form class="form-horizontal" role="form" id="subscription-basics-form">
 			<div class="form-group">
 				<label class="col-md-4 control-label">Name</label>
 				<div class="col-md-6">

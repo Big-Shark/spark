@@ -8,7 +8,7 @@
 
 			<spark-errors form="@{{ cancelSubscriptionForm }}"></spark-errors>
 
-			<div class="modal-body spark-form">
+			<div class="modal-body">
 				<p>Are you sure you want to cancel your subscription?</p>
 			</div>
 

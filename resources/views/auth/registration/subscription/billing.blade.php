@@ -17,7 +17,7 @@
 	<div class="panel-body">
 		<spark-errors form="@{{cardForm}}"></spark-errors>
 
-		<form class="form-horizontal spark-form" role="form">
+		<form class="form-horizontal" role="form">
 			<div class="form-group">
 				<label for="number" class="col-sm-4 control-label">Card Number</label>
 				<div class="col-sm-6">

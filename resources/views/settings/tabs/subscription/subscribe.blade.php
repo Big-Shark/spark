@@ -2,7 +2,7 @@
 <div class="panel panel-default" v-if=" ! user.stripe_active && ! userIsOnGracePeriod && ! subscribeForm.plan">
 	<div class="panel-heading">Subscribe</div>
 
-	<div class="panel-body spark-form">
+	<div class="panel-body">
 		@include('spark::settings.tabs.subscription.subscribe.selector')
 	</div>
 </div>
@@ -38,7 +38,7 @@
 		<div class="panel-body">
 			<spark-errors form="@{{ subscribeForm }}"></spark-errors>
 
-			<form class="form-horizontal spark-form" role="form">
+			<form class="form-horizontal" role="form">
 				<div class="form-group">
 					<label for="number" class="col-md-3 control-label">Card Number</label>
 					<div class="col-md-6">

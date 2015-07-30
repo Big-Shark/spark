@@ -11,7 +11,7 @@
 
 			@include('spark::common.errors', ['form' => 'twoFactor'])
 
-			<form method="POST" action="/settings/user/two-factor" class="form-horizontal spark-form" role="form">
+			<form method="POST" action="/settings/user/two-factor" class="form-horizontal" role="form">
 				{!! csrf_field() !!}
 
 				<div class="form-group">

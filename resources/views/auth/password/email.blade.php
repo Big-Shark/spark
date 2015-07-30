@@ -25,7 +25,7 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal spark-form" role="form" method="POST" action="{{ url('/password/email') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
 						{!! csrf_field() !!}
 
 						<div class="form-group">

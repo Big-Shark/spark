@@ -15,7 +15,7 @@
 			<strong>Done!</strong> Your extra billing information has been updated.
 		</div>
 
-		<form class="form-horizontal spark-form" role="form">
+		<form class="form-horizontal" role="form">
 			<div class="form-group">
 				<label for="key" class="col-md-3 control-label">Text</label>
 				<div class="col-md-6">

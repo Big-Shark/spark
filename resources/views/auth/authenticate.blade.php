@@ -19,7 +19,7 @@
 				<div class="panel-body">
 					@include('spark::common.errors', ['form' => 'default'])
 
-					<form class="form-horizontal spark-form" role="form" method="POST" action="{{ url('/login') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
 						{!! csrf_field() !!}
 
 						<div class="form-group">

@@ -6,7 +6,7 @@
 				<h4 class="modal-title"><i class="fa fa-btn fa-random"></i>Change Plan</h4>
 			</div>
 
-			<div class="modal-body spark-form">
+			<div class="modal-body">
 				<spark-errors form="@{{ changePlanForm }}"></spark-errors>
 
 				<!-- Plan Selector -->

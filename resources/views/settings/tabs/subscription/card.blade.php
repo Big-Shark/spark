@@ -8,7 +8,7 @@
 			<strong>Done!</strong> Your card has been updated.
 		</div>
 
-		<form class="form-horizontal spark-form" role="form">
+		<form class="form-horizontal" role="form">
 			<div class="form-group">
 				<label for="number" class="col-md-3 control-label">Card Number</label>
 				<div class="col-md-6">

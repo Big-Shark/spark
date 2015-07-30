@@ -10,7 +10,7 @@
 			</div>
 		@endif
 
-		<form method="POST" action="/settings/user" class="form-horizontal spark-form" role="form">
+		<form method="POST" action="/settings/user" class="form-horizontal" role="form">
 			{!! csrf_field() !!}
 			<input type="hidden" name="_method" value="PUT">
 
