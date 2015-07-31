@@ -37,6 +37,7 @@ class Install extends Command
         $this->installViews();
         $this->installSass();
         $this->installEnvironmentVariables();
+        $this->installTerms();
 
         $this->table(
             ['Task', 'Status'],
@@ -175,6 +176,18 @@ class Install extends Command
             PHP_EOL.'AUTHY_KEY='.PHP_EOL.PHP_EOL.
             'STRIPE_KEY='.PHP_EOL.
             'STRIPE_SECRET='.PHP_EOL
+        );
+    }
+
+    /**
+     * Install the "Terms Of Service" Markdown file.
+     *
+     * @return void
+     */
+    protected function installTerms()
+    {
+        file_put_contents(
+            base_path('terms.md'), 'This text is generated from the `terms.md` file in your project root.'
         );
     }
 
