@@ -187,7 +187,7 @@ class Install extends Command
     protected function installTerms()
     {
         file_put_contents(
-            base_path('terms.md'), 'This text is generated from the `terms.md` file in your project root.'
+            base_path('terms.md'), 'This page is generated from the `terms.md` file in your project root.'
         );
     }
 
