@@ -1,5 +1,8 @@
 <?php
 
+// Application Routes...
+$router->get('terms', 'AppController@showTerms');
+
 // Settings Routes...
 $router->get('settings', 'SettingsController@showDashboard');
 
