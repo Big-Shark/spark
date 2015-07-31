@@ -4,9 +4,11 @@ namespace Laravel\Spark\Subscriptions;
 
 use Countable;
 use Exception;
+use ArrayIterator;
 use JsonSerializable;
+use IteratorAggregate;
 
-class Plans implements Countable, JsonSerializable
+class Plans implements Countable, IteratorAggregate, JsonSerializable
 {
     /**
      * All of the defined plans.
@@ -14,6 +16,17 @@ class Plans implements Countable, JsonSerializable
      * @var array
      */
     protected $plans = [];
+
+    /**
+     * Create a new plan collection instance.
+     *
+     * @param  array  $plans
+     * @return void
+     */
+    public function __construct(array $plans = [])
+    {
+        $this->plans = $plans;
+    }
 
     /**
      * Create a new plan instance.
@@ -74,9 +87,9 @@ class Plans implements Countable, JsonSerializable
      */
     public function paid()
     {
-        return array_values(array_filter($this->plans, function ($plan) {
+        return new Plans(array_values(array_filter($this->plans, function ($plan) {
             return $plan->price > 0;
-        }));
+        })));
     }
 
     /**
@@ -86,9 +99,9 @@ class Plans implements Countable, JsonSerializable
      */
     public function tier($tier)
     {
-        return array_values(array_filter($this->plans, function ($plan) use ($tier) {
+        return new Plans(array_values(array_filter($this->plans, function ($plan) use ($tier) {
             return $plan->tier === $tier;
-        }));
+        })));
     }
 
     /**
@@ -98,9 +111,9 @@ class Plans implements Countable, JsonSerializable
      */
     public function monthly()
     {
-        return array_values(array_filter($this->plans, function ($plan) {
+        return new Plans(array_values(array_filter($this->plans, function ($plan) {
             return $plan->isMonthly();
-        }));
+        })));
     }
 
     /**
@@ -110,9 +123,9 @@ class Plans implements Countable, JsonSerializable
      */
     public function yearly()
     {
-        return array_values(array_filter($this->plans, function ($plan) {
+        return new Plans(array_values(array_filter($this->plans, function ($plan) {
             return $plan->isYearly();
-        }));
+        })));
     }
 
     /**
@@ -122,9 +135,9 @@ class Plans implements Countable, JsonSerializable
      */
     public function active()
     {
-        return array_values(array_filter($this->plans, function ($plan) {
+        return new Plans(array_values(array_filter($this->plans, function ($plan) {
             return $plan->isActive();
-        }));
+        })));
     }
 
     /**
@@ -135,6 +148,16 @@ class Plans implements Countable, JsonSerializable
     public function count()
     {
         return count($this->plans);
+    }
+
+    /**
+     * Get an iterator for the collection.
+     *
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->plans);
     }
 
     /**

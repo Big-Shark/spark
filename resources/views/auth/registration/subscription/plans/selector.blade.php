@@ -20,14 +20,14 @@
 
 <!-- Default / Monthly Plans -->
 <div class="row" v-if="defaultPlans.length > 0 && shouldShowDefaultPlans">
-	<div class="col-md-@{{ getPlanColumnWidth(defaultPlans.length) }}" v-repeat="plan : defaultPlans">
+	<div class="@{{ getPlanColumnWidth(defaultPlans.length) }}" v-repeat="plan : defaultPlans">
 		@include('spark::auth.registration.subscription.plans.plan')
 	</div>
 </div>
 
 <!-- Yearly Plans, If Applicable -->
 <div class="row" v-if="yearlyPlans.length > 0 && shouldShowYearlyPlans">
-	<div class="col-md-@{{ getPlanColumnWidth(yearlyPlans.length) }}" v-repeat="plan : yearlyPlans">
+	<div class="@{{ getPlanColumnWidth(yearlyPlans.length) }}" v-repeat="plan : yearlyPlans">
 		@include('spark::auth.registration.subscription.plans.plan')
 	</div>
 </div>

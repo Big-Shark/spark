@@ -64,7 +64,7 @@ class Tabs
      */
     public function subscription($force = false)
     {
-        if (Spark::plans()->paid() || $force) {
+        if (count(Spark::plans()->paid()) > 0 || $force) {
             return new Tab('Subscription', 'spark::settings.tabs.subscription', 'fa-credit-card');
         }
     }

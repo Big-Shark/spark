@@ -321,12 +321,14 @@ var registrationScreen = new Vue({
          */
         getPlanColumnWidth: function(count) {
             switch (count) {
+                case 1:
+                    return 'col-md-4 col-md-offset-4';
                 case 2:
-                    return 6;
+                    return 'col-md-6';
                 case 3:
-                    return 4;
+                    return 'col-md-4';
                 case 4:
-                    return 3;
+                    return 'col-md-3';
                 default:
                     console.error("Spark only supports up to 4 plans per interval.");
             }

@@ -183,12 +183,13 @@
         </div>
 
         <!-- Pricing Variables -->
-        <?php $plans = Laravel\Spark\Spark::plans()->monthly(); ?>
+        <?php $plans = Laravel\Spark\Spark::plans()->monthly()->active(); ?>
 
         <?php
             switch (count($plans)) {
+                case 0:
                 case 1:
-                    $columns = 'col-md-12';
+                    $columns = 'col-md-6 col-md-offset-3';
                     break;
                 case 2:
                     $columns = 'col-md-6';
@@ -199,6 +200,8 @@
                 case 4:
                     $columns = 'col-md-3';
                     break;
+                default:
+                    throw new Exception("Unsupported number of plans. Please customize view.");
             }
         ?>
 
