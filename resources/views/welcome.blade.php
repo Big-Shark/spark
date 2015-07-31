@@ -322,7 +322,7 @@
             <!-- Company Information -->
             <div class="col-md-10 col-md-offset-1 splash-footer">
                 <div class="pull-left splash-footer-company">
-                    Copyright © {{ Laravel\Spark\Spark::company() }}
+                    Copyright © {{ Laravel\Spark\Spark::company() }} - <a href="/terms">Terms Of Service</a>
                 </div>
 
                 <!-- Social Icons -->
