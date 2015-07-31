@@ -290,6 +290,16 @@ class Spark
     }
 
     /**
+     * Get the company / vendor name for the application.
+     *
+     * @return string
+     */
+    public static function company()
+    {
+        return static::generateInvoicesWith()['vendor'];
+    }
+
+    /**
      * Get or set the Cashier invoice's meta attributes.
      *
      * @param  array  $invoiceData
