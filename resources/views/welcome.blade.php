@@ -59,8 +59,7 @@
                 </div>
 
                 <div id="splash-inspiration-text">
-                    More junk about how this is gonna be an amazing, awesome experience.
-                    More junk about how this is gonna be an amazing, awesome experience.
+                    Spark provides the perfect starting point for your next big idea. Forget all the boilerplate and focus on what matters: your application.
                 </div>
             </div>
 
@@ -93,43 +92,43 @@
             <div class="col-md-10 col-md-offset-1 text-center">
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-rocket"></i>
+                        <i class="fa fa-lock"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Amazing Deployment
+                        Authentication Included
                     </div>
 
                     <div class="splash-feature-text">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        No sweat authentication. Authentication and registration views are included out of the box.
                     </div>
                 </div>
 
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-rocket"></i>
+                        <i class="fa fa-money"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Amazing Deployment
+                        Manage Subscriptions
                     </div>
 
                     <div class="splash-feature-text">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        Just define subscriptions and promotions for your application. Spark will do the rest.
                     </div>
                 </div>
 
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-rocket"></i>
+                        <i class="fa fa-phone"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Amazing Deployment
+                        Two-Factor Authentication
                     </div>
 
                     <div class="splash-feature-text">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        Enable two-factor authentication with a single line of code. It doesn't get any easier.
                     </div>
                 </div>
             </div>
@@ -140,43 +139,43 @@
             <div class="col-md-10 col-md-offset-1 text-center">
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-rocket"></i>
+                        <i class="fa fa-paint-brush"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Amazing Deployment
+                        Bootstrap Ready
                     </div>
 
                     <div class="splash-feature-text">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        Spark is built on the Bootstrap CSS framework, which provides a popular and full-featured foundation.
                     </div>
                 </div>
 
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-rocket"></i>
+                        <i class="fa fa-cubes"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Amazing Deployment
+                        Customizable
                     </div>
 
                     <div class="splash-feature-text">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        Customize or replace any of the views provided with Spark and make the application your own!
                     </div>
                 </div>
 
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-rocket"></i>
+                        <i class="fa fa-clock-o"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Amazing Deployment
+                        Save Weeks Of Work
                     </div>
 
                     <div class="splash-feature-text">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        Get started writing what's unique: your application. Don't worry about subscription and authentication logic.
                     </div>
                 </div>
             </div>
@@ -276,12 +275,12 @@
                     </div>
 
                     <div class="splash-customer-quote">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        This is an amazing testimonial about your application.
                     </div>
 
                     <div class="splash-customer-identity">
                         <div class="splash-customer-name">Maksim Surguy</div>
-                        <div class="splash-customer-title">CEO, Reddit</div>
+                        <div class="splash-customer-title">CEO</div>
                     </div>
                 </div>
 
@@ -291,12 +290,12 @@
                     </div>
 
                     <div class="splash-customer-quote">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        This is an amazing testimonial about your application.
                     </div>
 
                     <div class="splash-customer-identity">
-                        <div class="splash-customer-name">Maksim Surguy</div>
-                        <div class="splash-customer-title">CEO, Reddit</div>
+                        <div class="splash-customer-name">Allison Grayce</div>
+                        <div class="splash-customer-title">CEO, Company</div>
                     </div>
                 </div>
 
@@ -306,12 +305,12 @@
                     </div>
 
                     <div class="splash-customer-quote">
-                        Some description of the feature that makes sense to you. It's convincing you to use this service.
+                        This is an amazing testimonial about your application.
                     </div>
 
                     <div class="splash-customer-identity">
-                        <div class="splash-customer-name">Maksim Surguy</div>
-                        <div class="splash-customer-title">CEO, Reddit</div>
+                        <div class="splash-customer-name">Rich Smith</div>
+                        <div class="splash-customer-title">CEO</div>
                     </div>
                 </div>
             </div>
