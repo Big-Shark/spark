@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="splash-feature-heading">
-                        Manage Subscriptions
+                        Painless Subscriptions
                     </div>
 
                     <div class="splash-feature-text">
@@ -157,7 +157,7 @@
                     </div>
 
                     <div class="splash-feature-heading">
-                        Customizable
+                        Make It Your Own
                     </div>
 
                     <div class="splash-feature-text">
