@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="splash-feature-text">
-                        Just define subscriptions and promotions for your application. Spark will do the rest.
+                        Just define subscriptions and promotions for your application and Spark will do the rest.
                     </div>
                 </div>
 
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="splash-feature-text">
-                        Enable two-factor authentication with a single line of code. It doesn't get any easier.
+                        Enable two-factor authentication with a single line of code. It really doesn't get any easier.
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                     </div>
 
                     <div class="splash-feature-heading">
-                        Bootstrap Ready
+                        Built With Bootstrap
                     </div>
 
                     <div class="splash-feature-text">
@@ -164,7 +164,7 @@
                     </div>
 
                     <div class="splash-feature-text">
-                        Customize or replace any of the views provided with Spark and make the application your own!
+                        Customize or replace any of the views provided with Spark and make the design your own.
                     </div>
                 </div>
 
@@ -278,12 +278,12 @@
                     </div>
 
                     <div class="splash-customer-quote">
-                        This is an amazing testimonial about your application.
+                        This is an inspiring testimonial about your application.
                     </div>
 
                     <div class="splash-customer-identity">
                         <div class="splash-customer-name">Maksim Surguy</div>
-                        <div class="splash-customer-title">CEO</div>
+                        <div class="splash-customer-title">CEO, Company</div>
                     </div>
                 </div>
 
@@ -293,7 +293,7 @@
                     </div>
 
                     <div class="splash-customer-quote">
-                        This is an amazing testimonial about your application.
+                        This is an inspiring testimonial about your application.
                     </div>
 
                     <div class="splash-customer-identity">
@@ -308,12 +308,12 @@
                     </div>
 
                     <div class="splash-customer-quote">
-                        This is an amazing testimonial about your application.
+                        This is an inspiring testimonial about your application.
                     </div>
 
                     <div class="splash-customer-identity">
                         <div class="splash-customer-name">Rich Smith</div>
-                        <div class="splash-customer-title">CEO</div>
+                        <div class="splash-customer-title">CEO, Company</div>
                     </div>
                 </div>
             </div>
