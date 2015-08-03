@@ -61,7 +61,8 @@
                 </div>
 
                 <div id="splash-inspiration-text">
-                    Spark provides the perfect starting point for your next big idea. Forget all the boilerplate and focus on what matters: your application.
+                    Spark provides the perfect starting point for your next big idea. Forget all the
+                    boilerplate and focus on what matters: your application.
                 </div>
             </div>
 
