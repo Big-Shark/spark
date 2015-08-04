@@ -127,7 +127,7 @@
                     </div>
 
                     <div class="splash-feature-heading">
-                        Two-Factor Authentication
+                        Two-Factor Security
                     </div>
 
                     <div class="splash-feature-text">

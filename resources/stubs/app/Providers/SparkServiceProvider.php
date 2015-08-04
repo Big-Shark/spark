@@ -42,7 +42,12 @@ class SparkServiceProvider extends ServiceProvider
     protected function customizeRegistration()
     {
         // Spark::validateRegistrationsWith(function (Request $request) {
-        //     // Return Validator...
+        //     return [
+        //         'name' => 'required|max:255',
+        //         'email' => 'required|email|unique:users',
+        //         'password' => 'required|confirmed|min:6',
+        //         'terms' => 'required|accepted',
+        //     ];
         // });
 
         // Spark::createUsersWith(function (Request $request) {
@@ -75,7 +80,10 @@ class SparkServiceProvider extends ServiceProvider
     protected function customizeProfileUpdates()
     {
         // Spark::validateProfileUpdatesWith(function (Request $request) {
-        //     // Return Validator...
+        //     return [
+        //         'name' => 'required|max:255',
+        //         'email' => 'required|email|unique:users,email,'.$request->user()->id,
+        //     ];
         // });
 
         // Spark::updateProfilesWith(function (Request $request) {
