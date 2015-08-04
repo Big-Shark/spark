@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-	<div class="panel-heading">Owner Settings</div>
+	<div class="panel-heading">The Basics</div>
 
 	<div class="panel-body">
 		@include('spark::common.errors', ['form' => 'updateTeam'])
