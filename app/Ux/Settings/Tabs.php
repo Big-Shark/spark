@@ -38,38 +38,6 @@ class Tabs
     }
 
     /**
-     * Get the tab configuration for the "profile" tab.
-     *
-     * @return \Laravel\Spark\Ux\Settings\Tab
-     */
-    public function profile()
-    {
-        return new Tab('Profile', 'spark::settings.tabs.profile', 'fa-user');
-    }
-
-    /**
-     * Get the tab configuration for the "security" tab.
-     *
-     * @return \Laravel\Spark\Ux\Settings\Tab
-     */
-    public function security()
-    {
-        return new Tab('Security', 'spark::settings.tabs.security', 'fa-lock');
-    }
-
-    /**
-     * Get the tab configuration for the "subscription" tab.
-     *
-     * @return \Laravel\Spark\Ux\Settings\Tab|null
-     */
-    public function subscription($force = false)
-    {
-        if (count(Spark::plans()->paid()) > 0 || $force) {
-            return new Tab('Subscription', 'spark::settings.tabs.subscription', 'fa-credit-card');
-        }
-    }
-
-    /**
      * Create a new custom tab instance.
      *
      * @param  string  $name
@@ -77,8 +45,23 @@ class Tabs
      * @param  string  $icon
      * @return \Laravel\Spark\Ux\Settings\Tab
      */
-    public function make($name, $view, $icon)
+    public function make($name, $view, $icon, callable $displayable = null)
     {
-        return new Tab($name, $view, $icon);
+        return new Tab($name, $view, $icon, $displayable);
+    }
+
+    /**
+     * Get an array of the displayable tabs.
+     *
+     * @param  dynamic
+     * @return array
+     */
+    public function displayable()
+    {
+        $arguments = func_get_args();
+
+        return array_values(array_filter($this->tabs, function ($tab) use ($arguments) {
+            return call_user_func_array([$tab, 'displayable'], $arguments);
+        }));
     }
 }

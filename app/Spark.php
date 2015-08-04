@@ -3,8 +3,9 @@
 namespace Laravel\Spark;
 
 use Illuminate\Support\Facades\Auth;
+use Laravel\Spark\Ux\Settings\TeamTabs;
+use Laravel\Spark\Ux\Settings\DashboardTabs;
 use Laravel\Spark\Services\Auth\TwoFactor\Authy;
-use Laravel\Spark\Ux\Settings\Tabs as SettingsTabs;
 
 class Spark
 {
@@ -84,6 +85,13 @@ class Spark
      * @var \Laravel\Spark\Ux\Settings\Tabs
      */
     public static $settingsTabs;
+
+    /**
+     * The team settings tabs configuration.
+     *
+     * @var \Laravel\Spark\Ux\Settings\TeamTabs
+     */
+    public static $teamSettingsTabs;
 
     /**
      * The Spark configuration options.
@@ -317,37 +325,73 @@ class Spark
     /**
      * Get the configuration for the Spark settings tabs.
      *
-     * @return \Laravel\Spark\Ux\Settings\Tabs
+     * @return \Laravel\Spark\Ux\Settings\DashboardTabs
      */
     public static function settingsTabs()
     {
-        return static::$settingsTabs ?: static::$settingsTabs = static::createDefaultSettingsTabs();
+        return static::$settingsTabs ?:
+                static::$settingsTabs = static::createDefaultSettingsTabs();
     }
 
     /**
      * Create the default settings tabs configuration.
      *
-     * @return \Laravel\Spark\Ux\Settings\Tabs
+     * @return \Laravel\Spark\Ux\Settings\DashboardTabs
      */
     protected static function createDefaultSettingsTabs()
     {
-        $tabs = [(new SettingsTabs)->profile(), (new SettingsTabs)->security()];
+        $tabs = [(new DashboardTabs)->profile(), (new DashboardTabs)->security()];
 
         if (count(static::plans()->active()) > 0) {
-            $tabs[] = (new SettingsTabs)->subscription();
+            $tabs[] = (new DashboardTabs)->subscription();
         }
 
-        return new SettingsTabs($tabs);
+        return new DashboardTabs($tabs);
     }
 
     /**
-     * Get the key for the first settings tab in teh collection.
+     * Get the configuration for the Spark team settings tabs.
+     *
+     * @return \Laravel\Spark\Ux\Settings\TeamTabs
+     */
+    public static function teamSettingsTabs()
+    {
+        return static::$teamSettingsTabs ?:
+                static::$teamSettingsTabs = static::createDefaultTeamSettingsTabs();
+    }
+
+    /**
+     * Create the default team settings tabs configuration.
+     *
+     * @return \Laravel\Spark\Ux\Settings\TeamTabs
+     */
+    protected static function createDefaultTeamSettingsTabs()
+    {
+        $tabs = [(new TeamTabs)->owner(), (new TeamTabs)->membership()];
+
+        return new TeamTabs($tabs);
+    }
+
+    /**
+     * Get the key for the first settings tab in the collection.
      *
      * @return string
      */
     public static function firstSettingsTabKey()
     {
         return static::settingsTabs()->tabs[0]->key;
+    }
+
+    /**
+     * Get the key for the first team settings tab in the collection.
+     *
+     * @param  mixed  $team
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return string
+     */
+    public static function firstTeamSettingsTabKey($team, $user)
+    {
+        return static::teamSettingsTabs()->displayable($team, $user)[0]->key;
     }
 
     /**

@@ -33,7 +33,13 @@
 						</a>
 
 						<ul class="dropdown-menu" role="menu">
+							<li class="dropdown-header">Test</li>
 							<li><a href="/settings"><i class="fa fa-btn fa-cog"></i>Settings</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Teams</li>
+							<li><a href="/teams"><i class="fa fa-btn fa-fw fa-users"></i>Create New Team</a></li>
+							<li><a href="/teams"><i class="fa fa-btn fa-check fa-fw" style="color: green;"></i>Team One</a></li>
+							<li><a href="/teams"><i class="fa fa-btn fa-fw"></i>Another Team</a></li>
 							<li class="divider"></li>
 							<li><a href="/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
 						</ul>

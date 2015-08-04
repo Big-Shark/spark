@@ -145,6 +145,78 @@ class SettingsController extends Controller
     }
 
     /**
+     * Create a new team.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function storeTeam(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('settings?tab=teams')->withErrors($validator, 'createTeam');
+        }
+
+        $team = $request->user()->teams()->create([
+            'name' => $request->name,
+        ]);
+
+        $team->owner_id = $request->user()->id;
+
+        $team->save();
+
+        return redirect('settings?tab=teams')->with('createTeamSuccessful', true);
+    }
+
+    /**
+     * Show the edit screen for a given team.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $teamId
+     * @return \Illuminate\Http\Response
+     */
+    public function editTeam(Request $request, $teamId)
+    {
+        $team = $request->user()->teams()
+                ->where('id', $teamId)->firstOrFail();
+
+        $activeTab = $request->get(
+            'tab', Spark::firstTeamSettingsTabKey($team, $request->user())
+        );
+
+        return view('spark::settings.team', compact('team', 'activeTab'));
+    }
+
+    /**
+     * Update the team's owner information.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $teamId
+     * @return \Illuminate\Http\Response
+     */
+    public function updateTeam(Request $request, $teamId)
+    {
+        $team = $request->user()->teams()
+                ->where('id', $teamId)->firstOrFail();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('settings/teams/'.$teamId.'?tab=owner-settings')
+                        ->withErrors($validator, 'updateTeam');
+        }
+
+        $team->fill(['name' => $request->name])->save();
+
+        return redirect('settings/teams/'.$teamId.'?tab=owner-settings')
+                        ->with('updateTeamSuccessful', true);
+    }
+
+    /**
      * Update the user's password.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -184,7 +256,7 @@ class SettingsController extends Controller
      */
     public function enableTwoFactorAuth(Request $request)
     {
-        if ( ! is_null($response = $this->validateEnablingTwoFactorAuth($request))) {
+        if (! is_null($response = $this->validateEnablingTwoFactorAuth($request))) {
             return $response;
         }
 

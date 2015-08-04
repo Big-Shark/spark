@@ -9,6 +9,11 @@ $router->get('settings', 'SettingsController@showDashboard');
 // Profile Routes...
 $router->put('settings/user', 'SettingsController@updateUserProfile');
 
+// Team Routes...
+$router->post('settings/teams', 'SettingsController@storeTeam');
+$router->get('settings/teams/{id}', 'SettingsController@editTeam');
+$router->put('settings/teams/{id}', 'SettingsController@updateTeam');
+
 // Security Routes...
 $router->put('settings/user/password', 'SettingsController@updatePassword');
 $router->post('settings/user/two-factor', 'SettingsController@enableTwoFactorAuth');
