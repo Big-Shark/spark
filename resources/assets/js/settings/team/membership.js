@@ -50,8 +50,6 @@ var teamSettingsScreen = new Vue({
 
     		this.$http.post('/settings/teams/' + TEAM_ID + '/invitations', this.sendInviteForm)
     			.success(function (team) {
-    				console.log(team);
-
     				this.team = team;
 
     				this.sendInviteForm.sending = false;
