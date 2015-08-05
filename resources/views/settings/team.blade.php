@@ -1,7 +1,26 @@
 @extends('spark::app')
 
+<!-- Scripts -->
+@section('scripts')
+	<script>
+		TEAM_ID = {{ $team->id }};
+	</script>
+
+	@include('spark::scripts.common')
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.15.2/URI.min.js"></script>
+@endsection
+
+<!-- Footer Scripts -->
+@section('scripts.footer')
+	<script>
+		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/common/errors.js')) !!}
+		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/team/membership.js')) !!}
+	</script>
+@endsection
+
+<!-- Main Content -->
 @section('content')
-<!-- Team Settings Dashboard -->
 <div class="container spark-screen">
 	<div class="row">
 		<!-- Tabs -->

@@ -98,4 +98,18 @@ class ApiController extends Controller
 	        abort(404);
 	    }
 	}
+
+	/**
+	 * Get the team for the given ID.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $teamId
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getTeam(Request $request, $teamId)
+	{
+		$team = $request->user()->teams()->with('users')->where('id', $teamId)->firstOrFail();
+
+		return $team;
+	}
 }

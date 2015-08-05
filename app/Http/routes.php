@@ -52,6 +52,7 @@ $router->get('spark/api/user', 'ApiController@getCurrentUser');
 $router->get('spark/api/plans', 'ApiController@getPlans');
 $router->get('spark/api/coupon/{code}', 'ApiController@getCoupon');
 $router->get('spark/api/user/coupon', 'ApiController@getCouponForUser');
+$router->get('spark/api/teams/{id}', 'ApiController@getTeam');
 
 // Stripe Routes...
 $router->post('stripe/webhook', 'Stripe\WebhookController@handleWebhook');
