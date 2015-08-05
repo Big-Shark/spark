@@ -1,7 +1,7 @@
 <!-- Footer Scripts -->
 @section('scripts.footer')
 	<script>
-		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/subscription.js')) !!}
+		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/dashboard/subscription.js')) !!}
 	</script>
 @append
 
