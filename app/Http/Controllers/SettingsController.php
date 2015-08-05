@@ -20,6 +20,7 @@ use Laravel\Spark\Repositories\ApiDataRepository;
 use Laravel\Spark\Events\User\SubscriptionResumed;
 use Laravel\Spark\Events\User\SubscriptionCancelled;
 use Laravel\Spark\Events\User\SubscriptionPlanChanged;
+use Laravel\Spark\Events\Team\Deleting as DeletingTeam;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
@@ -359,6 +360,8 @@ class SettingsController extends Controller
         if ( ! $request->user()->ownsTeam($team)) {
             abort(403);
         }
+
+        event(new DeletingTeam($team));
 
         $team->users()->detach();
 
