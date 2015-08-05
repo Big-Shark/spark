@@ -28,20 +28,40 @@
 				@else
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-							{{ Auth::user()->name }}
-							<span class="caret"></span>
+							{{ Auth::user()->name }} <span class="caret"></span>
 						</a>
 
 						<ul class="dropdown-menu" role="menu">
-							<li class="dropdown-header">Test</li>
-							<li><a href="/settings"><i class="fa fa-btn fa-cog"></i>Settings</a></li>
+							<!-- Settings -->
+							<li class="dropdown-header">Settings</li>
+
+							<li>
+								<a href="/settings">
+									<i class="fa fa-btn fa-cog"></i>Your Settings
+								</a>
+							</li>
+
 							<li class="divider"></li>
+
+							<!-- Team List -->
 							<li class="dropdown-header">Teams</li>
+
 							<li><a href="/teams"><i class="fa fa-btn fa-fw fa-users"></i>Create New Team</a></li>
-							<li><a href="/teams"><i class="fa fa-btn fa-check fa-fw" style="color: green;"></i>Team One</a></li>
-							<li><a href="/teams"><i class="fa fa-btn fa-fw"></i>Another Team</a></li>
+
+							@foreach (Auth::user()->teams as $team)
+								<li>
+									<a href="/teams">
+										<i class="fa fa-btn fa-fw"></i>{{ $team->name }}
+									</a>
+								</li>
+							@endforeach
+
+							<!-- Logout -->
 							<li class="divider"></li>
-							<li><a href="/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+
+							<li>
+								<a href="/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+							</li>
 						</ul>
 					</li>
 				@endif
