@@ -346,6 +346,28 @@ class SettingsController extends Controller
     }
 
     /**
+     * Destroy the given team.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyTeam(Request $request, $teamId)
+    {
+        $team = $request->user()->teams()->findOrFail($teamId);
+
+        if ( ! $request->user()->ownsTeam($team)) {
+            abort(403);
+        }
+
+        $team->users()->detach();
+
+        $team->delete();
+
+        return $this->api->getAllTeamsForUser($request->user());
+    }
+
+    /**
      * Update the user's password.
      *
      * @param  \Illuminate\Http\Request  $request

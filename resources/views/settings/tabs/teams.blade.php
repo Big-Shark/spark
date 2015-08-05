@@ -8,7 +8,7 @@
 <!-- Main Content -->
 <spark-settings-teams-screen inline-template v-cloak>
 	<!-- Create Team -->
-	<div id="spark-settings-team-screen" class="panel panel-default">
+	<div class="panel panel-default">
 		<div class="panel-heading">Create Team</div>
 
 		<div class="panel-body">
@@ -87,7 +87,7 @@
 						</td>
 
 						<td>
-							<button class="btn btn-danger" v-if="userOwns(team)">
+							<button class="btn btn-danger" v-on="click: confirmTeamDeletion(team)" v-if="userOwns(team)">
 								<i class="fa fa-btn fa-times"></i>Delete
 							</button>
 						</td>
@@ -133,6 +133,38 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-delete-team" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><i class="fa fa-btn fa-times"></i>Delete Team (@{{ teamToDelete.name }})</h4>
+				</div>
+
+				<div class="modal-body">
+					<p>
+						Are you sure you want to delete this team? The team and all of its
+						associated data will be permanently removed.
+					</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+					<button type="button" class="btn btn-danger" v-on="click: deleteTeam" v-attr="disabled: deletingTeam">
+						<span v-if=" ! deletingTeam">
+							<i class="fa fa-btn fa-times"></i>Delete Team
+						</span>
+
+						<span v-if="deletingTeam">
+							<i class="fa fa-btn fa-spinner fa-spin"></i>Deleting
+						</span>
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </spark-settings-teams-screen>

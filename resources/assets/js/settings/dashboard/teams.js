@@ -11,6 +11,9 @@ Vue.component('spark-settings-teams-screen', {
 			teams: [],
 			invitations: [],
 
+			teamToDelete: null,
+			deletingTeam: false,
+
 			createTeamForm: {
 				name: '',
 				errors: [],
@@ -73,6 +76,26 @@ Vue.component('spark-settings-teams-screen', {
 			});
 
 			this.$http.delete('/settings/teams/' + team.id + '/membership');
+		},
+
+
+		confirmTeamDeletion: function (team) {
+			this.teamToDelete = team;
+
+			$('#modal-delete-team').modal('show');
+		},
+
+
+		deleteTeam: function () {
+			this.deletingTeam = true;
+
+			this.$http.delete('/settings/teams/' + this.teamToDelete.id)
+				.success(function (teams) {
+					this.teams = teams;
+
+					this.deletingTeam = false;
+					$('#modal-delete-team').modal('hide');
+				});
 		},
 
 

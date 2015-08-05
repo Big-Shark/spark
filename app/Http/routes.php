@@ -13,6 +13,7 @@ $router->put('settings/user', 'SettingsController@updateUserProfile');
 $router->post('settings/teams', 'SettingsController@storeTeam');
 $router->get('settings/teams/{id}', 'SettingsController@editTeam');
 $router->put('settings/teams/{id}', 'SettingsController@updateTeam');
+$router->delete('settings/teams/{id}', 'SettingsController@destroyTeam');
 $router->post('settings/teams/{id}/invitations', 'SettingsController@sendTeamInvitation');
 $router->post('settings/teams/invitations/{invite}/accept', 'SettingsController@acceptTeamInvitation');
 $router->delete('settings/teams/invitations/{invite}', 'SettingsController@destroyTeamInvitationForUser');
