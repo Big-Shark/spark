@@ -61,6 +61,21 @@ var teamSettingsScreen = new Vue({
     	},
 
 
+        editTeamMember: function (teamUser) {
+            //
+        },
+
+
+        removeTeamMember: function (teamUser) {
+            //
+        },
+
+
+        leaveTeam: function () {
+            //
+        },
+
+
         userOwns: function (team) {
             if (arguments.length === 2) {
                 return arguments[1].id === team.owner_id;

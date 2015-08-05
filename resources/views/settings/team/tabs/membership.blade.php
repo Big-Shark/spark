@@ -62,13 +62,13 @@
 							</td>
 
 							<td>
-								<button class="btn btn-primary" v-if="userOwns(team, teamUser)">
+								<button class="btn btn-primary" v-if="userOwns(team, teamUser)" v-on="click: editTeamMember(teamUser)">
 									<i class="fa fa-btn fa-edit"></i>Edit
 								</button>
 							</td>
 
 							<td>
-								<button class="btn btn-danger" v-if="userOwns(team, teamUser)">
+								<button class="btn btn-danger" v-if="userOwns(team, teamUser)" v-on="click: removeTeamMember(teamUser)">
 									<i class="fa fa-btn fa-times"></i>Remove
 								</button>
 							</td>
@@ -83,7 +83,7 @@
 			<div class="panel-heading">Leave Team</div>
 
 			<div class="panel-body">
-				<button class="btn btn-warning">
+				<button class="btn btn-warning" v-on="click: leaveTeam">
 					<i class="fa fa-btn fa-sign-out"></i>Leave Team
 				</button>
 			</div>
