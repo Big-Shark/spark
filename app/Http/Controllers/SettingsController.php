@@ -323,7 +323,7 @@ class SettingsController extends Controller
     {
         $team = $request->user()->teams()->findOrFail($teamId);
 
-        if ( ! $request->user()->ownsTeam($team)) {
+        if (! $request->user()->ownsTeam($team)) {
             abort(403);
         }
 
@@ -357,7 +357,7 @@ class SettingsController extends Controller
     {
         $team = $request->user()->teams()->findOrFail($teamId);
 
-        if ( ! $request->user()->ownsTeam($team)) {
+        if (! $request->user()->ownsTeam($team)) {
             abort(403);
         }
 
