@@ -18,6 +18,13 @@ var teamSettingsScreen = new Vue({
     },
 
 
+    computed: {
+        everythingIsLoaded: function () {
+            return this.user && this.team;
+        }
+    },
+
+
     methods: {
         getUser: function () {
             this.$http.get('/spark/api/user')
