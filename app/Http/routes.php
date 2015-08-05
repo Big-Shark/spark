@@ -13,6 +13,12 @@ $router->put('settings/user', 'SettingsController@updateUserProfile');
 $router->post('settings/teams', 'SettingsController@storeTeam');
 $router->get('settings/teams/{id}', 'SettingsController@editTeam');
 $router->put('settings/teams/{id}', 'SettingsController@updateTeam');
+$router->post('settings/teams/{id}/invitations', 'SettingsController@sendTeamInvitation');
+$router->post('settings/teams/invitations/{invite}/accept', 'SettingsController@acceptTeamInvitation');
+$router->delete('settings/teams/invitations/{invite}', 'SettingsController@destroyTeamInvitationForUser');
+$router->delete('settings/teams/{team}/invitations/{invite}', 'SettingsController@destroyTeamInvitationForOwner');
+$router->delete('settings/teams/{team}/members/{user}', 'SettingsController@removeTeamMember');
+$router->delete('settings/teams/{team}/membership', 'SettingsController@leaveTeam');
 
 // Security Routes...
 $router->put('settings/user/password', 'SettingsController@updatePassword');
@@ -52,6 +58,8 @@ $router->get('spark/api/user', 'ApiController@getCurrentUser');
 $router->get('spark/api/plans', 'ApiController@getPlans');
 $router->get('spark/api/coupon/{code}', 'ApiController@getCoupon');
 $router->get('spark/api/user/coupon', 'ApiController@getCouponForUser');
+$router->get('spark/api/teams', 'ApiController@getAllTeamsForUser');
+$router->get('spark/api/teams/invitations', 'ApiController@getPendingInvitationsForUser');
 $router->get('spark/api/teams/{id}', 'ApiController@getTeam');
 
 // Stripe Routes...

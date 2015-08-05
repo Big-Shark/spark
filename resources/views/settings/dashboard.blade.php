@@ -15,13 +15,14 @@
 @section('scripts.footer')
 	<script>
 		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/common/errors.js')) !!}
+		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/dashboard.js')) !!}
 	</script>
 @append
 
 <!-- Main Content -->
 @section('content')
 <!-- Your Settings Dashboard -->
-<div class="container spark-screen">
+<div id="spark-settings-screen" class="container spark-screen">
 	<div class="row">
 		<!-- Tabs -->
 		<div class="col-md-4">

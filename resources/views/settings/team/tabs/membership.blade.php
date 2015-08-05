@@ -8,10 +8,14 @@
 				<form method="POST" class="form-horizontal" role="form">
 					<spark-errors form="@{{ sendInviteForm }}"></spark-errors>
 
+					<div class="alert alert-success" v-if="sendInviteForm.sent">
+						<strong>Done!</strong> The invitation has been sent.
+					</div>
+
 					<div class="form-group">
 						<label class="col-md-3 control-label">E-Mail Address</label>
 						<div class="col-md-6">
-							<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+							<input type="email" class="form-control" name="email" v-model="sendInviteForm.email">
 						</div>
 					</div>
 
@@ -33,7 +37,7 @@
 		</div>
 
 		<!-- Team Member List -->
-		<div class="panel panel-default">
+		<div class="panel panel-default" v-if="teamUsersExceptMe.length > 0">
 			<div class="panel-heading">Team Members</div>
 
 			<div class="panel-body">
@@ -41,35 +45,49 @@
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Owner</th>
-							<th>Status</th>
 							<th></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-repeat="teamUser : team.users">
+						<tr v-repeat="teamUser : teamUsersExceptMe">
 							<td style="padding-top: 14px;">@{{ teamUser.name }}</td>
 
-							<td style="padding-top: 14px;">
-								<span v-if="userOwns(team, teamUser)">
-									<i class="fa fa-check"></i>
-								</span>
-							</td>
-
-							<td style="padding-top: 14px;">
-								Invitation Accepted
-							</td>
-
 							<td>
-								<button class="btn btn-primary" v-if="userOwns(team, teamUser)" v-on="click: editTeamMember(teamUser)">
+								<button class="btn btn-primary" v-if="userOwns(team)" v-on="click: editTeamMember(teamUser)">
 									<i class="fa fa-btn fa-edit"></i>Edit
 								</button>
 							</td>
 
 							<td>
-								<button class="btn btn-danger" v-if="userOwns(team, teamUser)" v-on="click: removeTeamMember(teamUser)">
+								<button class="btn btn-danger" v-if="userOwns(team)" v-on="click: removeTeamMember(teamUser)">
 									<i class="fa fa-btn fa-times"></i>Remove
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="panel panel-default" v-if="userOwns(team) && team.invitations.length > 0">
+			<div class="panel-heading">Pending Invitations</div>
+
+			<div class="panel-body">
+				<table class="table table-responsive">
+					<thead>
+						<tr>
+							<th>E-Mail Address</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-repeat="invite : team.invitations">
+							<td style="padding-top: 14px;">@{{ invite.email }}</td>
+
+							<td>
+								<button class="btn btn-danger" v-on="click: cancelInvite(invite)">
+									<i class="fa fa-btn fa-times"></i>Cancel
 								</button>
 							</td>
 						</tr>
@@ -83,8 +101,14 @@
 			<div class="panel-heading">Leave Team</div>
 
 			<div class="panel-body">
-				<button class="btn btn-warning" v-on="click: leaveTeam">
-					<i class="fa fa-btn fa-sign-out"></i>Leave Team
+				<button class="btn btn-warning" v-on="click: leaveTeam" v-attr="disabled: leavingTeam">
+					<span v-if="leavingTeam">
+						<i class="fa fa-btn fa-spinner fa-spin"></i>Leaving
+					</span>
+
+					<span v-if=" ! leavingTeam">
+						<i class="fa fa-btn fa-sign-out"></i>Leave Team
+					</span>
 				</button>
 			</div>
 		</div>

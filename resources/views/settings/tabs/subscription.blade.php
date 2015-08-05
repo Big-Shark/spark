@@ -1,11 +1,12 @@
 <!-- Footer Scripts -->
-@section('scripts.footer')
+@section('scripts.footer.components')
 	<script>
 		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/dashboard/subscription.js')) !!}
 	</script>
 @append
 
 <!-- Main Content -->
+<spark-settings-subscription-screen inline-template>
 <div id="spark-settings-subscription-screen" v-cloak>
 	<div v-if="userIsLoaded && plansAreLoaded">
 
@@ -41,3 +42,4 @@
 	<!-- Cancel Subscription Modal -->
 	@include('spark::settings.tabs.subscription.modals.cancel')
 </div>
+</spark-settings-subscription-screen>

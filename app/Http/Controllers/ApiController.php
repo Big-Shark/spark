@@ -11,16 +11,27 @@ use Stripe\Coupon as StripeCoupon;
 use Illuminate\Support\Facades\Auth;
 use Stripe\Customer as StripeCustomer;
 use Laravel\Spark\Subscriptions\Coupon;
+use Laravel\Spark\Repositories\ApiDataRepository;
 
 class ApiController extends Controller
 {
 	/**
+	 * The API data repository.
+	 *
+	 * @var \Laravel\Spark\Repositories\ApiDataRepository
+	 */
+	protected $api;
+
+	/**
 	 * Create a new controller instance.
 	 *
+	 * @param  \Laravel\Spark\Repositories\ApiDataRepository  $api
 	 * @return void
 	 */
-	public function __cosntruct()
+	public function __construct(ApiDataRepository $api)
 	{
+		$this->api = $api;
+
 		$this->middleware('auth', ['only' => [
 			'getCurrentUser', 'getCouponForUser'
 		]]);
@@ -33,7 +44,13 @@ class ApiController extends Controller
 	 */
 	public function getCurrentUser()
 	{
-		return Spark::user();
+		$user = Spark::user();
+
+		$user->setHidden(array_flip(
+			array_except(array_flip($user->getHidden()), 'last_four')
+		));
+
+		return $user;
 	}
 
 	/**
@@ -100,6 +117,28 @@ class ApiController extends Controller
 	}
 
 	/**
+	 * Get all of the teams for the user.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getAllTeamsForUser(Request $request)
+	{
+		return $this->api->getAllTeamsForUser($request->user());
+	}
+
+	/**
+	 * Get all of the pending invitations for the user.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getPendingInvitationsForUser(Request $request)
+	{
+		return $this->api->getPendingInvitationsForUser($request->user());
+	}
+
+	/**
 	 * Get the team for the given ID.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -108,8 +147,6 @@ class ApiController extends Controller
 	 */
 	public function getTeam(Request $request, $teamId)
 	{
-		$team = $request->user()->teams()->with('users')->where('id', $teamId)->firstOrFail();
-
-		return $team;
+		return $this->api->getTeam($request->user(), $teamId);
 	}
 }

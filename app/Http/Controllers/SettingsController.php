@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use Laravel\Spark\Events\User\Subscribed;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Spark\Events\User\ProfileUpdated;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\View\Expression as ViewExpression;
+use Laravel\Spark\Repositories\ApiDataRepository;
 use Laravel\Spark\Events\User\SubscriptionResumed;
 use Laravel\Spark\Events\User\SubscriptionCancelled;
 use Laravel\Spark\Events\User\SubscriptionPlanChanged;
@@ -26,12 +28,22 @@ class SettingsController extends Controller
     use ValidatesRequests;
 
     /**
+     * The API data repository.
+     *
+     * @var \Laravel\Spark\Repositories\ApiDataRepository
+     */
+    protected $api;
+
+    /**
      * Create a new controller instance.
      *
+     * @param  \Laravel\Spark\Repositories\ApiDataRepository  $api
      * @return void
      */
-    public function __construct()
+    public function __construct(ApiDataRepository $api)
     {
+        $this->api = $api;
+
         $this->middleware('auth');
     }
 
@@ -151,13 +163,9 @@ class SettingsController extends Controller
      */
     public function storeTeam(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'name' => 'required|max:255',
         ]);
-
-        if ($validator->fails()) {
-            return redirect('settings?tab=teams')->withErrors($validator, 'createTeam');
-        }
 
         $team = $request->user()->teams()->create([
             'name' => $request->name,
@@ -167,7 +175,7 @@ class SettingsController extends Controller
 
         $team->save();
 
-        return redirect('settings?tab=teams')->with('createTeamSuccessful', true);
+        return $this->api->getAllTeamsForUser($request->user());
     }
 
     /**
@@ -179,8 +187,7 @@ class SettingsController extends Controller
      */
     public function editTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()
-                ->where('id', $teamId)->firstOrFail();
+        $team = $request->user()->teams()->findOrFail($teamId);
 
         $activeTab = $request->get(
             'tab', Spark::firstTeamSettingsTabKey($team, $request->user())
@@ -198,8 +205,7 @@ class SettingsController extends Controller
      */
     public function updateTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()
-                ->where('id', $teamId)->firstOrFail();
+        $team = $request->user()->teams()->findOrFail($teamId);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -214,6 +220,129 @@ class SettingsController extends Controller
 
         return redirect('settings/teams/'.$teamId.'?tab=owner-settings')
                         ->with('updateTeamSuccessful', true);
+    }
+
+    /**
+     * Send an invitation for the given team.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @return \Illuminate\Http\Response
+     */
+    public function sendTeamInvitation(Request $request, $teamId)
+    {
+        $this->validate($request, [
+            'email' => 'required|max:255|email',
+        ]);
+
+        $team = $request->user()->teams()->findOrFail($teamId);
+
+        $model = config('auth.model');
+
+        $invitedUser = (new $model)->where('email', $request->email)->first();
+
+        $invitation = $team->invitations()
+                ->where('email', $request->email)->first();
+
+        if (! $invitation) {
+            $invitation = $team->invitations()->create([
+                'user_id' => $invitedUser ? $invitedUser->id : null,
+                'email' => $request->email,
+                'token' => str_random(40),
+            ]);
+        }
+
+        $email = $invitation->user_id
+                        ? 'spark::emails.team.invitations.existing'
+                        : 'spark::emails.team.invitations.new';
+
+        Mail::send($email, compact('invitation'), function ($m) use ($invitation) {
+            $m->to($invitation->email)->subject('New Invitation!');
+        });
+
+        return $team->fresh(['users', 'invitations']);
+    }
+
+    /**
+     * Accept the given team invitation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $inviteId
+     * @return \Illuminate\Http\Response
+     */
+    public function acceptTeamInvitation(Request $request, $inviteId)
+    {
+        $user = $request->user();
+
+        $invitation = $user->invitations()->findOrFail($inviteId);
+
+        $user->teams()->attach([$invitation->team_id]);
+
+        $invitation->delete();
+
+        return $this->api->getAllTeamsForUser($user);
+    }
+
+    /**
+     * Destroy the given team invitation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @param  string  $inviteId
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyTeamInvitationForOwner(Request $request, $teamId, $inviteId)
+    {
+        $team = $request->user()->teams()->findOrFail($teamId);
+
+        $team->invitations()->where('id', $inviteId)->delete();
+    }
+
+    /**
+     * Destroy the given team invitation.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $inviteId
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyTeamInvitationForUser(Request $request, $inviteId)
+    {
+        $request->user()->invitations()->findOrFail($inviteId)->delete();
+    }
+
+    /**
+     * Remove a team member from the team.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @param  string  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function removeTeamMember(Request $request, $teamId, $userId)
+    {
+        $team = $request->user()->teams()->findOrFail($teamId);
+
+        if ( ! $request->user()->ownsTeam($team)) {
+            abort(403);
+        }
+
+        $team->users()->detach([$userId]);
+    }
+
+    /**
+     * Remove the user from the given team.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @return \Illuminate\Http\Response
+     */
+    public function leaveTeam(Request $request, $teamId)
+    {
+        $team = $request->user()->teams()
+                    ->where('owner_id', '!=', $request->user()->id)
+                    ->where('id', $teamId)->firstOrFail();
+
+        $team->users()->detach([$request->user()->id]);
     }
 
     /**

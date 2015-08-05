@@ -36,10 +36,17 @@
 							@foreach (Laravel\Spark\Spark::teamSettingsTabs()->displayable($team, Auth::user()) as $tab)
 								<li role="presentation"{!! $tab->key === $activeTab ? ' class="active"' : '' !!}>
 									<a href="#{{ $tab->key }}" aria-controls="{{ $tab->key }}" role="tab" data-toggle="tab">
-										<i class="fa fa-btn {{ $tab->icon }}"></i>&nbsp;{{ $tab->name }}
+										<i class="fa fa-btn fa-fw {{ $tab->icon }}"></i>&nbsp;{{ $tab->name }}
 									</a>
 								</li>
 							@endforeach
+
+							<li role="presentation" role="tab">
+								<a href="/settings?tab=teams">
+									<i class="fa fa-btn fa-fw fa-search"></i>&nbsp;
+									<strong>View All Teams</strong>
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>

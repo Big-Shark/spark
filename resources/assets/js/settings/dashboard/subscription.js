@@ -7,16 +7,13 @@ var settingsSubscriptionScreenForms = {
 	}
 };
 
-var settingsSubscriptionScreen = new Vue({
-	el: '#spark-settings-subscription-screen',
-
+Vue.component('spark-settings-subscription-screen', {
 	/*
 	 * Bootstrap the component. Load the initial data.
 	 */
 	ready: function () {
         Stripe.setPublishableKey(STRIPE_KEY);
 
-		this.getUser();
 		this.getPlans();
 
 		this.initializeTooltips();
@@ -41,33 +38,35 @@ var settingsSubscriptionScreen = new Vue({
 	/*
 	 * Initial state of the component's data.
 	 */
-	data: {
-		user: null,
-		currentCoupon: null,
+	data: function () {
+		return {
+			user: null,
+			currentCoupon: null,
 
-		plans: [],
+			plans: [],
 
-		subscribeForm: {
-			plan: '', terms: false, strip_token: null, errors: [], subscribing: false
-		},
+			subscribeForm: {
+				plan: '', terms: false, strip_token: null, errors: [], subscribing: false
+			},
 
-        cardForm: {
-            number: '', cvc: '', month: '', year: '', zip: '', errors: []
-        },
+	        cardForm: {
+	            number: '', cvc: '', month: '', year: '', zip: '', errors: []
+	        },
 
-		changePlanForm: {
-			plan: '', errors: [], changing: false
-		},
+			changePlanForm: {
+				plan: '', errors: [], changing: false
+			},
 
-		updateCardForm: settingsSubscriptionScreenForms.updateCard(),
+			updateCardForm: settingsSubscriptionScreenForms.updateCard(),
 
-		extraBillingInfoForm: {
-			text: '', errors: [], updating: false, updated: false
-		},
+			extraBillingInfoForm: {
+				text: '', errors: [], updating: false, updated: false
+			},
 
-		resumeSubscriptionForm: { errors: [], resuming: false },
+			resumeSubscriptionForm: { errors: [], resuming: false },
 
-		cancelSubscriptionForm: { errors: [], cancelling: false }
+			cancelSubscriptionForm: { errors: [], cancelling: false }
+		};
 	},
 
 	computed: {
@@ -271,24 +270,23 @@ var settingsSubscriptionScreen = new Vue({
 	},
 
 
+	events: {
+		/**
+		 * Handle the "user:retrieved" event.
+		 */
+		userRetrieved: function (user) {
+			this.user = user;
+
+			this.extraBillingInfoForm.text = this.user.extra_billing_info;
+
+			if (this.user.stripe_id) {
+				this.getCoupon();
+			}
+		}
+	},
+
+
 	methods: {
-        /*
-         * Get the Spark user from the API.
-         */
-		getUser: function () {
-			this.$http.get('spark/api/user')
-				.success(function(user) {
-					this.user = user;
-
-					this.extraBillingInfoForm.text = this.user.extra_billing_info;
-
-					if (this.user.stripe_id) {
-						this.getCoupon();
-					}
-				});
-		},
-
-
         /*
          * Get the coupon currently applying to the customer.
          */
