@@ -1,29 +1,15 @@
 <?php
 
-namespace Laravel\Spark\Http\Controllers;
+namespace Laravel\Spark\Http\Controllers\Settings;
 
-use Exception;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
-use Laravel\Spark\Events\User\Subscribed;
-use Illuminate\Support\Facades\Validator;
-use Laravel\Spark\Events\User\ProfileUpdated;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\View\Expression as ViewExpression;
-use Laravel\Spark\Events\User\SubscriptionResumed;
-use Laravel\Spark\Events\User\SubscriptionCancelled;
-use Laravel\Spark\Events\User\SubscriptionPlanChanged;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
-class SettingsController extends Controller
+class DashboardController extends Controller
 {
-    use ValidatesRequests;
-
     /**
      * Create a new controller instance.
      *
@@ -40,7 +26,7 @@ class SettingsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function showDashboard(Request $request)
+    public function show(Request $request)
     {
         $data = [
             'activeTab' => $request->get('tab', Spark::firstSettingsTabKey()),
