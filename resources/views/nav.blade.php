@@ -41,8 +41,16 @@
 								</a>
 							</li>
 
-							<!-- Team List -->
+							<!-- Team Settings / List -->
 							@if (Laravel\Spark\Spark::usingTeams())
+								@if (Auth::user()->currentTeam)
+									<li>
+										<a href="/settings/teams/{{ Auth::user()->currentTeam->id }}">
+											<i class="fa fa-btn fa-cog"></i>Team Settings
+										</a>
+									</li>
+								@endif
+
 								<li class="divider"></li>
 
 								<li class="dropdown-header">Teams</li>
