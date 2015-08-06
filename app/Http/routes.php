@@ -10,17 +10,19 @@ $router->get('settings', 'Settings\DashboardController@show');
 $router->put('settings/user', 'Settings\ProfileController@updateUserProfile');
 
 // Team Routes...
-$router->post('settings/teams', 'Settings\TeamController@storeTeam');
-$router->get('settings/teams/{id}', 'Settings\TeamController@editTeam');
-$router->put('settings/teams/{id}', 'Settings\TeamController@updateTeam');
-$router->delete('settings/teams/{id}', 'Settings\TeamController@destroyTeam');
-$router->get('settings/teams/switch/{id}', 'Settings\TeamController@switchCurrentTeam');
-$router->post('settings/teams/{id}/invitations', 'Settings\TeamController@sendTeamInvitation');
-$router->post('settings/teams/invitations/{invite}/accept', 'Settings\TeamController@acceptTeamInvitation');
-$router->delete('settings/teams/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForUser');
-$router->delete('settings/teams/{team}/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForOwner');
-$router->delete('settings/teams/{team}/members/{user}', 'Settings\TeamController@removeTeamMember');
-$router->delete('settings/teams/{team}/membership', 'Settings\TeamController@leaveTeam');
+if (Laravel\Spark\Spark::usingTeams()) {
+    $router->post('settings/teams', 'Settings\TeamController@storeTeam');
+    $router->get('settings/teams/{id}', 'Settings\TeamController@editTeam');
+    $router->put('settings/teams/{id}', 'Settings\TeamController@updateTeam');
+    $router->delete('settings/teams/{id}', 'Settings\TeamController@destroyTeam');
+    $router->get('settings/teams/switch/{id}', 'Settings\TeamController@switchCurrentTeam');
+    $router->post('settings/teams/{id}/invitations', 'Settings\TeamController@sendTeamInvitation');
+    $router->post('settings/teams/invitations/{invite}/accept', 'Settings\TeamController@acceptTeamInvitation');
+    $router->delete('settings/teams/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForUser');
+    $router->delete('settings/teams/{team}/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForOwner');
+    $router->delete('settings/teams/{team}/members/{user}', 'Settings\TeamController@removeTeamMember');
+    $router->delete('settings/teams/{team}/membership', 'Settings\TeamController@leaveTeam');
+}
 
 // Security Routes...
 $router->put('settings/user/password', 'Settings\SecurityController@updatePassword');
@@ -64,10 +66,12 @@ $router->get('spark/api/subscriptions/coupon/{code}', 'API\SubscriptionControlle
 $router->get('spark/api/subscriptions/user/coupon', 'API\SubscriptionController@getCouponForUser');
 
 // Team API Routes...
-$router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
-$router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
-$router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
-$router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');
+if (Laravel\Spark\Spark::usingTeams()) {
+	$router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
+	$router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
+	$router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
+	$router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');
+}
 
 // Stripe Routes...
 $router->post('stripe/webhook', 'Stripe\WebhookController@handleWebhook');
