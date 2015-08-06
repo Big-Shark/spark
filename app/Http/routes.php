@@ -7,34 +7,34 @@ $router->get('terms', 'AppController@showTerms');
 $router->get('settings', 'SettingsController@showDashboard');
 
 // Profile Routes...
-$router->put('settings/user', 'SettingsController@updateUserProfile');
+$router->put('settings/user', 'Settings\ProfileController@updateUserProfile');
 
 // Team Routes...
-$router->post('settings/teams', 'SettingsController@storeTeam');
-$router->get('settings/teams/{id}', 'SettingsController@editTeam');
-$router->put('settings/teams/{id}', 'SettingsController@updateTeam');
-$router->delete('settings/teams/{id}', 'SettingsController@destroyTeam');
-$router->get('settings/teams/switch/{id}', 'SettingsController@switchCurrentTeam');
-$router->post('settings/teams/{id}/invitations', 'SettingsController@sendTeamInvitation');
-$router->post('settings/teams/invitations/{invite}/accept', 'SettingsController@acceptTeamInvitation');
-$router->delete('settings/teams/invitations/{invite}', 'SettingsController@destroyTeamInvitationForUser');
-$router->delete('settings/teams/{team}/invitations/{invite}', 'SettingsController@destroyTeamInvitationForOwner');
-$router->delete('settings/teams/{team}/members/{user}', 'SettingsController@removeTeamMember');
-$router->delete('settings/teams/{team}/membership', 'SettingsController@leaveTeam');
+$router->post('settings/teams', 'Settings\TeamController@storeTeam');
+$router->get('settings/teams/{id}', 'Settings\TeamController@editTeam');
+$router->put('settings/teams/{id}', 'Settings\TeamController@updateTeam');
+$router->delete('settings/teams/{id}', 'Settings\TeamController@destroyTeam');
+$router->get('settings/teams/switch/{id}', 'Settings\TeamController@switchCurrentTeam');
+$router->post('settings/teams/{id}/invitations', 'Settings\TeamController@sendTeamInvitation');
+$router->post('settings/teams/invitations/{invite}/accept', 'Settings\TeamController@acceptTeamInvitation');
+$router->delete('settings/teams/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForUser');
+$router->delete('settings/teams/{team}/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForOwner');
+$router->delete('settings/teams/{team}/members/{user}', 'Settings\TeamController@removeTeamMember');
+$router->delete('settings/teams/{team}/membership', 'Settings\TeamController@leaveTeam');
 
 // Security Routes...
-$router->put('settings/user/password', 'SettingsController@updatePassword');
-$router->post('settings/user/two-factor', 'SettingsController@enableTwoFactorAuth');
-$router->delete('settings/user/two-factor', 'SettingsController@disableTwoFactorAuth');
+$router->put('settings/user/password', 'Settings\SecurityController@updatePassword');
+$router->post('settings/user/two-factor', 'Settings\SecurityController@enableTwoFactorAuth');
+$router->delete('settings/user/two-factor', 'Settings\SecurityController@disableTwoFactorAuth');
 
 // Subscription Routes...
-$router->post('settings/user/plan', 'SettingsController@subscribe');
-$router->put('settings/user/plan', 'SettingsController@changeSubscriptionPlan');
-$router->delete('settings/user/plan', 'SettingsController@cancelSubscription');
-$router->post('settings/user/plan/resume', 'SettingsController@resumeSubscription');
-$router->put('settings/user/card', 'SettingsController@updateCard');
-$router->put('settings/user/vat', 'SettingsController@updateExtraBillingInfo');
-$router->get('settings/user/plan/invoice/{id}', 'SettingsController@downloadInvoice');
+$router->post('settings/user/plan', 'Settings\SubscriptionController@subscribe');
+$router->put('settings/user/plan', 'Settings\SubscriptionController@changeSubscriptionPlan');
+$router->delete('settings/user/plan', 'Settings\SubscriptionController@cancelSubscription');
+$router->post('settings/user/plan/resume', 'Settings\SubscriptionController@resumeSubscription');
+$router->put('settings/user/card', 'Settings\SubscriptionController@updateCard');
+$router->put('settings/user/vat', 'Settings\SubscriptionController@updateExtraBillingInfo');
+$router->get('settings/user/plan/invoice/{id}', 'Settings\SubscriptionController@downloadInvoice');
 
 // Authentication Routes...
 $router->get('login', 'Auth\AuthController@getLogin');
