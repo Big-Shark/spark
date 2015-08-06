@@ -2,8 +2,20 @@
 
 namespace Laravel\Spark\Repositories;
 
-class ApiDataRepository
+class TeamRepository
 {
+	/**
+	 * Get the team for the given ID.
+	 *
+	 * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+	 * @param  string  $teamId
+	 * @return \Illuminate\Database\Eloquent\Model
+	 */
+	public function getTeam($user, $teamId)
+	{
+		return $user->teams()->with('users', 'invitations')->findOrFail($teamId);
+	}
+
 	/**
 	 * Get all of the teams for the user.
 	 *
@@ -40,17 +52,5 @@ class ApiDataRepository
 		}
 
 		return $invitations;
-	}
-
-	/**
-	 * Get the team for the given ID.
-	 *
-	 * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-	 * @param  string  $teamId
-	 * @return \Illuminate\Database\Eloquent\Model
-	 */
-	public function getTeam($user, $teamId)
-	{
-		return $user->teams()->with('users', 'invitations')->findOrFail($teamId);
 	}
 }
