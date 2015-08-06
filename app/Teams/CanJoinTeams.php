@@ -27,7 +27,19 @@ trait CanJoinTeams
     }
 
     /**
+     * Accessor for the currentTeam method.
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function getCurrentTeamAttribute()
+    {
+        return $this->currentTeam();
+    }
+
+    /**
      * Get the team that user is currently viewing.
+     *
+     * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function currentTeam()
     {
@@ -35,9 +47,11 @@ trait CanJoinTeams
             $this->current_team_id = $this->teams->first()->id;
 
             $this->save();
-        }
 
-        return $this->belongsTo(Spark::model('teams', 'App\Team'), 'current_team_id');
+            return $this->currentTeam();
+        } elseif (! is_null($this->current_team_id)) {
+            return $this->teams->find($this->current_team_id);
+        }
     }
 
     /**

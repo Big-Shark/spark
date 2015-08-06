@@ -17,6 +17,18 @@
     @yield('styles', '')
 
     <!-- Scripts -->
+    @if (Auth::user())
+        <script>
+            var USER_ID = {{ Auth::id() }};
+
+            @if (Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
+                var CURRENT_TEAM_ID = {{ Auth::user()->currentTeam->id }};
+            @else
+                var CURRENT_TEAM_ID = null;
+            @endif
+        </script>
+    @endif
+
     @yield('scripts', '')
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

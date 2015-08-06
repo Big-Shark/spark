@@ -46,8 +46,6 @@ class ApiController extends Controller
 	{
 		$user = Spark::user();
 
-		$user->load(['currentTeam']);
-
 		$user->setHidden(array_flip(
 			array_except(array_flip($user->getHidden()), 'last_four')
 		));
