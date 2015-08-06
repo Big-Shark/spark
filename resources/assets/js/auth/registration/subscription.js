@@ -143,7 +143,7 @@ var registrationScreen = new Vue({
          * Get all of the Spark plans from the API.
          */
         getPlans: function() {
-            this.$http.get('spark/api/plans')
+            this.$http.get('spark/api/subscriptions/plans')
                 .success(function(plans) {
                     this.plans = _.filter(plans, function(plan) {
                         return plan.active;
@@ -176,7 +176,7 @@ var registrationScreen = new Vue({
          * Get the specified coupon for registration.
          */
         getCoupon: function (coupon) {
-            this.$http.get('spark/api/coupon/' + coupon)
+            this.$http.get('spark/api/subscriptions/coupon/' + coupon)
                 .success(function (coupon) {
                     this.currentCoupon = coupon;
                 })
@@ -190,7 +190,7 @@ var registrationScreen = new Vue({
          * Get the specified invitation.
          */
         getInvitation: function (invitation) {
-            this.$http.get('spark/api/invitation/' + invitation)
+            this.$http.get('spark/api/teams/invitation/' + invitation)
                 .success(function (invitation) {
                     this.invitation = invitation;
                 })

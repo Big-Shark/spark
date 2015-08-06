@@ -39,7 +39,7 @@ var teamSettingsScreen = new Vue({
 
     methods: {
         getUser: function () {
-            this.$http.get('/spark/api/user')
+            this.$http.get('/spark/api/users/me')
                 .success(function (user) {
                     this.user = user;
                 });

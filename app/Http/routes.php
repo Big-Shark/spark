@@ -55,15 +55,19 @@ $router->post('password/email', 'Auth\PasswordController@postEmail');
 $router->get('password/reset/{token}', 'Auth\PasswordController@getReset');
 $router->post('password/reset', 'Auth\PasswordController@postReset');
 
-// API Routes...
-$router->get('spark/api/user', 'ApiController@getCurrentUser');
-$router->get('spark/api/plans', 'ApiController@getPlans');
-$router->get('spark/api/coupon/{code}', 'ApiController@getCoupon');
-$router->get('spark/api/user/coupon', 'ApiController@getCouponForUser');
-$router->get('spark/api/invitation/{code}', 'ApiController@getInvitation');
-$router->get('spark/api/teams', 'ApiController@getAllTeamsForUser');
-$router->get('spark/api/teams/invitations', 'ApiController@getPendingInvitationsForUser');
-$router->get('spark/api/teams/{id}', 'ApiController@getTeam');
+// User API Routes...
+$router->get('spark/api/users/me', 'API\UserController@getCurrentUser');
+
+// Subscription API Routes...
+$router->get('spark/api/subscriptions/plans', 'API\SubscriptionController@getPlans');
+$router->get('spark/api/subscriptions/coupon/{code}', 'API\SubscriptionController@getCoupon');
+$router->get('spark/api/subscriptions/user/coupon', 'API\SubscriptionController@getCouponForUser');
+
+// Team API Routes...
+$router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
+$router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
+$router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
+$router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');
 
 // Stripe Routes...
 $router->post('stripe/webhook', 'Stripe\WebhookController@handleWebhook');

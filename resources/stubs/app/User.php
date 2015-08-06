@@ -39,7 +39,7 @@ class User extends Model implements TwoFactorAuthenticatableContract, BillableCo
      */
     protected $hidden = [
         'password', 'remember_token', 'two_factor_options',
-        'stripe_token', 'stripe_subscription', 'last_four',
+        'stripe_id', 'stripe_subscription', 'last_four',
     ];
 
     /**

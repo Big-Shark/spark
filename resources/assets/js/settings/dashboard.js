@@ -13,7 +13,7 @@ var sparkDashboardScreen = new Vue({
 		 * Retrieve the user from the API and broadcast it to children.
 		 */
 		getUser: function () {
-			this.$http.get('spark/api/user')
+			this.$http.get('spark/api/users/me')
 				.success(function(user) {
 					this.$broadcast('userRetrieved', user);
 				});
