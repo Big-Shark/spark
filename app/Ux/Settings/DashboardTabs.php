@@ -17,6 +17,18 @@ class DashboardTabs extends Tabs
     }
 
     /**
+     * Get the tab configuration for the "teams" tab.
+     *
+     * @return \Laravel\Spark\Ux\Settings\Tab
+     */
+    public function teams()
+    {
+        return new Tab('Teams', 'spark::settings.tabs.teams', 'fa-users', function () {
+            return Spark::usingTeams();
+        });
+    }
+
+    /**
      * Get the tab configuration for the "security" tab.
      *
      * @return \Laravel\Spark\Ux\Settings\Tab

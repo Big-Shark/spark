@@ -65,6 +65,7 @@ class SparkServiceProvider extends ServiceProvider
         Spark::settingsTabs()->configure(function ($tabs) {
             return [
                 $tabs->profile(),
+                $tabs->teams(),
                 $tabs->security(),
                 $tabs->subscription(),
                 // $tabs->make('Name', 'view', 'fa-icon'),

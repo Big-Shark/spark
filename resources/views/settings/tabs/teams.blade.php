@@ -14,12 +14,6 @@
 		<div class="panel-body">
 			@include('spark::common.errors', ['form' => 'createTeam'])
 
-			@if (session('teamCreated'))
-				<div class="alert alert-success">
-					<strong>Great!</strong> The team was successfully created.
-				</div>
-			@endif
-
 			<form method="POST" action="/settings/teams" class="form-horizontal" role="form">
 				{!! csrf_field() !!}
 

@@ -41,28 +41,30 @@
 								</a>
 							</li>
 
-							<li class="divider"></li>
-
 							<!-- Team List -->
-							<li class="dropdown-header">Teams</li>
+							@if (Laravel\Spark\Spark::usingTeams())
+								<li class="divider"></li>
 
-							<li>
-								<a href="/settings?tab=teams">
-								<i class="fa fa-btn fa-fw fa-users"></i>Create New Team
-								</a>
-							</li>
+								<li class="dropdown-header">Teams</li>
 
-							@foreach (Auth::user()->teams as $team)
 								<li>
-									<a href="/settings/teams/switch/{{ $team->id }}">
-										@if ($team->id === Auth::user()->currentTeam->id)
-											<i class="fa fa-btn fa-fw fa-check text-success"></i>{{ $team->name }}
-										@else
-											<i class="fa fa-btn fa-fw"></i>{{ $team->name }}
-										@endif
+									<a href="/settings?tab=teams">
+									<i class="fa fa-btn fa-fw fa-users"></i>Create New Team
 									</a>
 								</li>
-							@endforeach
+
+								@foreach (Auth::user()->teams as $team)
+									<li>
+										<a href="/settings/teams/switch/{{ $team->id }}">
+											@if ($team->id === Auth::user()->currentTeam->id)
+												<i class="fa fa-btn fa-fw fa-check text-success"></i>{{ $team->name }}
+											@else
+												<i class="fa fa-btn fa-fw"></i>{{ $team->name }}
+											@endif
+										</a>
+									</li>
+								@endforeach
+							@endif
 
 							<!-- Logout -->
 							<li class="divider"></li>

@@ -180,7 +180,7 @@ class SettingsController extends Controller
 
         $team->save();
 
-        return redirect('/settings?tab=teams')->with('teamCreated', true);
+        return redirect('/settings/teams/'.$team->id.'?tab=membership');
     }
 
     /**
