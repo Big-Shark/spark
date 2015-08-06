@@ -12,30 +12,28 @@
 		<div class="panel-heading">Create Team</div>
 
 		<div class="panel-body">
-			<spark-errors form="@{{ createTeamForm }}"></spark-errors>
+			@include('spark::common.errors', ['form' => 'createTeam'])
 
-			<div class="alert alert-success" v-if="createTeamForm.created">
-				<strong>Great!</strong> The team was successfully created.
-			</div>
+			@if (session('teamCreated'))
+				<div class="alert alert-success">
+					<strong>Great!</strong> The team was successfully created.
+				</div>
+			@endif
 
-			<form method="POST" class="form-horizontal" role="form">
+			<form method="POST" action="/settings/teams" class="form-horizontal" role="form">
+				{!! csrf_field() !!}
+
 				<div class="form-group">
 					<label class="col-md-3 control-label">Name</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" name="name" v-model="createTeamForm.name">
+						<input type="text" class="form-control" name="name" value="{{ old('name') }}">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-md-6 col-md-offset-3">
-						<button type="submit" class="btn btn-primary" v-on="click: createTeam" v-attr="disabled: createTeamForm.creating">
-							<span v-if="createTeamForm.creating">
-								<i class="fa fa-btn fa-spinner fa-spin"></i>Creating
-							</span>
-
-							<span v-if=" ! createTeamForm.creating">
-								<i class="fa fa-btn fa-users"></i> Create
-							</span>
+						<button type="submit" class="btn btn-primary">
+							<i class="fa fa-btn fa-users"></i> Create
 						</button>
 					</div>
 				</div>
@@ -147,7 +145,7 @@
 				<div class="modal-body">
 					<p>
 						Are you sure you want to delete this team? The team and all of its
-						associated data will be permanently removed.
+						associated data will be permanently deleted.
 					</p>
 				</div>
 

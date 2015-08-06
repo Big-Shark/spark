@@ -48,34 +48,15 @@ Vue.component('spark-settings-teams-screen', {
 		},
 
 
-		createTeam: function (e) {
-			e.preventDefault();
-
-			this.createTeamForm.errors = [];
-			this.createTeamForm.created = false;
-			this.createTeamForm.creating = true;
-
-			this.$http.post('/settings/teams', this.createTeamForm)
-				.success(function (teams) {
-					this.teams = teams;
-
-					this.createTeamForm.name = '';
-					this.createTeamForm.created = true;
-					this.createTeamForm.creating = false;
-				})
-				.error(function (errors) {
-					setErrorsOnForm(this.createTeamForm, errors);
-					this.createTeamForm.creating = false;
-				});
-		},
-
-
 		leaveTeam: function (team) {
 			this.teams = _.reject(this.teams, function (t) {
 				return t.id == team.id;
 			});
 
-			this.$http.delete('/settings/teams/' + team.id + '/membership');
+			this.$http.delete('/settings/teams/' + team.id + '/membership')
+				.success(function () {
+					window.location = '/settings?tab=teams';
+				});
 		},
 
 
@@ -91,10 +72,7 @@ Vue.component('spark-settings-teams-screen', {
 
 			this.$http.delete('/settings/teams/' + this.teamToDelete.id)
 				.success(function (teams) {
-					this.teams = teams;
-
-					this.deletingTeam = false;
-					$('#modal-delete-team').modal('hide');
+					window.location = '/settings?tab=teams';
 				});
 		},
 
@@ -106,7 +84,7 @@ Vue.component('spark-settings-teams-screen', {
 
 			this.$http.post('/settings/teams/invitations/' + invite.id + '/accept')
 				.success(function (teams) {
-					this.teams = teams;
+					window.location = '/settings?tab=teams';
 				});
 		},
 

@@ -164,9 +164,13 @@ class SettingsController extends Controller
      */
     public function storeTeam(Request $request)
     {
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
         ]);
+
+        if ($validator->fails()) {
+            return redirect('/settings?tab=teams')->withErrors($validator, 'createTeam');
+        }
 
         $team = $request->user()->teams()->create([
             'name' => $request->name,
@@ -176,7 +180,7 @@ class SettingsController extends Controller
 
         $team->save();
 
-        return $this->api->getAllTeamsForUser($request->user());
+        return redirect('/settings?tab=teams')->with('teamCreated', true);
     }
 
     /**
@@ -296,8 +300,6 @@ class SettingsController extends Controller
         $user->teams()->attach([$invitation->team_id]);
 
         $invitation->delete();
-
-        return $this->api->getAllTeamsForUser($user);
     }
 
     /**
@@ -385,8 +387,6 @@ class SettingsController extends Controller
         $team->users()->detach();
 
         $team->delete();
-
-        return $this->api->getAllTeamsForUser($request->user());
     }
 
     /**
