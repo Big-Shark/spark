@@ -298,6 +298,8 @@ class AuthController extends Controller
         if ($invitation) {
             $invitation->team->users()->attach([$user->id]);
 
+            $user->switchToTeam($invitation->team);
+
             $invitation->delete();
         }
     }
