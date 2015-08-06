@@ -1,0 +1,80 @@
+<?php
+
+namespace Laravel\Spark\Teams;
+
+use Laravel\Spark\Spark;
+
+trait CanJoinTeams
+{
+    /**
+     * Determine if the user is a member of any teams.
+     *
+     * @return bool
+     */
+    public function hasTeams()
+    {
+        return count($this->teams) > 0;
+    }
+
+    /**
+     * Get all of the teams that the user belongs to.
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(
+            Spark::model('teams', 'App\Team'), 'user_teams', 'user_id', 'team_id'
+        )->orderBy('name', 'asc');
+    }
+
+    /**
+     * Get the team that user is currently viewing.
+     */
+    public function currentTeam()
+    {
+        if (is_null($this->current_team_id) && $this->hasTeams()) {
+            $this->current_team_id = $this->teams->first()->id;
+
+            $this->save();
+        }
+
+        return $this->belongsTo(Spark::model('teams', 'App\Team'), 'current_team_id');
+    }
+
+    /**
+     * Switch the current team for the user.
+     *
+     * @param  \App\Team  $team
+     * @return void
+     */
+    public function switchToTeam(Team $team)
+    {
+        $this->current_team_id = $team->id;
+
+        $this->save();
+
+        unset($this->relations['currentTeam']);
+    }
+
+    /**
+     * Determine if the given team is owned by the user.
+     *
+     * @param  \App\Team  $team
+     * @return bool
+     */
+    public function ownsTeam(Team $team)
+    {
+        if (is_null($team->owner_id) || is_null($this->id)) {
+            return false;
+        }
+
+        return $this->id === $team->owner_id;
+    }
+
+    /**
+     * Get all of the pending invitations for the user.
+     */
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+}

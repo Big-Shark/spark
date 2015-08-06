@@ -47,7 +47,7 @@
 		</div>
 
 		<!-- Invitation -->
-		<div class="row" v-if="invitation">
+		<div class="row">
 			@include('spark::auth.registration.subscription.invitation')
 		</div>
 

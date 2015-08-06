@@ -132,6 +132,12 @@ class ApiController extends Controller
 
 		$invitation = (new $model)->with('team.owner')->where('token', $code)->firstOrFail();
 
+		if ($invitation->isExpired()) {
+			$invitation->delete();
+
+			abort(404);
+		}
+
 		$invitation->team->setVisible(['name', 'owner']);
 		$invitation->team->owner->setVisible(['name']);
 

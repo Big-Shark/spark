@@ -30,6 +30,7 @@ var registrationScreen = new Vue({
         planTypeState: false,
         currentCoupon: null,
         invitation: null,
+        failedToLoadInvitation: false,
 
         registerForm: {
             name: '', email: '', password: '', password_confirmation: '',
@@ -194,6 +195,8 @@ var registrationScreen = new Vue({
                     this.invitation = invitation;
                 })
                 .error(function (errors) {
+                    this.failedToLoadInvitation = true;
+
                     console.error('Unable to load invitation for given code.');
                 });
         },

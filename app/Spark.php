@@ -3,6 +3,7 @@
 namespace Laravel\Spark;
 
 use Illuminate\Support\Facades\Auth;
+use Laravel\Spark\Teams\CanJoinTeams;
 use Laravel\Spark\Ux\Settings\TeamTabs;
 use Laravel\Spark\Ux\Settings\DashboardTabs;
 use Laravel\Spark\Services\Auth\TwoFactor\Authy;
@@ -94,6 +95,13 @@ class Spark
     public static $teamSettingsTabs;
 
     /**
+     * Indicates if the application is supporting teams.
+     *
+     * @var bool
+     */
+    protected static $usingTeams;
+
+    /**
      * The Spark configuration options.
      *
      * @var array
@@ -121,6 +129,18 @@ class Spark
     public static function option($key, $default)
     {
         return array_get(static::$options, $key, $default);
+    }
+
+    /**
+     * Get the class name for a given Spark model.
+     *
+     * @param  string  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public static function model($key, $default = null)
+    {
+        return array_get(static::$options, 'models.'.$key, $default);
     }
 
     /**
@@ -208,6 +228,22 @@ class Spark
     public static function retrieveUsersWith(callable $callback)
     {
         static::$retrieveUsersWith = $callback;
+    }
+
+    /**
+     * Determine if the Spark application supports teams.
+     *
+     * @return bool
+     */
+    public static function usingTeams()
+    {
+        if (! is_null(static::$usingTeams)) {
+            return static::$usingTeams;
+        } else {
+            return static::$usingTeams = in_array(
+                CanJoinTeams::class, class_uses_recursive(config('auth.model'))
+            );
+        }
     }
 
     /**

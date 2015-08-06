@@ -46,7 +46,11 @@
 							<!-- Team List -->
 							<li class="dropdown-header">Teams</li>
 
-							<li><a href="/teams"><i class="fa fa-btn fa-fw fa-users"></i>Create New Team</a></li>
+							<li>
+								<a href="/settings?tab=teams">
+								<i class="fa fa-btn fa-fw fa-users"></i>Create New Team
+								</a>
+							</li>
 
 							@foreach (Auth::user()->teams as $team)
 								<li>
