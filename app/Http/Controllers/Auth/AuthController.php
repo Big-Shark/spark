@@ -167,9 +167,13 @@ class AuthController extends Controller
             $request, $registrar->validator($request), $withSubscription
         );
 
-        event(new Registered(
-            $user = $this->createUser($request, $registrar, $withSubscription)
-        ));
+        $user = $this->createUser($request, $registrar, $withSubscription);
+
+        if ($request->invitation) {
+            $this->attachUserToTeam($request->invitation, $user);
+        }
+
+        event(new Registered($user));
 
         if ($withSubscription) {
             event(new Subscribed($user));
@@ -274,6 +278,28 @@ class AuthController extends Controller
         $subscription->create($request->stripe_token, [
             'email' => $user->email,
         ]);
+    }
+
+    /**
+     * Attach the given user to the team based on the invitation code.
+     *
+     * @param  string  $invitation
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return void
+     */
+    protected function attachUserToTeam($invitation, $user)
+    {
+        $userModel = get_class($user);
+
+        $inviteModel = get_class((new $userModel)->invitations()->getQuery()->getModel());
+
+        $invitation = (new $inviteModel)->where('token', $invitation)->first();
+
+        if ($invitation) {
+            $invitation->team->users()->attach([$user->id]);
+
+            $invitation->delete();
+        }
     }
 
     /**

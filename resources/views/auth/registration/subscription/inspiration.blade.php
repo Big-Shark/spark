@@ -7,11 +7,5 @@
 
 <!-- Plan Is Selected Or There Is Only A Single Plan -->
 <div class="row spark-subscription-inspiration-single" v-if="registerForm.plan">
-	<span v-if="plans.length == 1">
-		Thanks for coming on board.
-	</span>
-
-	<span v-if="plans.length > 1">
-		Just a few more questions.
-	</span>
+	Thanks for coming on board.
 </div>

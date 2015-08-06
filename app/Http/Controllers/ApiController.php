@@ -46,6 +46,8 @@ class ApiController extends Controller
 	{
 		$user = Spark::user();
 
+		$user->load(['currentTeam']);
+
 		$user->setHidden(array_flip(
 			array_except(array_flip($user->getHidden()), 'last_four')
 		));
@@ -114,6 +116,26 @@ class ApiController extends Controller
 	    } catch (Exception $e) {
 	        abort(404);
 	    }
+	}
+
+	/**
+	 * Get the invitation for the given code.
+	 *
+	 * @param  string  $code
+	 * @return \Illuminate\Http\Response
+	 */
+	public function getInvitation($code)
+	{
+		$model = config('auth.model');
+
+		$model = get_class((new $model)->invitations()->getQuery()->getModel());
+
+		$invitation = (new $model)->with('team.owner')->where('token', $code)->firstOrFail();
+
+		$invitation->team->setVisible(['name', 'owner']);
+		$invitation->team->owner->setVisible(['name']);
+
+		return $invitation;
 	}
 
 	/**

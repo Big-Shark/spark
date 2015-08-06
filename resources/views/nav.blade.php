@@ -50,8 +50,12 @@
 
 							@foreach (Auth::user()->teams as $team)
 								<li>
-									<a href="/teams">
-										<i class="fa fa-btn fa-fw"></i>{{ $team->name }}
+									<a href="/settings/teams/switch/{{ $team->id }}">
+										@if ($team->id === Auth::user()->current_team_id)
+											<i class="fa fa-btn fa-fw fa-check text-success"></i>{{ $team->name }}
+										@else
+											<i class="fa fa-btn fa-fw"></i>{{ $team->name }}
+										@endif
 									</a>
 								</li>
 							@endforeach

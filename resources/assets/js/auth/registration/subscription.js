@@ -14,6 +14,10 @@ var registrationScreen = new Vue({
         if (queryString.coupon) {
             this.getCoupon(queryString.coupon);
         }
+
+        if (queryString.invitation) {
+            this.getInvitation(queryString.invitation);
+        }
     },
 
 
@@ -25,10 +29,11 @@ var registrationScreen = new Vue({
         selectedPlan: null,
         planTypeState: false,
         currentCoupon: null,
+        invitation: null,
 
         registerForm: {
             name: '', email: '', password: '', password_confirmation: '',
-            plan: '', terms: false, coupon: null,
+            plan: '', terms: false, coupon: null, invitation: null,
             stripe_token: null, errors: [], registering: false
         },
 
@@ -143,6 +148,8 @@ var registrationScreen = new Vue({
                         return plan.active;
                     });
 
+                    queryString = URI(document.URL).query(true);
+
                     // If there is only one plan, automatically select it...
                     if (this.plans.length == 1) {
                         this.setSelectedPlan(this.plans[0]);
@@ -150,6 +157,15 @@ var registrationScreen = new Vue({
                         setTimeout(function () {
                             $('.spark-first-field').filter(':visible:first').focus();
                         }, 100);
+                    } else if (queryString.invitation) {
+                        self = this;
+
+                        // If an invitation was sent and there is a free plan, select it...
+                        _.each(this.plans, function (p) {
+                            if (p.price === 0) {
+                                return self.selectPlan(p);
+                            }
+                        });
                     }
                 });
         },
@@ -165,6 +181,20 @@ var registrationScreen = new Vue({
                 })
                 .error(function (errors) {
                     console.error('Unable to load coupon for given code.');
+                });
+        },
+
+
+        /**
+         * Get the specified invitation.
+         */
+        getInvitation: function (invitation) {
+            this.$http.get('spark/api/invitation/' + invitation)
+                .success(function (invitation) {
+                    this.invitation = invitation;
+                })
+                .error(function (errors) {
+                    console.error('Unable to load invitation for given code.');
                 });
         },
 
@@ -303,6 +333,10 @@ var registrationScreen = new Vue({
         sendRegistration: function() {
             if (this.currentCoupon && ! this.freePlanIsSelected) {
                 this.registerForm.coupon = this.currentCoupon.id;
+            }
+
+            if (this.invitation) {
+                this.registerForm.invitation = this.invitation.token;
             }
 
             this.$http.post('/register', this.registerForm)

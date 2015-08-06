@@ -224,6 +224,22 @@ class SettingsController extends Controller
     }
 
     /**
+     * Switch the team the user is currently viewing.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @return \Illuminate\Http\Response
+     */
+    public function switchCurrentTeam(Request $request, $teamId)
+    {
+        $team = $request->user()->teams()->findOrFail($teamId);
+
+        $request->user()->switchToTeam($team);
+
+        return back();
+    }
+
+    /**
      * Send an invitation for the given team.
      *
      * @param  \Illuminate\Http\Request  $request

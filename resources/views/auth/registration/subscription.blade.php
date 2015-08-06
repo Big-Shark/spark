@@ -41,9 +41,14 @@
 			@include('spark::auth.registration.subscription.plans.selected')
 		</div>
 
-		<!-- Current Coupon / Discont -->
+		<!-- Current Coupon / Discount -->
 		<div class="row" v-if="currentCoupon && registerForm.plan && ! freePlanIsSelected">
 			@include('spark::auth.registration.subscription.coupon')
+		</div>
+
+		<!-- Invitation -->
+		<div class="row" v-if="invitation">
+			@include('spark::auth.registration.subscription.invitation')
 		</div>
 
 		<!-- Basic Information -->
