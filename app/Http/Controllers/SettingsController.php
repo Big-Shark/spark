@@ -379,6 +379,9 @@ class SettingsController extends Controller
 
         event(new DeletingTeam($team));
 
+        $team->users()->where('current_team_id', $team->id)
+                        ->update(['current_team_id' => null]);
+
         $team->users()->detach();
 
         $team->delete();
