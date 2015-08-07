@@ -133,12 +133,14 @@ class Install extends Command
     {
         copy(
             SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_000000_create_users_table.php',
-            database_path('migrations/2014_10_12_000000_create_users_table.php')
+            database_path('migrations/'.date('Y_m_d_His').'_create_users_table.php')
         );
+
+        usleep(1000);
 
         copy(
             SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_200000_create_teams_tables.php',
-            database_path('migrations/2014_10_12_200000_create_teams_tables.php')
+            database_path('migrations/'.date('Y_m_d_His').'_create_teams_tables.php')
         );
     }
 
