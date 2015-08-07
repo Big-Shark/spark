@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (method_exists($this, 'customizeSpark')) {
+            $this->customizeSpark();
+        }
+
         if (method_exists($this, 'customizeRegistration')) {
             $this->customizeRegistration();
         }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Team;
 use Validator;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
@@ -32,6 +33,20 @@ class SparkServiceProvider extends ServiceProvider
         parent::boot();
 
         //
+    }
+
+    /**
+     * Customize general Spark options.
+     *
+     * @return void
+     */
+    protected function customizeSpark()
+    {
+        Spark::configure([
+            'models' => [
+                'teams' => Team::class,
+            ]
+        ]);
     }
 
     /**
@@ -68,6 +83,14 @@ class SparkServiceProvider extends ServiceProvider
                 $tabs->teams(),
                 $tabs->security(),
                 $tabs->subscription(),
+                // $tabs->make('Name', 'view', 'fa-icon'),
+            ];
+        });
+
+        Spark::teamSettingsTabs()->configure(function ($tabs) {
+            return [
+                $tabs->owner(),
+                $tabs->membership(),
                 // $tabs->make('Name', 'view', 'fa-icon'),
             ];
         });
