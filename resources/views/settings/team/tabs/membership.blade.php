@@ -1,5 +1,5 @@
 <!-- Main Content -->
-<spark-team-settings-membership-screen inline-template v-cloak>
+<spark-team-settings-membership-screen inline-template>
 	<div>
 		<div v-if="everythingIsLoaded">
 			<!-- Invite New Members -->

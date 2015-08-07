@@ -45,20 +45,15 @@ class TeamController extends Controller
      */
     public function storeTeam(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'name' => 'required|max:255',
         ]);
-
-        if ($validator->fails()) {
-            return redirect('/settings?tab=teams')->withErrors($validator, 'createTeam');
-        }
 
         $team = $this->teams->create(
             $request->user(), ['name' => $request->name]
         );
 
-        return redirect('/settings/teams/'.$team->id.'?tab=membership')
-                        ->with('teamCreated', true);
+        return $this->teams->getAllTeamsForUser($request->user());
     }
 
     /**

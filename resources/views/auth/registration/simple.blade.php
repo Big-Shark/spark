@@ -10,7 +10,7 @@
 <!-- Main Content -->
 @section('content')
 <spark-simple-register-screen inline-template>
-	<div id="spark-register-screen" class="container-fluid spark-screen" v-cloak>
+	<div id="spark-register-screen" class="container-fluid spark-screen">
 		<!-- Invitation -->
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">

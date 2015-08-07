@@ -6,6 +6,10 @@ module.exports = Vue.extend({
 		//
 	},
 
+
+    /*
+     * Define the components.
+     */
 	components: {
 		'spark-team-settings-membership-screen': require('./team/membership')
 	}

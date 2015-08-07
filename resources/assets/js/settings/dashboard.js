@@ -6,6 +6,10 @@ module.exports = Vue.extend({
 		//
 	},
 
+
+    /*
+     * Define the components.
+     */
 	components: {
 		'spark-settings-subscription-screen': require('./dashboard/subscription.js'),
 		'spark-settings-teams-screen': require('./dashboard/teams.js')

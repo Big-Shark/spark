@@ -55,6 +55,25 @@ module.exports = Vue.extend({
         },
 
 
+        createTeam: function (e) {
+            e.preventDefault();
+
+            this.createTeamForm.errors = [];
+            this.createTeamForm.creating = true;
+
+            this.$http.post('/settings/teams', this.createTeamForm)
+                .success(function (teams) {
+                    this.$dispatch('teamsUpdated', teams);
+
+                    this.createTeamForm.creating = false;
+                })
+                .error(function (errors) {
+                    setErrorsOnForm(this.createTeamForm, errors);
+                    this.createTeamForm.creating = false;
+                });
+        },
+
+
         /*
          * Leave the team.
          */

@@ -1,6 +1,6 @@
 <!-- Main Content -->
 <spark-settings-subscription-screen inline-template>
-	<div id="spark-settings-subscription-screen" v-cloak>
+	<div id="spark-settings-subscription-screen">
 		<div v-if="userIsLoaded && plansAreLoaded">
 
 			<!-- Current Coupon -->

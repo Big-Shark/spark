@@ -1,12 +1,10 @@
 <!-- Team Navigation Options -->
 <!-- Team Settings -->
-@if (Auth::user()->currentTeam)
-	<li>
-		<a href="/settings/teams/{{ Auth::user()->currentTeam->id }}">
-			<i class="fa fa-btn fa-fw fa-cog"></i>Team Settings
-		</a>
-	</li>
-@endif
+<li v-if="user.current_team_id">
+	<a href="/settings/teams/@{{ user.current_team_id }}">
+		<i class="fa fa-btn fa-fw fa-cog"></i>Team Settings
+	</a>
+</li>
 
 <li class="divider"></li>
 
@@ -20,14 +18,14 @@
 </li>
 
 <!-- Team Listing -->
-@foreach (Auth::user()->teams as $team)
-	<li>
-		<a href="/settings/teams/switch/{{ $team->id }}">
-			@if ($team->id === Auth::user()->currentTeam->id)
-				<i class="fa fa-btn fa-fw fa-check text-success"></i>{{ $team->name }}
-			@else
-				<i class="fa fa-btn fa-fw"></i>{{ $team->name }}
-			@endif
-		</a>
-	</li>
-@endforeach
+<li v-repeat="team : teams">
+	<a href="/settings/teams/switch/@{{ team.id }}">
+		<span v-if="team.id == user.current_team_id">
+			<i class="fa fa-btn fa-fw fa-check text-success"></i>@{{ team.name }}
+		</span>
+
+		<span v-if="team.id !== user.current_team_id">
+			<i class="fa fa-btn fa-fw"></i>@{{ team.name }}
+		</span>
+	</a>
+</li>

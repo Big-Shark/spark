@@ -1,7 +1,7 @@
 <!-- Authenticated Right Dropdown -->
-<li class="dropdown">
+<li class="dropdown" v-if="user">
 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		{{ Auth::user()->name }} <span class="caret"></span>
+		@{{ user.name }} <span class="caret"></span>
 	</a>
 
 	<ul class="dropdown-menu" role="menu">

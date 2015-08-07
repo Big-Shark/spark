@@ -16,7 +16,7 @@
 <!-- Main Content -->
 @section('content')
 <spark-subscription-register-screen inline-template>
-	<div id="spark-register-screen" class="container spark-screen" v-cloak>
+	<div id="spark-register-screen" class="container spark-screen">
 		<!-- Inspiration -->
 		<div>
 			@include('spark::auth.registration.subscription.inspiration')

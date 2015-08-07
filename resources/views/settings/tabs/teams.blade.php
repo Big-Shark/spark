@@ -1,26 +1,30 @@
 <!-- Main Content -->
-<spark-settings-teams-screen inline-template v-cloak>
+<spark-settings-teams-screen inline-template>
 	<!-- Create Team -->
 	<div class="panel panel-default">
 		<div class="panel-heading">Create Team</div>
 
 		<div class="panel-body">
-			@include('spark::common.errors', ['form' => 'createTeam'])
+			<spark-errors form="@{{ createTeamForm }}"></spark-errors>
 
-			<form method="POST" action="/settings/teams" class="form-horizontal" role="form">
-				{!! csrf_field() !!}
-
+			<form method="POST" class="form-horizontal" role="form">
 				<div class="form-group">
 					<label class="col-md-3 control-label">Name</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" name="name" value="{{ old('name') }}">
+						<input type="text" class="form-control" name="name" v-model="createTeamForm.name">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-md-6 col-md-offset-3">
-						<button type="submit" class="btn btn-primary">
-							<i class="fa fa-btn fa-users"></i> Create
+						<button type="submit" class="btn btn-primary" v-on="click: createTeam" v-attr="disabled: createTeamForm.creating">
+							<span v-if="createTeamForm.creating">
+								<i class="fa fa-btn fa-spinner fa-spin"></i> Creating
+							</span>
+
+							<span v-if=" ! createTeamForm.creating">
+								<i class="fa fa-btn fa-users"></i> Create
+							</span>
 						</button>
 					</div>
 				</div>

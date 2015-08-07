@@ -46,7 +46,7 @@
     <![endif]-->
 </head>
 <body>
-    <div id="spark-app">
+    <div id="spark-app" v-cloak>
         <!-- Navigation -->
         @include('spark::nav')
 
