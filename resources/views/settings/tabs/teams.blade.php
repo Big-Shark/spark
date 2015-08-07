@@ -36,7 +36,7 @@
 	</div>
 
 	<!-- Current Teams -->
-	<div class="panel panel-default" v-if="teams.length > 0">
+	<div class="panel panel-default" v-if="user && teams.length > 0">
 		<div class="panel-heading">Current Teams</div>
 
 		<div class="panel-body">
