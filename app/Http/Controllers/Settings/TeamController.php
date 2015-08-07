@@ -81,7 +81,9 @@ class TeamController extends Controller
      */
     public function updateTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()->findOrFail($teamId);
+        $team = $request->user()->teams()
+                ->where('owner_id', $request->user()->id)
+                ->findOrFail($teamId);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -127,7 +129,9 @@ class TeamController extends Controller
             'email' => 'required|max:255|email',
         ]);
 
-        $team = $request->user()->teams()->findOrFail($teamId);
+        $team = $request->user()->teams()
+                ->where('owner_id', $request->user()->id)
+                ->findOrFail($teamId);
 
         $model = config('auth.model');
 
@@ -183,7 +187,9 @@ class TeamController extends Controller
      */
     public function destroyTeamInvitationForOwner(Request $request, $teamId, $inviteId)
     {
-        $team = $request->user()->teams()->findOrFail($teamId);
+        $team = $request->user()->teams()
+                ->where('owner_id', $request->user()->id)
+                ->findOrFail($teamId);
 
         $team->invitations()->where('id', $inviteId)->delete();
     }
@@ -210,11 +216,9 @@ class TeamController extends Controller
      */
     public function removeTeamMember(Request $request, $teamId, $userId)
     {
-        $team = $request->user()->teams()->findOrFail($teamId);
-
-        if (! $request->user()->ownsTeam($team)) {
-            abort(403);
-        }
+        $team = $request->user()->teams()
+                ->where('owner_id', $request->user()->id)
+                ->findOrFail($teamId);
 
         $team->users()->detach([$userId]);
     }
@@ -244,11 +248,9 @@ class TeamController extends Controller
      */
     public function destroyTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()->findOrFail($teamId);
-
-        if (! $request->user()->ownsTeam($team)) {
-            abort(403);
-        }
+        $team = $request->user()->teams()
+                ->where('owner_id', $request->user()->id)
+                ->findOrFail($teamId);
 
         event(new DeletingTeam($team));
 
