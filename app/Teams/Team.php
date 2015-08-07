@@ -46,4 +46,23 @@ class Team extends Model
     {
         return $this->hasMany(Invitation::class)->orderBy('created_at', 'desc');
     }
+
+    /**
+     * Remove a user from the team by their ID.
+     *
+     * @param  int  $userId
+     * @return void
+     */
+    public function removeUserById($userId)
+    {
+        $this->users()->detach([$userId]);
+
+        $userModel = config('auth.model');
+
+        $removedUser = (new $userModel)->find($userId);
+
+        if ($removedUser) {
+            $removedUser->refreshCurrentTeam();
+        }
+    }
 }

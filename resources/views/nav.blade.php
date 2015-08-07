@@ -28,7 +28,7 @@
 						<li><a href="/login">Login</a></li>
 						<li><a href="/register">Register</a></li>
 					@else
-						@include('spark::nav.authed.right')
+						@include('spark::nav.authed.dropdown')
 					@endif
 				</ul>
 			</div>

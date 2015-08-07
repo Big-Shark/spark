@@ -16,7 +16,7 @@
 
 		<!-- Team Settings / List -->
 		@if (Laravel\Spark\Spark::usingTeams())
-			@include('spark::nav.authed.right.teams')
+			@include('spark::nav.authed.dropdown.teams')
 		@endif
 
 		<!-- Logout -->

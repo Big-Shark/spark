@@ -66,6 +66,7 @@ module.exports = Vue.extend({
                     this.$dispatch('updateUser');
                     this.$dispatch('teamsUpdated', teams);
 
+                    this.createTeamForm.name = '';
                     this.createTeamForm.creating = false;
                 })
                 .error(function (errors) {
@@ -84,8 +85,9 @@ module.exports = Vue.extend({
             });
 
             this.$http.delete('/settings/teams/' + team.id + '/membership')
-                .success(function () {
-                    window.location = '/settings?tab=teams';
+                .success(function (teams) {
+                    this.$dispatch('updateUser');
+                    this.$dispatch('teamsUpdated', teams);
                 });
         },
 
@@ -127,7 +129,8 @@ module.exports = Vue.extend({
 
             this.$http.post('/settings/teams/invitations/' + invite.id + '/accept')
                 .success(function (teams) {
-                    window.location = '/settings?tab=teams';
+                    this.$dispatch('updateUser');
+                    this.$dispatch('teamsUpdated', teams);
                 });
         },
 

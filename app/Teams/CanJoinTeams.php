@@ -27,6 +27,19 @@ trait CanJoinTeams
     }
 
     /**
+     * Join the team with the given ID.
+     *
+     * @param  int  $teamId
+     * @return void
+     */
+    public function joinTeamById($teamId)
+    {
+        $this->teams()->attach([$teamId]);
+
+        $this->currentTeam();
+    }
+
+    /**
      * Accessor for the currentTeam method.
      *
      * @return \Illuminate\Database\Eloquent\Model|null
@@ -48,7 +61,9 @@ trait CanJoinTeams
 
             return $this->currentTeam();
         } elseif (! is_null($this->current_team_id)) {
-            return $this->teams->find($this->current_team_id);
+            $currentTeam =  $this->teams->find($this->current_team_id);
+
+            return $currentTeam ?: $this->refreshCurrentTeam();
         }
     }
 
@@ -63,6 +78,20 @@ trait CanJoinTeams
         $this->current_team_id = $team->id;
 
         $this->save();
+    }
+
+    /**
+     * Refresh the current team for the user.
+     *
+     * @return  \Laravel\Spark\Teams\Team
+     */
+    public function refreshCurrentTeam()
+    {
+        $this->current_team_id = null;
+
+        $this->save();
+
+        return $this->currentTeam();
     }
 
     /**

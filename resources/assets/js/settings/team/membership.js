@@ -123,7 +123,10 @@ module.exports = Vue.extend({
                 return u.id == teamUser.id;
             });
 
-            this.$http.delete('/settings/teams/' + TEAM_ID + '/members/' + teamUser.id);
+            this.$http.delete('/settings/teams/' + TEAM_ID + '/members/' + teamUser.id)
+                .success(function (team ) {
+                    this.team = team;
+                });
         },
 
 

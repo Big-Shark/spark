@@ -174,9 +174,11 @@ class TeamController extends Controller
 
         $invitation = $user->invitations()->findOrFail($inviteId);
 
-        $user->teams()->attach([$invitation->team_id]);
+        $user->joinTeamById($invitation->team_id);
 
         $invitation->delete();
+
+        return $this->teams->getAllTeamsForUser($user);
     }
 
     /**
@@ -218,11 +220,14 @@ class TeamController extends Controller
      */
     public function removeTeamMember(Request $request, $teamId, $userId)
     {
-        $team = $request->user()->teams()
-                ->where('owner_id', $request->user()->id)
-                ->findOrFail($teamId);
+        $user = $request->user();
 
-        $team->users()->detach([$userId]);
+        $team = $user->teams()
+                ->where('owner_id', $user->id)->findOrFail($teamId);
+
+        $team->removeUserById($userId);
+
+        return $this->teams->getTeam($user, $teamId);
     }
 
     /**
@@ -234,11 +239,15 @@ class TeamController extends Controller
      */
     public function leaveTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()
-                    ->where('owner_id', '!=', $request->user()->id)
+        $user = $request->user();
+
+        $team = $user->teams()
+                    ->where('owner_id', '!=', $user->id)
                     ->where('id', $teamId)->firstOrFail();
 
-        $team->users()->detach([$request->user()->id]);
+        $team->removeUserById($user->id);
+
+        return $this->teams->getAllTeamsForUser($user);
     }
 
     /**
