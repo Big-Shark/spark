@@ -33,7 +33,7 @@ class Install extends Command
         $this->installMiddleware();
         $this->installRoutes();
         $this->installModels();
-        $this->installMigration();
+        $this->installMigrations();
         $this->installViews();
         $this->installSass();
         $this->installEnvironmentVariables();
@@ -124,11 +124,16 @@ class Install extends Command
      *
      * @return void
      */
-    protected function installMigration()
+    protected function installMigrations()
     {
         copy(
             SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_000000_create_users_table.php',
             database_path('migrations/2014_10_12_000000_create_users_table.php')
+        );
+
+        copy(
+            SPARK_PATH.'/resources/stubs/database/migrations/2014_10_12_200000_create_teams_tables.php',
+            database_path('migrations/2014_10_12_200000_create_teams_tables.php')
         );
     }
 

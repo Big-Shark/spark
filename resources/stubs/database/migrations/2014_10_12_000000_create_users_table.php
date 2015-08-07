@@ -24,6 +24,9 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->text('two_factor_options')->nullable();
 
+            // Team Columns...
+            $table->integer('current_team_id')->nullable();
+
             // Cashier Columns...
             $table->tinyInteger('stripe_active')->default(0);
             $table->string('stripe_id')->nullable();
