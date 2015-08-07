@@ -108,7 +108,12 @@ module.exports = Vue.extend({
 
             this.$http.delete('/settings/teams/' + this.teamToDelete.id)
                 .success(function (teams) {
-                    window.location = '/settings?tab=teams';
+                    this.deletingTeam = false;
+
+                    this.$dispatch('updateUser');
+                    this.$dispatch('teamsUpdated', teams);
+
+                    $('#modal-delete-team').modal('hide');
                 });
         },
 

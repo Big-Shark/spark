@@ -250,8 +250,10 @@ class TeamController extends Controller
      */
     public function destroyTeam(Request $request, $teamId)
     {
+        $user = $request->user();
+
         $team = $request->user()->teams()
-                ->where('owner_id', $request->user()->id)
+                ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
         event(new DeletingTeam($team));
@@ -262,5 +264,7 @@ class TeamController extends Controller
         $team->users()->detach();
 
         $team->delete();
+
+        return $this->teams->getAllTeamsForUser($user);
     }
 }
