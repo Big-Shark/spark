@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Spark\Subscriptions\Plan;
 use Laravel\Spark\Events\User\Registered;
 use Laravel\Spark\Events\User\Subscribed;
+use Laravel\Spark\Repositories\TeamRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -27,6 +28,13 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins, ValidatesRequests;
 
     /**
+     * The team repository instance.
+     *
+     * @var \Laravel\Spark\Repositories\TeamRepository
+     */
+    protected $teams;
+
+    /**
      * The URI for the login route.
      *
      * @var string
@@ -36,10 +44,12 @@ class AuthController extends Controller
     /**
      * Create a new authentication controller instance.
      *
+     * @param  \Laravel\Spark\Repositories\TeamRepository  $teams
      * @return void
      */
-    public function __construct()
+    public function __construct(TeamRepository $teams)
     {
+        $this->teams = $teams;
         $this->plans = Spark::plans();
 
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -168,6 +178,10 @@ class AuthController extends Controller
         );
 
         $user = $this->createUser($request, $registrar, $withSubscription);
+
+        if ($request->team_name) {
+            $team = $this->teams->create($user, ['name' => $request->team_name]);
+        }
 
         if ($request->invitation) {
             $this->attachUserToTeam($request->invitation, $user);

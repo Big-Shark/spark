@@ -5,6 +5,26 @@ namespace Laravel\Spark\Repositories;
 class TeamRepository
 {
 	/**
+	 * Create a new team for the given user and data.
+	 *
+	 * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+	 * @param  array  $data
+	 * @return \Laravel\Spark\Teams\Team
+	 */
+	public function create($user, array $data)
+	{
+            $team = $user->teams()->create([
+                'name' => $data['name'],
+            ]);
+
+            $team->owner_id = $user->id;
+
+            $team->save();
+
+            return $team;
+	}
+
+	/**
 	 * Get the team for the given ID.
 	 *
 	 * @param  \Illuminate\Contracts\Auth\Authenticatable  $user

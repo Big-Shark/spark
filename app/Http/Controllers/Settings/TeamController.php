@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Spark\Repositories\TeamRepository;
 use Laravel\Spark\Events\Team\Deleting as DeletingTeam;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
@@ -18,12 +19,22 @@ class TeamController extends Controller
     use ValidatesRequests;
 
     /**
+     * The team repository instance.
+     *
+     * @var \Laravel\Spark\Repositories\TeamRepository
+     */
+    protected $teams;
+
+    /**
      * Create a new controller instance.
      *
+     * @param  \Laravel\Spark\Repositories\TeamRepository  $teams
      * @return void
      */
-    public function __construct()
+    public function __construct(TeamRepository $teams)
     {
+        $this->teams = $teams;
+
         $this->middleware('auth');
     }
 
@@ -42,13 +53,9 @@ class TeamController extends Controller
             return redirect('/settings?tab=teams')->withErrors($validator, 'createTeam');
         }
 
-        $team = $request->user()->teams()->create([
-            'name' => $request->name,
-        ]);
-
-        $team->owner_id = $request->user()->id;
-
-        $team->save();
+        $team = $this->teams->create(
+            $request->user(), ['name' => $request->name]
+        );
 
         return redirect('/settings/teams/'.$team->id.'?tab=membership')
                         ->with('teamCreated', true);

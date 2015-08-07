@@ -33,7 +33,7 @@ var registrationScreen = new Vue({
         failedToLoadInvitation: false,
 
         registerForm: {
-            name: '', email: '', password: '', password_confirmation: '',
+            team_name: '', name: '', email: '', password: '', password_confirmation: '',
             plan: '', terms: false, coupon: null, invitation: null,
             stripe_token: null, errors: [], registering: false
         },
@@ -190,9 +190,15 @@ var registrationScreen = new Vue({
          * Get the specified invitation.
          */
         getInvitation: function (invitation) {
-            this.$http.get('spark/api/teams/invitation/' + invitation)
+            this.$http.get('/spark/api/teams/invitation/' + invitation)
                 .success(function (invitation) {
                     this.invitation = invitation;
+
+                    setTimeout(function () {
+                        $(function() {
+                            $('.spark-first-field').filter(':visible:first').focus();
+                        });
+                    }, 250);
                 })
                 .error(function (errors) {
                     this.failedToLoadInvitation = true;
