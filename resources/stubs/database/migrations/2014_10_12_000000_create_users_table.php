@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('stripe_subscription')->nullable();
             $table->string('stripe_plan', 100)->nullable();
             $table->string('last_four', 4)->nullable();
+            $table->text('extra_billing_info')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('subscription_ends_at')->nullable();
 

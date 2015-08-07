@@ -9,19 +9,25 @@
 	@include('spark::scripts.common')
 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.15.2/URI.min.js"></script>
-@endsection
+@append
+
+<!-- Footer Scripts (Components) -->
+@section('scripts.footer.components')
+	<script>
+		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/common/errors.js')) !!}
+	</script>
+@append
 
 <!-- Footer Scripts -->
 @section('scripts.footer')
 	<script>
-		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/common/errors.js')) !!}
-		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/team/membership.js')) !!}
+		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/team.js')) !!}
 	</script>
-@endsection
+@append
 
 <!-- Main Content -->
 @section('content')
-<div class="container spark-screen">
+<div id="spark-team-settings-screen" class="container spark-screen">
 	<div class="row">
 		<!-- Tabs -->
 		<div class="col-md-4">

@@ -30,13 +30,15 @@ $router->post('settings/user/two-factor', 'Settings\SecurityController@enableTwo
 $router->delete('settings/user/two-factor', 'Settings\SecurityController@disableTwoFactorAuth');
 
 // Subscription Routes...
-$router->post('settings/user/plan', 'Settings\SubscriptionController@subscribe');
-$router->put('settings/user/plan', 'Settings\SubscriptionController@changeSubscriptionPlan');
-$router->delete('settings/user/plan', 'Settings\SubscriptionController@cancelSubscription');
-$router->post('settings/user/plan/resume', 'Settings\SubscriptionController@resumeSubscription');
-$router->put('settings/user/card', 'Settings\SubscriptionController@updateCard');
-$router->put('settings/user/vat', 'Settings\SubscriptionController@updateExtraBillingInfo');
-$router->get('settings/user/plan/invoice/{id}', 'Settings\SubscriptionController@downloadInvoice');
+if (count(Laravel\Spark\Spark::plans()) > 0) {
+    $router->post('settings/user/plan', 'Settings\SubscriptionController@subscribe');
+    $router->put('settings/user/plan', 'Settings\SubscriptionController@changeSubscriptionPlan');
+    $router->delete('settings/user/plan', 'Settings\SubscriptionController@cancelSubscription');
+    $router->post('settings/user/plan/resume', 'Settings\SubscriptionController@resumeSubscription');
+    $router->put('settings/user/card', 'Settings\SubscriptionController@updateCard');
+    $router->put('settings/user/vat', 'Settings\SubscriptionController@updateExtraBillingInfo');
+    $router->get('settings/user/plan/invoice/{id}', 'Settings\SubscriptionController@downloadInvoice');
+}
 
 // Authentication Routes...
 $router->get('login', 'Auth\AuthController@getLogin');
@@ -60,18 +62,22 @@ $router->post('password/reset', 'Auth\PasswordController@postReset');
 // User API Routes...
 $router->get('spark/api/users/me', 'API\UserController@getCurrentUser');
 
-// Subscription API Routes...
-$router->get('spark/api/subscriptions/plans', 'API\SubscriptionController@getPlans');
-$router->get('spark/api/subscriptions/coupon/{code}', 'API\SubscriptionController@getCoupon');
-$router->get('spark/api/subscriptions/user/coupon', 'API\SubscriptionController@getCouponForUser');
-
 // Team API Routes...
 if (Laravel\Spark\Spark::usingTeams()) {
-	$router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
-	$router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
-	$router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
-	$router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');
+    $router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
+    $router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
+    $router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
+    $router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');
+}
+
+// Subscription API Routes...
+if (count(Laravel\Spark\Spark::plans()) > 0) {
+    $router->get('spark/api/subscriptions/plans', 'API\SubscriptionController@getPlans');
+    $router->get('spark/api/subscriptions/coupon/{code}', 'API\SubscriptionController@getCoupon');
+    $router->get('spark/api/subscriptions/user/coupon', 'API\SubscriptionController@getCouponForUser');
 }
 
 // Stripe Routes...
-$router->post('stripe/webhook', 'Stripe\WebhookController@handleWebhook');
+if (count(Laravel\Spark\Spark::plans()) > 0) {
+    $router->post('stripe/webhook', 'Stripe\WebhookController@handleWebhook');
+}

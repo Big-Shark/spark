@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Spark\Events\User\Subscribed;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Spark\Repositories\UserRepository;
 use Illuminate\View\Expression as ViewExpression;
 use Laravel\Spark\Events\User\SubscriptionResumed;
 use Laravel\Spark\Events\User\SubscriptionCancelled;
@@ -21,12 +22,22 @@ class SubscriptionController extends Controller
 	use ValidatesRequests;
 
     /**
+     * The user repository instance.
+     *
+     * @var \Laravel\Spark\Repositories\UserRepository
+     */
+    protected $users;
+
+    /**
      * Create a new controller instance.
      *
+     * @param  \Laravel\Spark\Repositories\UserRepository  $users
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
+        $this->users = $users;
+
         $this->middleware('auth');
     }
 
@@ -57,7 +68,7 @@ class SubscriptionController extends Controller
 
         event(new Subscribed(Auth::user()));
 
-        return Spark::user();
+        return $this->users->getCurrentUser();
     }
 
     /**
@@ -83,7 +94,7 @@ class SubscriptionController extends Controller
 
         event(new SubscriptionPlanChanged(Auth::user()));
 
-        return Spark::user();
+        return $this->users->getCurrentUser();
     }
 
     /**
@@ -100,7 +111,7 @@ class SubscriptionController extends Controller
 
         Auth::user()->updateCard($request->stripe_token);
 
-        return Spark::user();
+        return $this->users->getCurrentUser();
     }
 
     /**
@@ -127,7 +138,7 @@ class SubscriptionController extends Controller
 
         event(new SubscriptionCancelled(Auth::user()));
 
-        return Spark::user();
+        return $this->users->getCurrentUser();
     }
 
     /**
@@ -143,7 +154,7 @@ class SubscriptionController extends Controller
 
         event(new SubscriptionResumed(Auth::user()));
 
-        return Spark::user();
+        return $this->users->getCurrentUser();
     }
 
     /**

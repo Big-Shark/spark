@@ -1,32 +1,43 @@
-var teamSettingsScreen = new Vue({
-    el: '#spark-team-membership-screen',
-
+Vue.component('spark-team-settings-membership-screen', {
+    /*
+     * Bootstrap the component. Load the initial data.
+     */
     ready: function () {
-        this.getUser();
         this.getTeam();
     },
 
 
-    data: {
-        user: null,
-    	team: null,
-        leavingTeam: false,
+    /*
+     * Initial state of the component's data.
+     */
+    data: function () {
+        return {
+            user: null,
+            team: null,
+            leavingTeam: false,
 
-    	sendInviteForm: {
-            email: '',
-    		errors: [],
-    		sending: false,
-            sent: false
-    	}
+            sendInviteForm: {
+                email: '',
+                errors: [],
+                sending: false,
+                sent: false
+            }
+        };
     },
 
 
     computed: {
+        /*
+         * Determine if all necessary data has been loaded.
+         */
         everythingIsLoaded: function () {
             return this.user && this.team;
         },
 
 
+        /*
+         * Get all users except for the current user.
+         */
         teamUsersExceptMe: function () {
             self = this;
 
@@ -37,45 +48,56 @@ var teamSettingsScreen = new Vue({
     },
 
 
+    events: {
+        /*
+         * Handle the "userRetrieved" event.
+         */
+        userRetrieved: function (user) {
+            this.user = user;
+        }
+    },
+
+
     methods: {
-        getUser: function () {
-            this.$http.get('/spark/api/users/me')
-                .success(function (user) {
-                    this.user = user;
+        /*
+         * Get the current team from the API.
+         */
+        getTeam: function () {
+            this.$http.get('/spark/api/teams/' + TEAM_ID)
+                .success(function (team) {
+                    this.team = team;
                 });
         },
 
 
-    	getTeam: function () {
-    		this.$http.get('/spark/api/teams/' + TEAM_ID)
-    			.success(function (team) {
-    				this.team = team;
-    			});
-    	},
-
-
-    	sendInvite: function (e) {
-    		e.preventDefault();
+        /*
+         * Send an invitation to a new user.
+         */
+        sendInvite: function (e) {
+            e.preventDefault();
 
             this.sendInviteForm.errors = [];
             this.sendInviteForm.sent = false;
-    		this.sendInviteForm.sending = true;
+            this.sendInviteForm.sending = true;
 
-    		this.$http.post('/settings/teams/' + TEAM_ID + '/invitations', this.sendInviteForm)
-    			.success(function (team) {
-    				this.team = team;
+            this.$http.post('/settings/teams/' + TEAM_ID + '/invitations', this.sendInviteForm)
+                .success(function (team) {
+                    this.team = team;
 
                     this.sendInviteForm.email = '';
-    				this.sendInviteForm.sent = true;
+                    this.sendInviteForm.sent = true;
                     this.sendInviteForm.sending = false;
-    			})
-    			.error(function (errors) {
-    				this.sendInviteForm.sending = false;
-    				setErrorsOnForm(this.sendInviteForm, errors);
-    			});
-    	},
+                })
+                .error(function (errors) {
+                    this.sendInviteForm.sending = false;
+                    setErrorsOnForm(this.sendInviteForm, errors);
+                });
+        },
 
 
+        /*
+         * Cancel an existing invitation.
+         */
         cancelInvite: function (invite) {
             this.team.invitations = _.reject(this.team.invitations, function (i) {
                 return i.id === invite.id;
@@ -85,11 +107,17 @@ var teamSettingsScreen = new Vue({
         },
 
 
+        /*
+         * Edit an existing team member.
+         */
         editTeamMember: function (teamUser) {
             //
         },
 
 
+        /*
+         * Remove an existing team member from the team.
+         */
         removeTeamMember: function (teamUser) {
             this.team.users = _.reject(this.team.users, function (u) {
                 return u.id == teamUser.id;
@@ -99,6 +127,9 @@ var teamSettingsScreen = new Vue({
         },
 
 
+        /*
+         * Leave the team.
+         */
         leaveTeam: function () {
             this.leavingTeam = true;
 
@@ -109,14 +140,15 @@ var teamSettingsScreen = new Vue({
         },
 
 
+        /*
+         * Determine if the current user owns the given team.
+         */
         userOwns: function (team) {
-
-            if (arguments.length === 2) {
-                console.log(arguments[1].id);
-                return arguments[1].id === arguments[0].owner_id;
-            } else {
-                return this.user.id === arguments[0].owner_id;
+            if ( ! this.user) {
+                return false;
             }
+
+            return this.user.id === team.owner_id;
         }
     }
 });

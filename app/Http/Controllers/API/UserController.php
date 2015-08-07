@@ -5,16 +5,27 @@ namespace Laravel\Spark\Http\Controllers\API;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Laravel\Spark\Repositories\UserRepository;
 
 class UserController extends Controller
 {
 	/**
+	 * The user repository instance.
+	 *
+	 * @var \Laravel\Spark\Repositories\UserRepository
+	 */
+	protected $users;
+
+	/**
 	 * Create a new controller instance.
 	 *
+	 * @param  \Laravel\Spark\Repositories\UserRepository  $users
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(UserRepository $users)
 	{
+		$this->users = $users;
+
 		$this->middleware('auth');
 	}
 
@@ -25,13 +36,6 @@ class UserController extends Controller
 	 */
 	public function getCurrentUser()
 	{
-		$user = Spark::user();
-
-		// Force "last_four" into JSON results...
-		$user->setHidden(array_flip(
-			array_except(array_flip($user->getHidden()), 'last_four')
-		));
-
-		return $user;
+		return $this->users->getCurrentUser();
 	}
 }

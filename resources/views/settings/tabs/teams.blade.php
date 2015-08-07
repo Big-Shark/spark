@@ -131,7 +131,7 @@
 	<div class="modal fade" id="modal-delete-team" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="modal-header" v-if="teamToDelete">
 					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title"><i class="fa fa-btn fa-times"></i>Delete Team (@{{ teamToDelete.name }})</h4>
 				</div>

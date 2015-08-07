@@ -50,7 +50,8 @@ class TeamController extends Controller
 
         $team->save();
 
-        return redirect('/settings/teams/'.$team->id.'?tab=membership');
+        return redirect('/settings/teams/'.$team->id.'?tab=membership')
+                        ->with('teamCreated', true);
     }
 
     /**

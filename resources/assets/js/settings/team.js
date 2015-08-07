@@ -1,5 +1,5 @@
-var sparkDashboardScreen = new Vue({
-	el: '#spark-settings-screen',
+var teamSettingsScreen = new Vue({
+	el: '#spark-team-settings-screen',
 
     /*
      * Bootstrap the component. Load the initial data.

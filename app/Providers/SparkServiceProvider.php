@@ -20,7 +20,9 @@ class SparkServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->defineRoutes();
+        $this->app->booted(function () {
+            $this->defineRoutes();
+        });
 
         $this->defineResources();
     }
