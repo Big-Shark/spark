@@ -3,7 +3,7 @@ module.exports = Vue.extend({
      * Bootstrap the component. Load the initial data.
      */
     ready: function () {
-        //
+        console.log('Component Ready');
     },
 
 
@@ -53,6 +53,8 @@ module.exports = Vue.extend({
          * Handle the "userRetrieved" event.
          */
         userRetrieved: function (user) {
+            console.log('Caught User Event!');
+
             this.user = user;
         },
 
@@ -61,6 +63,8 @@ module.exports = Vue.extend({
          * Handle the "teamRetrieved" event.
          */
         teamRetrieved: function (team) {
+            console.log('Caught Team Event!');
+
             this.team = team;
         }
     },

@@ -8,6 +8,14 @@ module.exports = Vue.extend({
 
 
     /*
+     * Initial state of the component's data.
+     */
+	data: function () {
+		return { team: null };
+	},
+
+
+    /*
      * Define the components.
      */
 	components: {
@@ -24,7 +32,7 @@ module.exports = Vue.extend({
 
 			this.$broadcast('teamRetrieved', team);
 
-			return false;
+			this.team = team;
 		}
 	},
 
@@ -39,6 +47,8 @@ module.exports = Vue.extend({
                 	console.log('Spark Team Retrieved: Broadcasting...');
 
                 	this.$broadcast('teamRetrieved', team);
+
+                	this.team = team;
                 });
 		}
 	}

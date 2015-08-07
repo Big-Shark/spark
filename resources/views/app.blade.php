@@ -17,7 +17,7 @@
     @yield('styles', '')
 
     <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.8/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.9/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.10/vue-resource.min.js"></script>
 
     <script>
