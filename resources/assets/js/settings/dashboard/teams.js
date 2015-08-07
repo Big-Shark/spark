@@ -3,7 +3,6 @@ module.exports = Vue.extend({
      * Bootstrap the component. Load the initial data.
      */
     ready: function () {
-        this.getTeams();
         this.getInvitations();
     },
 
@@ -36,22 +35,15 @@ module.exports = Vue.extend({
          */
         userRetrieved: function (user) {
             this.user = user;
+        },
+
+        teamsRetrieved: function (teams) {
+            this.teams = teams;
         }
     },
 
 
     methods: {
-        /*
-         * Get all of the user's current teams from the API.
-         */
-        getTeams: function () {
-            this.$http.get('/spark/api/teams')
-                .success(function (teams) {
-                    this.teams = teams;
-                });
-        },
-
-
         /*
          * Get all of the user's pending invitations from the API.
          */
