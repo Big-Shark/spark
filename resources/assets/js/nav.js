@@ -11,6 +11,8 @@ module.exports = Vue.extend({
 	events: {
         /**
          * Handle the "userRetrieved" event.
+         *
+         * This event is broadcast from the root VM.
          */
 		userRetrieved: function (user) {
 			this.user = user;
@@ -19,6 +21,8 @@ module.exports = Vue.extend({
 
         /**
          * Handle the "teamsRetrieved" event.
+         *
+         * This event is broadcast from the root VM.
          */
 		teamsRetrieved: function (teams) {
 			this.teams = teams;

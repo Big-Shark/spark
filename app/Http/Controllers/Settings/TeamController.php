@@ -7,7 +7,6 @@ use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Spark\Repositories\TeamRepository;
 use Laravel\Spark\Events\Team\Deleting as DeletingTeam;
@@ -135,40 +134,21 @@ class TeamController extends Controller
      */
     public function sendTeamInvitation(Request $request, $teamId)
     {
+        $user = $request->user();
+
         $this->validate($request, [
             'email' => 'required|max:255|email',
         ]);
 
-        $team = $request->user()->teams()
-                ->where('owner_id', $request->user()->id)
+        $team = $user->teams()
+                ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
         if ($team->invitations()->where('email', $request->email)->exists()) {
             return response()->json(['email' => 'That user is already invited to the team.'], 422);
         }
 
-        $model = config('auth.model');
-
-        $invitedUser = (new $model)->where('email', $request->email)->first();
-
-        $invitation = $team->invitations()
-                ->where('email', $request->email)->first();
-
-        if (! $invitation) {
-            $invitation = $team->invitations()->create([
-                'user_id' => $invitedUser ? $invitedUser->id : null,
-                'email' => $request->email,
-                'token' => str_random(40),
-            ]);
-        }
-
-        $email = $invitation->user_id
-                        ? 'spark::emails.team.invitations.existing'
-                        : 'spark::emails.team.invitations.new';
-
-        Mail::send($email, compact('invitation'), function ($m) use ($invitation) {
-            $m->to($invitation->email)->subject('New Invitation!');
-        });
+        $team->inviteUserByEmail($request->email);
 
         return $team->fresh(['users', 'invitations']);
     }

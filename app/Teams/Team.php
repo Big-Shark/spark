@@ -3,6 +3,7 @@
 namespace Laravel\Spark\Teams;
 
 use Laravel\Spark\Spark;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
@@ -45,6 +46,40 @@ class Team extends Model
     public function invitations()
     {
         return $this->hasMany(Invitation::class)->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Invite a user to the team by e-mail address.
+     *
+     * @param  string  $email
+     * @return \Laravel\Spark\Teams\Invitation
+     */
+    public function inviteUserByEmail($email)
+    {
+        $model = config('auth.model');
+
+        $invitedUser = (new $model)->where('email', $email)->first();
+
+        $invitation = $this->invitations()
+                ->where('email', $email)->first();
+
+        if (! $invitation) {
+            $invitation = $this->invitations()->create([
+                'user_id' => $invitedUser ? $invitedUser->id : null,
+                'email' => $email,
+                'token' => str_random(40),
+            ]);
+        }
+
+        $email = $invitation->user_id
+                        ? 'spark::emails.team.invitations.existing'
+                        : 'spark::emails.team.invitations.new';
+
+        Mail::send($email, compact('invitation'), function ($m) use ($invitation) {
+            $m->to($invitation->email)->subject('New Invitation!');
+        });
+
+        return $invitation;
     }
 
     /**
