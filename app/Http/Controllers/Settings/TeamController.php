@@ -45,15 +45,17 @@ class TeamController extends Controller
      */
     public function storeTeam(Request $request)
     {
+        $user = $request->user();
+
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
 
         $team = $this->teams->create(
-            $request->user(), ['name' => $request->name]
+            $user, ['name' => $request->name]
         );
 
-        return $this->teams->getAllTeamsForUser($request->user());
+        return $this->teams->getAllTeamsForUser($user);
     }
 
     /**
@@ -65,10 +67,12 @@ class TeamController extends Controller
      */
     public function editTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()->findOrFail($teamId);
+        $user = $request->user();
+
+        $team = $user->teams()->findOrFail($teamId);
 
         $activeTab = $request->get(
-            'tab', Spark::firstTeamSettingsTabKey($team, $request->user())
+            'tab', Spark::firstTeamSettingsTabKey($team, $user)
         );
 
         return view('spark::settings.team', compact('team', 'activeTab'));
@@ -83,8 +87,10 @@ class TeamController extends Controller
      */
     public function updateTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()
-                ->where('owner_id', $request->user()->id)
+        $user = $request->user();
+
+        $team = $user->teams()
+                ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
         $validator = Validator::make($request->all(), [
@@ -111,9 +117,11 @@ class TeamController extends Controller
      */
     public function switchCurrentTeam(Request $request, $teamId)
     {
-        $team = $request->user()->teams()->findOrFail($teamId);
+        $user = $request->user();
 
-        $request->user()->switchToTeam($team);
+        $team = $user->teams()->findOrFail($teamId);
+
+        $user->switchToTeam($team);
 
         return back();
     }
