@@ -37,7 +37,7 @@
 							@foreach (Laravel\Spark\Spark::settingsTabs()->displayable() as $tab)
 								<li role="presentation"{!! $tab->key === $activeTab ? ' class="active"' : '' !!}>
 									<a href="#{{ $tab->key }}" aria-controls="{{ $tab->key }}" role="tab" data-toggle="tab">
-										<i class="fa fa-btn {{ $tab->icon }}"></i>&nbsp;{{ $tab->name }}
+										<i class="fa fa-btn fa-fw {{ $tab->icon }}"></i>&nbsp;{{ $tab->name }}
 									</a>
 								</li>
 							@endforeach

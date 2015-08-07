@@ -37,7 +37,7 @@
 
 							<li>
 								<a href="/settings">
-									<i class="fa fa-btn fa-cog"></i>Your Settings
+									<i class="fa fa-btn fa-fw fa-cog"></i>Your Settings
 								</a>
 							</li>
 
@@ -46,7 +46,7 @@
 								@if (Auth::user()->currentTeam)
 									<li>
 										<a href="/settings/teams/{{ Auth::user()->currentTeam->id }}">
-											<i class="fa fa-btn fa-cog"></i>Team Settings
+											<i class="fa fa-btn fa-fw fa-cog"></i>Team Settings
 										</a>
 									</li>
 								@endif
@@ -57,7 +57,7 @@
 
 								<li>
 									<a href="/settings?tab=teams">
-									<i class="fa fa-btn fa-fw fa-users"></i>Create New Team
+										<i class="fa fa-btn fa-fw fa-users"></i>Create New Team
 									</a>
 								</li>
 
@@ -78,7 +78,7 @@
 							<li class="divider"></li>
 
 							<li>
-								<a href="/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+								<a href="/logout"><i class="fa fa-btn fa-fw fa-sign-out"></i>Logout</a>
 							</li>
 						</ul>
 					</li>

@@ -49,8 +49,7 @@
 
 							<li role="presentation" role="tab">
 								<a href="/settings?tab=teams">
-									<i class="fa fa-btn fa-fw fa-search"></i>&nbsp;
-									<strong>View All Teams</strong>
+									<i class="fa fa-btn fa-fw fa-search"></i>&nbsp;<strong>View All Teams</strong>
 								</a>
 							</li>
 						</ul>
