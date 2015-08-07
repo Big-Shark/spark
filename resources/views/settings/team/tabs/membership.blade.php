@@ -1,10 +1,3 @@
-<!-- Footer Scripts (Components) -->
-@section('scripts.footer.components')
-	<script>
-		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/team/membership.js')) !!}
-	</script>
-@append
-
 <!-- Main Content -->
 <spark-team-settings-membership-screen inline-template v-cloak>
 	<div>

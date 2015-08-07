@@ -1,6 +1,4 @@
-var registrationScreen = new Vue({
-    el: '#spark-register-screen',
-
+module.exports = Vue.extend({
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -9,7 +7,7 @@ var registrationScreen = new Vue({
 
         Stripe.setPublishableKey(STRIPE_KEY);
 
-        queryString = URI(document.URL).query(true);
+        var queryString = URI(document.URL).query(true);
 
         if (queryString.coupon) {
             this.getCoupon(queryString.coupon);
@@ -24,23 +22,25 @@ var registrationScreen = new Vue({
     /*
      * Initial state of the component's data.
      */
-    data: {
-        plans: [],
-        selectedPlan: null,
-        planTypeState: false,
-        currentCoupon: null,
-        invitation: null,
-        failedToLoadInvitation: false,
+    data: function () {
+        return {
+            plans: [],
+            selectedPlan: null,
+            planTypeState: false,
+            currentCoupon: null,
+            invitation: null,
+            failedToLoadInvitation: false,
 
-        registerForm: {
-            team_name: '', name: '', email: '', password: '', password_confirmation: '',
-            plan: '', terms: false, coupon: null, invitation: null,
-            stripe_token: null, errors: [], registering: false
-        },
+            registerForm: {
+                team_name: '', name: '', email: '', password: '', password_confirmation: '',
+                plan: '', terms: false, coupon: null, invitation: null,
+                stripe_token: null, errors: [], registering: false
+            },
 
-        cardForm: {
-            number: '', cvc: '', month: '', year: '', zip: '', errors: []
-        }
+            cardForm: {
+                number: '', cvc: '', month: '', year: '', zip: '', errors: []
+            }
+        };
     },
 
 
@@ -149,7 +149,7 @@ var registrationScreen = new Vue({
                         return plan.active;
                     });
 
-                    queryString = URI(document.URL).query(true);
+                    var queryString = URI(document.URL).query(true);
 
                     // If there is only one plan, automatically select it...
                     if (this.plans.length == 1) {
@@ -159,7 +159,7 @@ var registrationScreen = new Vue({
                             $('.spark-first-field').filter(':visible:first').focus();
                         }, 100);
                     } else if (queryString.invitation) {
-                        self = this;
+                        var self = this;
 
                         // If an invitation was sent and there is a free plan, select it...
                         _.each(this.plans, function (p) {
@@ -298,7 +298,7 @@ var registrationScreen = new Vue({
          * Initialize the registration process.
          */
         register: function(e) {
-            self = this;
+            var self = this;
 
             e.preventDefault();
 
@@ -315,7 +315,7 @@ var registrationScreen = new Vue({
                 return a token. This token can be used to make charges on
                 the user's credit cards instead of storing the numbers.
             */
-            payload = {
+            var payload = {
                 name: this.registerForm.name,
                 number: this.cardForm.number,
                 cvc: this.cardForm.cvc,

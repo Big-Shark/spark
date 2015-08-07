@@ -17,6 +17,13 @@
     @yield('styles', '')
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.8/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.10/vue-resource.min.js"></script>
+
+    <script>
+        Vue.http.headers.common['X-CSRF-TOKEN'] = "{{ csrf_token() }}";
+    </script>
+
     @if (Auth::user())
         <script>
             var USER_ID = {{ Auth::id() }};
@@ -39,22 +46,26 @@
     <![endif]-->
 </head>
 <body>
-    <!-- Navigation -->
-    @include('spark::nav')
+    <div id="spark-app">
+        <!-- Navigation -->
+        @include('spark::nav')
 
-    <!-- Main Content -->
-    @yield('content')
+        <!-- Main Content -->
+        @yield('content')
 
-    <!-- Footer -->
-    @include('spark::footer')
+        <!-- Footer -->
+        @include('spark::footer')
 
-    <!-- Footer Scripts -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Footer Scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-    @yield('scripts.footer.components', '')
-    @yield('scripts.footer', '')
+        @yield('scripts.footer.components', '')
+        @yield('scripts.footer', '')
+
+        <script src="/js/app.js"></script>
+    </script>
 </body>
 </html>

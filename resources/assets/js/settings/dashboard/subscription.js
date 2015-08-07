@@ -7,7 +7,7 @@ var settingsSubscriptionScreenForms = {
     }
 };
 
-Vue.component('spark-settings-subscription-screen', {
+module.exports = Vue.extend({
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -126,13 +126,13 @@ Vue.component('spark-settings-subscription-screen', {
          * Retrieve the plan that the user is currently subscribed to.
          */
         currentPlan: function () {
-            self = this;
+            var self = this;
 
             if ( ! this.userIsLoaded) {
                 return null;
             }
 
-            plan = _.find(this.plans, function (plan) {
+            var plan = _.find(this.plans, function (plan) {
                 return plan.id == self.user.stripe_plan;
             });
 
@@ -146,7 +146,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Get the plan currently selected on the subscribe form.
          */
         selectedPlan: function () {
-            self = this;
+            var self = this;
 
             return _.find(this.plans, function (plan) {
                 return plan.id == self.subscribeForm.plan;
@@ -217,7 +217,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Get all of the monthly plans except the user's current plan.
          */
         monthlyPlansExceptCurrent: function() {
-            self = this;
+            var self = this;
 
             if ( ! this.currentPlan) {
                 return [];
@@ -233,7 +233,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Get all of the yearly plans except the user's current plan.
          */
         yearlyPlansExceptCurrent: function() {
-            self = this;
+            var self = this;
 
             if ( ! this.currentPlan) {
                 return [];
@@ -316,7 +316,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Subscribe the user to a new plan.
          */
         subscribe: function () {
-            self = this;
+            var self = this;
 
             this.subscribeForm.errors = [];
             this.subscribeForm.subscribing = true;
@@ -326,7 +326,7 @@ Vue.component('spark-settings-subscription-screen', {
              * return a token. This token can be used to make charges on
              *  the user's credit cards instead of storing the numbers.
              */
-            payload = {
+            var payload = {
                 name: this.user.name,
                 number: this.cardForm.number,
                 cvc: this.cardForm.cvc,
@@ -417,6 +417,8 @@ Vue.component('spark-settings-subscription-screen', {
          * Update the user's subscription billing card (Stripe portion).
          */
         updateCard: function (e) {
+            var self = this;
+
             e.preventDefault();
 
             this.updateCardForm.errors = [];
@@ -428,7 +430,7 @@ Vue.component('spark-settings-subscription-screen', {
              * return a token. This token can be used to make charges on
              * the user's credit cards instead of storing the numbers.
              */
-            payload = {
+            var payload = {
                 name: this.user.name,
                 number: this.updateCardForm.number,
                 cvc: this.updateCardForm.cvc,
@@ -437,12 +439,12 @@ Vue.component('spark-settings-subscription-screen', {
                 address_zip: this.updateCardForm.zip
             };
 
-            Stripe.card.createToken(payload, function(status, response) {
+            Stripe.card.createToken(payload, (status, response) => {
                 if (response.error) {
-                    self.updateCardForm.errors.push(response.error.message);
-                    self.updateCardForm.updating = false;
+                    this.updateCardForm.errors.push(response.error.message);
+                    this.updateCardForm.updating = false;
                 } else {
-                    self.updateCardUsingToken(response.id);
+                    this.updateCardUsingToken(response.id);
                 }
             });
         },
@@ -498,7 +500,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Cancel the user's subscription with Stripe.
          */
         cancelSubscription: function () {
-            self = this;
+            var self = this;
 
             this.cancelSubscriptionForm.errors = [];
             this.cancelSubscriptionForm.cancelling = true;
@@ -543,7 +545,7 @@ Vue.component('spark-settings-subscription-screen', {
          * Get the feature list from the plan formatted for a tooltip.
          */
         getPlanFeaturesForTooltip: function (plan) {
-            result = '<ul>';
+            var result = '<ul>';
 
             _.each(plan.features, function (feature) {
                 result += '<li>' + feature + '</li>';

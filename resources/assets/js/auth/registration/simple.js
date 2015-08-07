@@ -1,6 +1,4 @@
-var registerApp = new Vue({
-    el: '#spark-register-screen',
-
+module.exports = Vue.extend({
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -9,7 +7,7 @@ var registerApp = new Vue({
             $('.spark-first-field').filter(':visible:first').focus();
         });
 
-        queryString = URI(document.URL).query(true);
+        var queryString = URI(document.URL).query(true);
 
         if (queryString.invitation) {
             this.getInvitation(queryString.invitation);
@@ -19,14 +17,16 @@ var registerApp = new Vue({
     /*
      * Initial state of the component's data.
      */
-    data: {
-        invitation: null,
-        failedToLoadInvitation: false,
+    data: function () {
+        return {
+            invitation: null,
+            failedToLoadInvitation: false,
 
-        registerForm: {
-            team_name: '', name: '', email: '', password: '', password_confirmation: '',
-            plan: '', terms: false, invitation: null, errors: [], registering: false
-        },
+            registerForm: {
+                team_name: '', name: '', email: '', password: '', password_confirmation: '',
+                plan: '', terms: false, invitation: null, errors: [], registering: false
+            },
+        };
     },
 
 
@@ -58,7 +58,7 @@ var registerApp = new Vue({
          * Initialize the registration process.
          */
         register: function(e) {
-            self = this;
+            var self = this;
 
             e.preventDefault();
 

@@ -44,9 +44,7 @@ trait CanJoinTeams
     public function currentTeam()
     {
         if (is_null($this->current_team_id) && $this->hasTeams()) {
-            $this->current_team_id = $this->teams->first()->id;
-
-            $this->save();
+            $this->switchToTeam($this->teams->first());
 
             return $this->currentTeam();
         } elseif (! is_null($this->current_team_id)) {
@@ -65,8 +63,6 @@ trait CanJoinTeams
         $this->current_team_id = $team->id;
 
         $this->save();
-
-        unset($this->relations['currentTeam']);
     }
 
     /**

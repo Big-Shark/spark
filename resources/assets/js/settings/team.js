@@ -1,11 +1,13 @@
-var teamSettingsScreen = new Vue({
-	el: '#spark-team-settings-screen',
-
+module.exports = Vue.extend({
     /*
      * Bootstrap the component. Load the initial data.
      */
 	ready: function () {
 		this.getUser();
+	},
+
+	components: {
+		'spark-team-settings-membership-screen': require('./team/membership')
 	},
 
 	methods: {

@@ -1,4 +1,4 @@
-Vue.component('spark-team-settings-membership-screen', {
+module.exports = Vue.extend({
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -39,7 +39,7 @@ Vue.component('spark-team-settings-membership-screen', {
          * Get all users except for the current user.
          */
         teamUsersExceptMe: function () {
-            self = this;
+            var self = this;
 
             return _.reject(this.team.users, function (user) {
                 return user.id === self.user.id;

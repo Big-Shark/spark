@@ -1,4 +1,4 @@
-Vue.component('spark-errors', {
+module.exports = Vue.extend({
     props: ['form'],
 
     template: "<div><div class='alert alert-danger' v-if='form.errors.length > 0'>\

@@ -1,10 +1,3 @@
-<!-- Footer Scripts -->
-@section('scripts.footer.components')
-	<script>
-		{!! file_get_contents(Laravel\Spark\Spark::resource('/js/settings/dashboard/teams.js')) !!}
-	</script>
-@append
-
 <!-- Main Content -->
 <spark-settings-teams-screen inline-template v-cloak>
 	<!-- Create Team -->

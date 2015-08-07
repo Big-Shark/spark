@@ -1,4 +1,4 @@
-Vue.component('spark-settings-teams-screen', {
+module.exports = Vue.extend({
     /*
      * Bootstrap the component. Load the initial data.
      */
