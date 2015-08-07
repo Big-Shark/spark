@@ -63,6 +63,7 @@ module.exports = Vue.extend({
 
             this.$http.post('/settings/teams', this.createTeamForm)
                 .success(function (teams) {
+                    this.$dispatch('updateUser');
                     this.$dispatch('teamsUpdated', teams);
 
                     this.createTeamForm.creating = false;
