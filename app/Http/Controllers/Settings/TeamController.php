@@ -143,6 +143,10 @@ class TeamController extends Controller
                 ->where('owner_id', $request->user()->id)
                 ->findOrFail($teamId);
 
+        if ($team->invitations()->where('email', $request->email)->exists()) {
+            return response()->json(['email' => 'That user is already invited to the team.'], 422);
+        }
+
         $model = config('auth.model');
 
         $invitedUser = (new $model)->where('email', $request->email)->first();
@@ -199,11 +203,15 @@ class TeamController extends Controller
      */
     public function destroyTeamInvitationForOwner(Request $request, $teamId, $inviteId)
     {
-        $team = $request->user()->teams()
-                ->where('owner_id', $request->user()->id)
+        $user = $request->user();
+
+        $team = $user->teams()
+                ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
         $team->invitations()->where('id', $inviteId)->delete();
+
+        return $this->teams->getTeam($user, $teamId);
     }
 
     /**

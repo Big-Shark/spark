@@ -3,7 +3,7 @@ module.exports = Vue.extend({
      * Bootstrap the component. Load the initial data.
      */
     ready: function () {
-        this.getTeam();
+        //
     },
 
 
@@ -54,22 +54,19 @@ module.exports = Vue.extend({
          */
         userRetrieved: function (user) {
             this.user = user;
+        },
+
+
+        /*
+         * Handle the "teamRetrieved" event.
+         */
+        teamRetrieved: function (team) {
+            this.team = team;
         }
     },
 
 
     methods: {
-        /*
-         * Get the current team from the API.
-         */
-        getTeam: function () {
-            this.$http.get('/spark/api/teams/' + TEAM_ID)
-                .success(function (team) {
-                    this.team = team;
-                });
-        },
-
-
         /*
          * Send an invitation to a new user.
          */
@@ -82,7 +79,7 @@ module.exports = Vue.extend({
 
             this.$http.post('/settings/teams/' + TEAM_ID + '/invitations', this.sendInviteForm)
                 .success(function (team) {
-                    this.team = team;
+                    this.$dispatch('teamUpdated', team);
 
                     this.sendInviteForm.email = '';
                     this.sendInviteForm.sent = true;
@@ -103,7 +100,10 @@ module.exports = Vue.extend({
                 return i.id === invite.id;
             });
 
-            this.$http.delete('/settings/teams/' + TEAM_ID + '/invitations/' + invite.id);
+            this.$http.delete('/settings/teams/' + TEAM_ID + '/invitations/' + invite.id)
+                .success(function (team) {
+                    this.$dispatch('teamUpdated', team);
+                });
         },
 
 
@@ -124,8 +124,8 @@ module.exports = Vue.extend({
             });
 
             this.$http.delete('/settings/teams/' + TEAM_ID + '/members/' + teamUser.id)
-                .success(function (team ) {
-                    this.team = team;
+                .success(function (team) {
+                    this.$dispatch('teamUpdated', team);
                 });
         },
 

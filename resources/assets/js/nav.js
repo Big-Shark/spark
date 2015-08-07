@@ -1,4 +1,7 @@
 module.exports = Vue.extend({
+    /*
+     * Initial state of the component's data.
+     */
 	data: function () {
 		return {
 			user: null, teams: []
@@ -6,10 +9,17 @@ module.exports = Vue.extend({
 	},
 
 	events: {
+        /**
+         * Handle the "userRetrieved" event.
+         */
 		userRetrieved: function (user) {
 			this.user = user;
 		},
 
+
+        /**
+         * Handle the "teamsRetrieved" event.
+         */
 		teamsRetrieved: function (teams) {
 			this.teams = teams;
 		}
