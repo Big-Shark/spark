@@ -46,9 +46,13 @@ module.exports = Vue.extend({
                 .success(function (team) {
                 	console.log('Spark Team Retrieved: Broadcasting...');
 
-                	this.$broadcast('teamRetrieved', team);
-
                 	this.team = team;
+
+                	var self = this;
+
+                	Vue.nextTick(function () {
+                		self.$broadcast('teamRetrieved', team);
+                	})
                 });
 		}
 	}
