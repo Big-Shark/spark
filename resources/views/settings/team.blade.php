@@ -15,11 +15,11 @@
 @section('content')
 <spark-team-settings-screen inline-template>
 	<div id="spark-team-settings-screen" class="container spark-screen">
-		<div class="row" v-if="team">
+		<div class="row">
 			<!-- Tabs -->
 			<div class="col-md-4">
 				<div class="panel panel-default panel-flush">
-					<div class="panel-heading">
+					<div class="panel-heading" v-if="team">
 						Team Settings (@{{ team.name }})
 					</div>
 

@@ -30,9 +30,9 @@ module.exports = Vue.extend({
 		teamUpdated: function (team) {
 			console.log('Spark Team Updated: Broadcasting...');
 
-			this.$broadcast('teamRetrieved', team);
-
 			this.team = team;
+
+			this.$broadcast('teamRetrieved', team);
 		}
 	},
 

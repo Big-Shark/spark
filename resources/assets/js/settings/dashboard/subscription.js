@@ -275,6 +275,8 @@ module.exports = Vue.extend({
          * Handle the "userRetrieved" event.
          */
         userRetrieved: function (user) {
+            console.log('Subscription Tab Received User.');
+
             this.user = user;
 
             this.extraBillingInfoForm.text = this.user.extra_billing_info;

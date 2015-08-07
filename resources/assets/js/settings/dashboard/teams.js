@@ -34,10 +34,14 @@ module.exports = Vue.extend({
          * Handle the "userRetrieved" event.
          */
         userRetrieved: function (user) {
+            console.log('Teams Tab Received User.');
+
             this.user = user;
         },
 
         teamsRetrieved: function (teams) {
+            console.log('Teams Tab Received Teams.');
+
             this.teams = teams;
         }
     },
