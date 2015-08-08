@@ -22,7 +22,7 @@ trait CanJoinTeams
     public function teams()
     {
         return $this->belongsToMany(
-            Spark::model('teams', 'App\Team'), 'user_teams', 'user_id', 'team_id'
+            Spark::model('teams', Team::class), 'user_teams', 'user_id', 'team_id'
         )->orderBy('name', 'asc');
     }
 
