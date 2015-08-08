@@ -4,6 +4,7 @@
  * Vue is the JavaScript framework used by Spark.
  */
 window.Vue = require('vue');
+
 require('vue-resource');
 Vue.http.headers.common['X-CSRF-TOKEN'] = CSRF_TOKEN;
 

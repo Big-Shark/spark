@@ -1,4 +1,4 @@
-module.exports = {
+Vue.component('spark-simple-registration-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -75,4 +75,4 @@ module.exports = {
                 });
         }
     }
-};
+});

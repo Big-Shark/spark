@@ -1,8 +1,16 @@
 /*
  * Load the base application dependencies.
  */
-require('./common/dependencies');
+require('./core/dependencies');
 
+/*
+ * Load the Spark components.
+ */
+require('./core/components');
+
+/**
+ * Build the root Spark application.
+ */
 module.exports = {
 	el: '#spark-app',
 
@@ -24,29 +32,18 @@ module.exports = {
 	},
 
 
-    /*
-     * Define the components.
-     */
-	components: {
-		'spark-errors': require('./common/errors'),
-		'spark-nav-bar': require('./nav'),
-		'spark-simple-register-screen': require('./auth/registration/simple'),
-		'spark-subscription-register-screen': require('./auth/registration/subscription'),
-		'spark-settings-screen': require('./settings/dashboard'),
-		'spark-team-settings-screen': require('./settings/team')
-	},
-
-
 	events: {
+		/**
+		 * Handle requests to update the current user from a child component.
+		 */
 		updateUser: function () {
-			console.log('Received Request To Update User.');
-
 			this.getUser();
 		},
 
+		/**
+		 * Receive an updated team list from a child component.
+		 */
 		teamsUpdated: function (teams) {
-			console.log('Teams Updated: Broadcasting...');
-
 			this.$broadcast('teamsRetrieved', teams);
 		}
 	},
@@ -59,8 +56,6 @@ module.exports = {
 		getUser: function () {
 			this.$http.get('/spark/api/users/me')
 				.success(function(user) {
-					console.log('Spark User Retrieved: Broadcasting...');
-
 					this.$broadcast('userRetrieved', user);
 				});
 		},
@@ -71,8 +66,6 @@ module.exports = {
         getTeams: function () {
 		    this.$http.get('/spark/api/teams')
 		        .success(function (teams) {
-		        	console.log('Spark Teams Retrieved: Broadcasting...');
-
 					this.$broadcast('teamsRetrieved', teams);
 		        });
 		}

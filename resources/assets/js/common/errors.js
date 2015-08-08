@@ -1,7 +1,7 @@
 /*
  * Common Error Display Component.
  */
-module.exports = {
+Vue.component('spark-errors', {
     props: ['form'],
 
     template: "<div><div class='alert alert-danger' v-if='form.errors.length > 0'>\
@@ -12,4 +12,4 @@ module.exports = {
                     </li>\
                 </ul>\
             </div></div>"
-};
+});

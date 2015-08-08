@@ -1,4 +1,4 @@
-module.exports = {
+Vue.component('spark-team-settings-membership-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -53,8 +53,6 @@ module.exports = {
          * Handle the "userRetrieved" event.
          */
         userRetrieved: function (user) {
-            console.log('Membership Tab Received User.');
-
             this.user = user;
         },
 
@@ -63,8 +61,6 @@ module.exports = {
          * Handle the "teamRetrieved" event.
          */
         teamRetrieved: function (team) {
-            console.log('Membership Tab Received Team.');
-
             this.team = team;
         }
     },
@@ -158,4 +154,4 @@ module.exports = {
             return this.user.id === team.owner_id;
         }
     }
-};
+});

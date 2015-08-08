@@ -1,17 +1,8 @@
-module.exports = {
+Vue.component('spark-settings-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
 	ready: function () {
 		//
 	},
-
-
-    /*
-     * Define the components.
-     */
-	components: {
-		'spark-settings-subscription-screen': require('./dashboard/subscription.js'),
-		'spark-settings-teams-screen': require('./dashboard/teams.js')
-	}
-};
+});

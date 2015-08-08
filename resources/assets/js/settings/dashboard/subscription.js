@@ -7,7 +7,7 @@ var settingsSubscriptionScreenForms = {
     }
 };
 
-module.exports = {
+Vue.component('spark-settings-subscription-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -275,8 +275,6 @@ module.exports = {
          * Handle the "userRetrieved" event.
          */
         userRetrieved: function (user) {
-            console.log('Subscription Tab Received User.');
-
             this.user = user;
 
             this.extraBillingInfoForm.text = this.user.extra_billing_info;
@@ -568,4 +566,4 @@ module.exports = {
             }, 250);
         }
     }
-};
+});

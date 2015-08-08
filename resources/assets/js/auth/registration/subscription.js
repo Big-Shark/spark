@@ -1,4 +1,4 @@
-module.exports = {
+Vue.component('spark-subscription-register-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -377,4 +377,4 @@ module.exports = {
             }
         },
     }
-};
+});

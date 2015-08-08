@@ -1,4 +1,4 @@
-module.exports = {
+Vue.component('spark-team-settings-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -15,21 +15,11 @@ module.exports = {
 	},
 
 
-    /*
-     * Define the components.
-     */
-	components: {
-		'spark-team-settings-membership-screen': require('./team/membership')
-	},
-
-
 	events: {
 	    /*
 	     * Handle the "teamUpdated" event.
 	     */
 		teamUpdated: function (team) {
-			console.log('Spark Team Updated: Broadcasting...');
-
 			this.team = team;
 
 			this.$broadcast('teamRetrieved', team);
@@ -44,16 +34,10 @@ module.exports = {
 		getTeam: function () {
             this.$http.get('/spark/api/teams/' + TEAM_ID)
                 .success(function (team) {
-                	console.log('Spark Team Retrieved: Broadcasting...');
-
                 	this.team = team;
 
-                	var self = this;
-
-                	Vue.nextTick(function () {
-                		self.$broadcast('teamRetrieved', team);
-                	})
+                	this.$broadcast('teamRetrieved', team);
                 });
 		}
 	}
-};
+});
