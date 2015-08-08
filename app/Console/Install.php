@@ -188,6 +188,8 @@ class Install extends Command
      */
     protected function installJavaScript()
     {
+        mkdir(base_path('resources/assets/js'));
+
         copy(
             SPARK_PATH.'/resources/stubs/resources/assets/js/app.js',
             base_path('resources/assets/js/app.js')
