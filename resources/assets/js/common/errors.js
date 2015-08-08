@@ -1,4 +1,4 @@
-module.exports = Vue.extend({
+module.exports = {
     props: ['form'],
 
     template: "<div><div class='alert alert-danger' v-if='form.errors.length > 0'>\
@@ -9,4 +9,4 @@ module.exports = Vue.extend({
                     </li>\
                 </ul>\
             </div></div>"
-});
+};

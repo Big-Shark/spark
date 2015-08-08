@@ -1,4 +1,4 @@
-module.exports = Vue.extend({
+module.exports = {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -14,4 +14,4 @@ module.exports = Vue.extend({
 		'spark-settings-subscription-screen': require('./dashboard/subscription.js'),
 		'spark-settings-teams-screen': require('./dashboard/teams.js')
 	}
-});
+};

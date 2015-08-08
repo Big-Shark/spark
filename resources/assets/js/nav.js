@@ -1,4 +1,4 @@
-module.exports = Vue.extend({
+module.exports = {
     /*
      * Initial state of the component's data.
      */
@@ -32,4 +32,4 @@ module.exports = Vue.extend({
 			this.teams = teams;
 		}
 	}
-});
+};

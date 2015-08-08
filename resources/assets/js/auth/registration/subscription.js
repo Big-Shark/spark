@@ -1,4 +1,4 @@
-module.exports = Vue.extend({
+module.exports = {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -377,4 +377,4 @@ module.exports = Vue.extend({
             }
         },
     }
-});
+};

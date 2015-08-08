@@ -16,9 +16,13 @@
 
     @yield('styles', '')
 
+    <!-- CSRF Token -->
+    <script>
+        var CSRF_TOKEN = '{{ csrf_token() }}';
+    </script>
+
     @if (Auth::user())
         <script>
-            var CSRF_TOKEN = '{{ csrf_token() }}';
             var USER_ID = {{ Auth::id() }};
 
             @if (Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
@@ -50,13 +54,9 @@
         @include('spark::footer')
 
         <!-- Footer Scripts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
         @yield('scripts.footer', '')
 
+        <!-- JavaScript Application -->
         <script src="/js/app.js"></script>
     </script>
 </body>

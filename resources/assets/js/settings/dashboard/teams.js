@@ -1,4 +1,4 @@
-module.exports = Vue.extend({
+module.exports = {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -162,4 +162,4 @@ module.exports = Vue.extend({
             return this.user.id === team.owner_id;
         }
     }
-});
+};
