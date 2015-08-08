@@ -10,6 +10,10 @@ module.exports = {
      * Bootstrap the application. Load the initial data.
      */
 	ready: function () {
+        $(function() {
+            $('.spark-first-field').filter(':visible:first').focus();
+        });
+
 		if (USER_ID) {
 			this.getUser();
 		}

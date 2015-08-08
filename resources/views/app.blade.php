@@ -52,12 +52,6 @@
 
         <!-- JavaScript Application -->
         <script src="/js/app.js"></script>
-
-        <script>
-            $(function() {
-                $('.spark-first-field').filter(':visible:first').focus();
-            });
-        </script>
     </script>
 </body>
 </html>
