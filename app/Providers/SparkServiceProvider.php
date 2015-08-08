@@ -12,8 +12,8 @@ use Laravel\Spark\Billing\EmailInvoiceNotifier;
 use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
 use Laravel\Spark\Contracts\Auth\Registrar as RegistrarContract;
 use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
-use Laravel\Spark\Contracts\UserRepository as UserRepositoryContract;
-use Laravel\Spark\Contracts\TeamRepository as TeamRepositoryContract;
+use Laravel\Spark\Contracts\Repositories\UserRepository as UserRepositoryContract;
+use Laravel\Spark\Contracts\Repositories\TeamRepository as TeamRepositoryContract;
 
 class SparkServiceProvider extends ServiceProvider
 {
