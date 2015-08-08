@@ -7,21 +7,21 @@ use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Spark\Repositories\TeamRepository;
+use Laravel\Spark\Contracts\Repositories\TeamRepository;
 
 class TeamController extends Controller
 {
     /**
      * The team data repository.
      *
-     * @var \Laravel\Spark\Repositories\TeamRepository
+     * @var \Laravel\Spark\Contracts\Repositories\TeamRepository
      */
     protected $teams;
 
     /**
      * Create a new controller instance.
      *
-     * @param  \Laravel\Spark\Repositories\TeamRepository  $teams
+     * @param  \Laravel\Spark\Contracts\Repositories\TeamRepository  $teams
      * @return void
      */
     public function __construct(TeamRepository $teams)

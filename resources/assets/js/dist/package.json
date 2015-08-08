@@ -16,6 +16,9 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/laravel/spark",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+  },
+  "devDependencies": {
+    "laravel-elixir": "^3.1.2"
+  }
 }

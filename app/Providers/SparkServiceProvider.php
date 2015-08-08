@@ -6,10 +6,14 @@ use Laravel\Spark\Auth\Registrar;
 use Laravel\Spark\Auth\Subscriber;
 use Laravel\Spark\Console\Install;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Spark\Repositories\UserRepository;
+use Laravel\Spark\Repositories\TeamRepository;
 use Laravel\Spark\Billing\EmailInvoiceNotifier;
 use Laravel\Spark\Contracts\Billing\InvoiceNotifier;
 use Laravel\Spark\Contracts\Auth\Registrar as RegistrarContract;
 use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
+use Laravel\Spark\Contracts\UserRepository as UserRepositoryContract;
+use Laravel\Spark\Contracts\TeamRepository as TeamRepositoryContract;
 
 class SparkServiceProvider extends ServiceProvider
 {
@@ -110,6 +114,14 @@ class SparkServiceProvider extends ServiceProvider
 
         $this->app->bindIf(
             InvoiceNotifier::class, EmailInvoiceNotifier::class
+        );
+
+        $this->app->bindIf(
+            UserRepositoryContract::class, UserRepository::class
+        );
+
+        $this->app->bindIf(
+            TeamRepositoryContract::class, TeamRepository::class
         );
     }
 }

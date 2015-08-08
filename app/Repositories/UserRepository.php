@@ -3,8 +3,9 @@
 namespace Laravel\Spark\Repositories;
 
 use Laravel\Spark\Spark;
+use Laravel\Spark\Contracts\Repositories\UserRepository as Contract;
 
-class UserRepository
+class UserRepository implements Contract
 {
 	/**
 	 * Get the current user of the application.

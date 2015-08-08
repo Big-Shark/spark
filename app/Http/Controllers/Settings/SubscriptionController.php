@@ -9,12 +9,12 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Spark\Events\User\Subscribed;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Spark\Repositories\UserRepository;
 use Illuminate\View\Expression as ViewExpression;
 use Laravel\Spark\Events\User\SubscriptionResumed;
 use Laravel\Spark\Events\User\SubscriptionCancelled;
 use Laravel\Spark\Events\User\SubscriptionPlanChanged;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Laravel\Spark\Contracts\Repositories\UserRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
 class SubscriptionController extends Controller
@@ -24,14 +24,14 @@ class SubscriptionController extends Controller
     /**
      * The user repository instance.
      *
-     * @var \Laravel\Spark\Repositories\UserRepository
+     * @var \Laravel\Spark\Contracts\Repositories\UserRepository
      */
     protected $users;
 
     /**
      * Create a new controller instance.
      *
-     * @param  \Laravel\Spark\Repositories\UserRepository  $users
+     * @param  \Laravel\Spark\Contracts\Repositories\UserRepository  $users
      * @return void
      */
     public function __construct(UserRepository $users)

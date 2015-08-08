@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Laravel\Spark\Repositories\TeamRepository;
 use Laravel\Spark\Events\Team\Deleting as DeletingTeam;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Laravel\Spark\Contracts\Repositories\TeamRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
 class TeamController extends Controller
@@ -20,14 +20,14 @@ class TeamController extends Controller
     /**
      * The team repository instance.
      *
-     * @var \Laravel\Spark\Repositories\TeamRepository
+     * @var \Laravel\Spark\Contracts\Repositories\TeamRepository
      */
     protected $teams;
 
     /**
      * Create a new controller instance.
      *
-     * @param  \Laravel\Spark\Repositories\TeamRepository  $teams
+     * @param  \Laravel\Spark\Contracts\Repositories\TeamRepository  $teams
      * @return void
      */
     public function __construct(TeamRepository $teams)

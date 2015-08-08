@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Spark\Subscriptions\Plan;
 use Laravel\Spark\Events\User\Registered;
 use Laravel\Spark\Events\User\Subscribed;
-use Laravel\Spark\Repositories\TeamRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Laravel\Spark\Contracts\Repositories\TeamRepository;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Spark\Contracts\Auth\Registrar as RegistrarContract;
 use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
@@ -30,7 +30,7 @@ class AuthController extends Controller
     /**
      * The team repository instance.
      *
-     * @var \Laravel\Spark\Repositories\TeamRepository
+     * @var \Laravel\Spark\Contracts\Repositories\TeamRepository
      */
     protected $teams;
 
@@ -44,7 +44,7 @@ class AuthController extends Controller
     /**
      * Create a new authentication controller instance.
      *
-     * @param  \Laravel\Spark\Repositories\TeamRepository  $teams
+     * @param  \Laravel\Spark\Contracts\Repositories\TeamRepository  $teams
      * @return void
      */
     public function __construct(TeamRepository $teams)
