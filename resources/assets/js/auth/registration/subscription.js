@@ -159,12 +159,10 @@ Vue.component('spark-subscription-register-screen', {
                             $('.spark-first-field').filter(':visible:first').focus();
                         }, 100);
                     } else if (queryString.invitation) {
-                        var self = this;
-
                         // If an invitation was sent and there is a free plan, select it...
-                        _.each(this.plans, function (p) {
+                        _.each(this.plans, (p) => {
                             if (p.price === 0) {
-                                return self.selectPlan(p);
+                                return this.selectPlan(p);
                             }
                         });
                     }
@@ -298,8 +296,6 @@ Vue.component('spark-subscription-register-screen', {
          * Initialize the registration process.
          */
         register: function(e) {
-            var self = this;
-
             e.preventDefault();
 
             this.cardForm.errors = [];
@@ -324,13 +320,13 @@ Vue.component('spark-subscription-register-screen', {
                 address_zip: this.cardForm.zip
             };
 
-            Stripe.card.createToken(payload, function(status, response) {
+            Stripe.card.createToken(payload, (status, response) => {
                 if (response.error) {
-                    self.cardForm.errors.push(response.error.message);
-                    self.registerForm.registering = false;
+                    this.cardForm.errors.push(response.error.message);
+                    this.registerForm.registering = false;
                 } else {
-                    self.registerForm.stripe_token = response.id;
-                    self.sendRegistration();
+                    this.registerForm.stripe_token = response.id;
+                    this.sendRegistration();
                 }
             });
         },
