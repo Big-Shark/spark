@@ -37,6 +37,7 @@ class Install extends Command
         $this->installModels();
         $this->installMigrations();
         $this->installViews();
+        $this->installJavaScript();
         $this->installSass();
         $this->installEnvironmentVariables();
         $this->installTerms();
@@ -182,6 +183,19 @@ class Install extends Command
         copy(
             SPARK_PATH.'/resources/views/home.blade.php',
             base_path('resources/views/home.blade.php')
+        );
+    }
+
+    /**
+     * Install the default JavaScript file for the application.
+     *
+     * @return void
+     */
+    protected function installJavaScript()
+    {
+        copy(
+            SPARK_PATH.'/resources/stubs/resources/assets/js/app.js',
+            base_path('resources/assets/js/app.js')
         );
     }
 
