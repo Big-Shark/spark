@@ -28,7 +28,7 @@
 		</div>
 
 		<!-- User Information -->
-		<div class="col-md-8 col-md-offset-2" v-if="registerForm.plan || plans.length == 1">
+		<div class="col-md-8 col-md-offset-2" v-if="selectedPlan">
 			<!-- The Selected Plan -->
 			<div class="row" v-if="plans.length > 1">
 				@include('spark::auth.registration.subscription.plans.selected')

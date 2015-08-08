@@ -19,19 +19,16 @@
     <!-- CSRF Token -->
     <script>
         var CSRF_TOKEN = '{{ csrf_token() }}';
+        var USER_ID = {!! Auth::user() ? Auth::id() : 'null' !!};
     </script>
 
-    @if (Auth::user())
-        <script>
-            var USER_ID = {{ Auth::id() }};
-
-            @if (Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
-                var CURRENT_TEAM_ID = {{ Auth::user()->currentTeam->id }};
-            @else
-                var CURRENT_TEAM_ID = null;
-            @endif
-        </script>
-    @endif
+    <script>
+        @if (Auth::user() && Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
+            var CURRENT_TEAM_ID = {{ Auth::user()->currentTeam->id }};
+        @else
+            var CURRENT_TEAM_ID = null;
+        @endif
+    </script>
 
     @yield('scripts', '')
 
@@ -53,11 +50,14 @@
         <!-- Footer -->
         @include('spark::footer')
 
-        <!-- Footer Scripts -->
-        @yield('scripts.footer', '')
-
         <!-- JavaScript Application -->
         <script src="/js/app.js"></script>
+
+        <script>
+            $(function() {
+                $('.spark-first-field').filter(':visible:first').focus();
+            });
+        </script>
     </script>
 </body>
 </html>

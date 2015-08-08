@@ -1,14 +1,5 @@
 @extends('spark::app')
 
-<!-- Footer Scripts -->
-@section('scripts.footer')
-	<script>
-		$(function() {
-			$('.spark-first-field').filter(':visible:first').focus();
-		});
-	</script>
-@endsection
-
 <!-- Main Content -->
 @section('content')
 <div id="spark-authenticate-screen" class="container-fluid spark-screen">

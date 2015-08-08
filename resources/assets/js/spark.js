@@ -10,8 +10,13 @@ module.exports = {
      * Bootstrap the application. Load the initial data.
      */
 	ready: function () {
-		this.getUser();
-		this.getTeams();
+		if (USER_ID) {
+			this.getUser();
+		}
+
+		if (CURRENT_TEAM_ID) {
+			this.getTeams();
+		}
 	},
 
 
