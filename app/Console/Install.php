@@ -30,6 +30,7 @@ class Install extends Command
     public function handle()
     {
         $this->installNpmPackageConfig();
+        $this->installGulpFile();
         $this->installServiceProviders();
         $this->installMiddleware();
         $this->installRoutes();
@@ -68,6 +69,19 @@ class Install extends Command
         copy(
             SPARK_PATH.'/resources/stubs/package.json',
             base_path('package.json')
+        );
+    }
+
+    /**
+     * Install the "gulpfile.json" file for the project.
+     *
+     * @return void
+     */
+    protected function installGulpFile()
+    {
+        copy(
+            SPARK_PATH.'/resources/stubs/gulpfile.js',
+            base_path('gulpfile.js')
         );
     }
 
