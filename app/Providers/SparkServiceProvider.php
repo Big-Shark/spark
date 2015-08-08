@@ -108,20 +108,15 @@ class SparkServiceProvider extends ServiceProvider
      */
     protected function defineServices()
     {
-        $this->app->bindIf(RegistrarContract::class, function () {
-            return new Registrar;
-        });
+        $services = [
+            RegistrarContract::class => Registrar::class,
+            InvoiceNotifier::class => EmailInvoiceNotifier::class,
+            UserRepositoryContract::class => UserRepository::class,
+            TeamRepositoryContract::class => TeamRepository::class,
+        ];
 
-        $this->app->bindIf(
-            InvoiceNotifier::class, EmailInvoiceNotifier::class
-        );
-
-        $this->app->bindIf(
-            UserRepositoryContract::class, UserRepository::class
-        );
-
-        $this->app->bindIf(
-            TeamRepositoryContract::class, TeamRepository::class
-        );
+        foreach ($services as $key => $value) {
+            $this->app->bindIf($key, $value);
+        }
     }
 }
