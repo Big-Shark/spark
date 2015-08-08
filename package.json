@@ -1,6 +1,6 @@
 {
   "name": "laravel-spark",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Laravel Spark",
   "files": [
     "resources/assets/js"
@@ -19,8 +19,6 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/laravel/spark",
-  "dependencies": {
-  },
-  "devDependencies": {
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
