@@ -39,8 +39,10 @@ Vue.component('spark-team-settings-membership-screen', {
          * Get all users except for the current user.
          */
         teamUsersExceptMe: function () {
-            return _.reject(this.team.users, (user) => {
-                return user.id === this.user.id;
+            var self = this;
+
+            return _.reject(this.team.users, function (user) {
+                return user.id === self.user.id;
             });
         }
     },

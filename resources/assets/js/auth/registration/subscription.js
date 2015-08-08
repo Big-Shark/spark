@@ -145,6 +145,8 @@ Vue.component('spark-subscription-register-screen', {
         getPlans: function() {
             this.$http.get('spark/api/subscriptions/plans')
                 .success(function(plans) {
+                    var self = this;
+
                     this.plans = _.filter(plans, function(plan) {
                         return plan.active;
                     });
@@ -160,9 +162,9 @@ Vue.component('spark-subscription-register-screen', {
                         }, 100);
                     } else if (queryString.invitation) {
                         // If an invitation was sent and there is a free plan, select it...
-                        _.each(this.plans, (p) => {
+                        _.each(this.plans, function (p) {
                             if (p.price === 0) {
-                                return this.selectPlan(p);
+                                return self.selectPlan(p);
                             }
                         });
                     }
@@ -296,6 +298,8 @@ Vue.component('spark-subscription-register-screen', {
          * Initialize the registration process.
          */
         register: function(e) {
+            var self = this;
+
             e.preventDefault();
 
             this.cardForm.errors = [];
@@ -320,13 +324,13 @@ Vue.component('spark-subscription-register-screen', {
                 address_zip: this.cardForm.zip
             };
 
-            Stripe.card.createToken(payload, (status, response) => {
+            Stripe.card.createToken(payload, function (status, response) {
                 if (response.error) {
-                    this.cardForm.errors.push(response.error.message);
-                    this.registerForm.registering = false;
+                    self.cardForm.errors.push(response.error.message);
+                    self.registerForm.registering = false;
                 } else {
-                    this.registerForm.stripe_token = response.id;
-                    this.sendRegistration();
+                    self.registerForm.stripe_token = response.id;
+                    self.sendRegistration();
                 }
             });
         },

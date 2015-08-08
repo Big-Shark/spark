@@ -126,12 +126,14 @@ Vue.component('spark-settings-subscription-screen', {
          * Retrieve the plan that the user is currently subscribed to.
          */
         currentPlan: function () {
+            var self = this;
+
             if ( ! this.userIsLoaded) {
                 return null;
             }
 
-            var plan = _.find(this.plans, (plan) => {
-                return plan.id == this.user.stripe_plan;
+            var plan = _.find(this.plans, function (plan) {
+                return plan.id == self.user.stripe_plan;
             });
 
             if (plan !== 'undefined') {
@@ -144,7 +146,9 @@ Vue.component('spark-settings-subscription-screen', {
          * Get the plan currently selected on the subscribe form.
          */
         selectedPlan: function () {
-            return _.find(this.plans, (plan) => {
+            var self = this;
+
+            return _.find(this.plans, function (plan) {
                 return plan.id == this.subscribeForm.plan;
             });
         },
@@ -213,12 +217,14 @@ Vue.component('spark-settings-subscription-screen', {
          * Get all of the monthly plans except the user's current plan.
          */
         monthlyPlansExceptCurrent: function() {
+            var self = this;
+
             if ( ! this.currentPlan) {
                 return [];
             }
 
-            return _.filter(this.monthlyPlans, (plan) => {
-                return plan.id != this.currentPlan.id;
+            return _.filter(this.monthlyPlans, function (plan) {
+                return plan.id != self.currentPlan.id;
             });
         },
 
@@ -227,12 +233,14 @@ Vue.component('spark-settings-subscription-screen', {
          * Get all of the yearly plans except the user's current plan.
          */
         yearlyPlansExceptCurrent: function() {
+            var self = this;
+
             if ( ! this.currentPlan) {
                 return [];
             }
 
-            return _.filter(this.yearlyPlans, (plan) => {
-                return plan.id != this.currentPlan.id;
+            return _.filter(this.yearlyPlans, function (plan) {
+                return plan.id != self.currentPlan.id;
             });
         },
 
@@ -308,6 +316,8 @@ Vue.component('spark-settings-subscription-screen', {
          * Subscribe the user to a new plan.
          */
         subscribe: function () {
+            var self = this;
+
             this.subscribeForm.errors = [];
             this.subscribeForm.subscribing = true;
 
@@ -325,13 +335,13 @@ Vue.component('spark-settings-subscription-screen', {
                 address_zip: this.cardForm.zip
             };
 
-            Stripe.card.createToken(payload, (status, response) => {
+            Stripe.card.createToken(payload, function (status, response) {
                 if (response.error) {
-                    this.subscribeForm.errors.push(response.error.message);
-                    this.subscribeForm.subscribing = false;
+                    self.subscribeForm.errors.push(response.error.message);
+                    self.subscribeForm.subscribing = false;
                 } else {
-                    this.subscribeForm.stripe_token = response.id;
-                    this.sendSubscription();
+                    self.subscribeForm.stripe_token = response.id;
+                    self.sendSubscription();
                 }
             });
         },
@@ -407,6 +417,8 @@ Vue.component('spark-settings-subscription-screen', {
          * Update the user's subscription billing card (Stripe portion).
          */
         updateCard: function (e) {
+            var self = this;
+
             e.preventDefault();
 
             this.updateCardForm.errors = [];
@@ -427,12 +439,12 @@ Vue.component('spark-settings-subscription-screen', {
                 address_zip: this.updateCardForm.zip
             };
 
-            Stripe.card.createToken(payload, (status, response) => {
+            Stripe.card.createToken(payload, function (status, response) {
                 if (response.error) {
-                    this.updateCardForm.errors.push(response.error.message);
-                    this.updateCardForm.updating = false;
+                    self.updateCardForm.errors.push(response.error.message);
+                    self.updateCardForm.updating = false;
                 } else {
-                    this.updateCardUsingToken(response.id);
+                    self.updateCardUsingToken(response.id);
                 }
             });
         },
@@ -493,12 +505,14 @@ Vue.component('spark-settings-subscription-screen', {
 
             this.$http.delete('settings/user/plan')
                 .success(function (user) {
+                    var self = this;
+
                     this.user = user;
 
                     $('#modal-cancel-subscription').modal('hide');
 
-                    setTimeout(() => {
-                        this.cancelSubscriptionForm.cancelling = false;
+                    setTimeout(function () {
+                        self.cancelSubscriptionForm.cancelling = false;
                     }, 500);
                 })
                 .error(function (errors) {
