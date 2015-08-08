@@ -24,6 +24,8 @@ module.exports = {
 		if (CURRENT_TEAM_ID) {
 			this.getTeams();
 		}
+
+		this.whenReady();
 	},
 
 
@@ -45,6 +47,14 @@ module.exports = {
 
 
 	methods: {
+		/**
+		 * This method would be overridden by developer.
+		 */
+		whenReady: function () {
+			//
+		},
+
+
 		/**
 		 * Retrieve the user from the API and broadcast it to children.
 		 */
