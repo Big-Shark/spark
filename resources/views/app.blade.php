@@ -14,22 +14,10 @@
     <!-- Styles -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
-    @yield('styles', '')
+    <!-- Spark Globals -->
+    @include('spark::scripts.globals')
 
-    <!-- CSRF Token -->
-    <script>
-        var CSRF_TOKEN = '{{ csrf_token() }}';
-        var USER_ID = {!! Auth::user() ? Auth::id() : 'null' !!};
-    </script>
-
-    <script>
-        @if (Auth::user() && Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
-            var CURRENT_TEAM_ID = {{ Auth::user()->currentTeam->id }};
-        @else
-            var CURRENT_TEAM_ID = null;
-        @endif
-    </script>
-
+    <!-- Injected Scripts -->
     @yield('scripts', '')
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
