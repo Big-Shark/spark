@@ -5,7 +5,7 @@
   "files": [
     "resources/assets/js"
   ],
-  "main": "resources/js/spark.js",
+  "main": "resources/assets/js/spark.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/laravel/spark"
