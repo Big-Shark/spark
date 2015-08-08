@@ -16,16 +16,9 @@
 
     @yield('styles', '')
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.9/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/0.1.10/vue-resource.min.js"></script>
-
-    <script>
-        Vue.http.headers.common['X-CSRF-TOKEN'] = "{{ csrf_token() }}";
-    </script>
-
     @if (Auth::user())
         <script>
+            var CSRF_TOKEN = '{{ csrf_token() }}';
             var USER_ID = {{ Auth::id() }};
 
             @if (Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
