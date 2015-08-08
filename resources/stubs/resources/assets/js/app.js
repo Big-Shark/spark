@@ -9,7 +9,7 @@
  |
  */
 
-require('./../../../vendor/laravel/spark/resources/assets/js/core/dependencies');
+require('laravel-spark/core/dependencies');
 
 /*
  |--------------------------------------------------------------------------
@@ -22,6 +22,6 @@ require('./../../../vendor/laravel/spark/resources/assets/js/core/dependencies')
  |
  */
 
-var spark = require('./../../../vendor/laravel/spark/resources/assets/js/spark');
+var spark = require('laravel-spark');
 
 new Vue(spark);
