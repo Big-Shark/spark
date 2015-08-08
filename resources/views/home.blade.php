@@ -1,6 +1,7 @@
 @extends('spark::app')
 
 @section('content')
+<!-- Main Content -->
 <div class="container spark-screen">
 	@if (Laravel\Spark\Spark::usingTeams() && ! Auth::user()->hasTeams())
 
@@ -21,6 +22,7 @@
 
 	@else
 
+		<!-- Teams Are Disabled Or User Is On Team -->
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<div class="panel panel-default">

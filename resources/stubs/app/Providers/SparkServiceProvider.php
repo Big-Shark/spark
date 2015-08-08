@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Team;
 use Validator;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
@@ -43,9 +42,9 @@ class SparkServiceProvider extends ServiceProvider
     protected function customizeSpark()
     {
         Spark::configure([
-            'models' => [
-                'teams' => Team::class,
-            ]
+            // 'models' => [
+            //     'teams' => Team::class,
+            // ]
         ]);
     }
 
