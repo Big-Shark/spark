@@ -29,6 +29,7 @@ class Install extends Command
      */
     public function handle()
     {
+        $this->installNpmPackageConfig();
         $this->installServiceProviders();
         $this->installMiddleware();
         $this->installRoutes();
@@ -55,6 +56,19 @@ class Install extends Command
         }
 
         $this->displayPostInstallationNotes();
+    }
+
+    /**
+     * Install the "package.json" file for the project.
+     *
+     * @return void
+     */
+    protected function installNpmPackageConfig()
+    {
+        copy(
+            SPARK_PATH.'/resources/stubs/package.json',
+            base_path('package.json')
+        );
     }
 
     /**
