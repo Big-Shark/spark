@@ -3,17 +3,10 @@
  */
 require('./core/components');
 
-/*
- * Export dependency loader.
- */
-module.exports.dependencies = function () {
-	require('./core/dependencies');
-}
-
 /**
  * Export the Spark application.
  */
-module.exports.app = {
+module.exports = {
 	el: '#spark-app',
 
     /*
