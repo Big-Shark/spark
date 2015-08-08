@@ -146,11 +146,6 @@ class Install extends Command
             SPARK_PATH.'/resources/stubs/app/User.php',
             app_path('User.php')
         );
-
-        copy(
-            SPARK_PATH.'/resources/stubs/app/Team.php',
-            app_path('Team.php')
-        );
     }
 
     /**
