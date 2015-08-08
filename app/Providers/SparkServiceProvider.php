@@ -54,20 +54,19 @@ class SparkServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                SPARK_PATH.'/resources/assets' => base_path('resources/assets/vendor/spark'),
-            ], 'spark-assets');
-
-            $this->publishes([
                 SPARK_PATH.'/resources/views' => base_path('resources/views/vendor/spark'),
             ], 'spark-full');
 
             $this->publishes([
+                SPARK_PATH.'/resources/views/nav' => base_path('resources/views/vendor/spark/nav'),
                 SPARK_PATH.'/resources/views/emails' => base_path('resources/views/vendor/spark/emails'),
                 SPARK_PATH.'/resources/views/app.blade.php' => base_path('resources/views/vendor/spark/app.blade.php'),
                 SPARK_PATH.'/resources/views/nav.blade.php' => base_path('resources/views/vendor/spark/nav.blade.php'),
+                SPARK_PATH.'/resources/views/footer.blade.php' => base_path('resources/views/vendor/spark/footer.blade.php'),
                 SPARK_PATH.'/resources/views/welcome.blade.php' => base_path('resources/views/vendor/spark/welcome.blade.php'),
                 SPARK_PATH.'/resources/views/settings/tabs/profile.blade.php' => base_path('resources/views/vendor/spark/settings/tabs/profile.blade.php'),
                 SPARK_PATH.'/resources/views/settings/tabs/security.blade.php' => base_path('resources/views/vendor/spark/settings/tabs/security.blade.php'),
+                SPARK_PATH.'/resources/views/settings/team/tabs/owner.blade.php' => base_path('resources/views/vendor/spark/settings/team/tabs/owner.blade.php'),
                 SPARK_PATH.'/resources/views/auth/registration/simple/basics.blade.php' => base_path('resources/views/vendor/spark/auth/registration/simple/basics.blade.php'),
                 SPARK_PATH.'/resources/views/auth/registration/subscription/basics.blade.php' => base_path('resources/views/vendor/spark/auth/registration/subscription/basics.blade.php'),
             ], 'spark-basics');
