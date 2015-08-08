@@ -95,9 +95,7 @@ class SparkServiceProvider extends ServiceProvider
         $this->defineServices();
 
         if ($this->app->runningInConsole()) {
-            $this->commands([
-                Install::class
-            ]);
+            $this->commands([Install::class]);
         }
     }
 
