@@ -1,7 +1,7 @@
 /*
  * Load the base application dependencies.
  */
-require('./dependencies');
+require('./common/dependencies');
 
 module.exports = {
 	el: '#spark-app',
