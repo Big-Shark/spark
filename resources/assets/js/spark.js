@@ -1,9 +1,4 @@
 /*
- * Load the base application dependencies.
- */
-require('./core/dependencies');
-
-/*
  * Load the Spark components.
  */
 require('./core/components');
