@@ -1,3 +1,6 @@
+/*
+ * Common Error Display Component.
+ */
 module.exports = {
     props: ['form'],
 
