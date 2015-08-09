@@ -50,11 +50,11 @@ class Install extends Command
         );
 
         if ($this->confirm('Would you like to install NPM dependencies now?')) {
-            (new Process('npm install', base_path()))->run();
+            (new Process('npm install', base_path()))->setTimeout(null)->run();
         }
 
         if ($this->confirm('Would you like to run Gulp now?')) {
-            (new Process('gulp', base_path()))->run();
+            (new Process('gulp', base_path()))->setTimeout(null)->run();
         }
 
         $this->displayPostInstallationNotes();
