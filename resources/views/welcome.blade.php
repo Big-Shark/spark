@@ -142,15 +142,15 @@
             <div class="col-md-10 col-md-offset-1 text-center">
                 <div class="col-md-4 splash-features-feature">
                     <div class="splash-feature-icon">
-                        <i class="fa fa-paint-brush"></i>
+                        <i class="fa fa-users"></i>
                     </div>
 
                     <div class="splash-feature-heading">
-                        Built With Bootstrap
+                        Join Your Team
                     </div>
 
                     <div class="splash-feature-text">
-                        Spark is built on the Bootstrap CSS framework, which provides a popular and full-featured foundation.
+                        Spark provides simple, built-in support for creating and managing teams and invitations.
                     </div>
                 </div>
 
