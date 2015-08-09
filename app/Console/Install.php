@@ -13,7 +13,7 @@ class Install extends Command
      *
      * @var string
      */
-    protected $signature = 'spark:install';
+    protected $signature = 'spark:install {--force}';
 
     /**
      * The console command description.
@@ -49,11 +49,11 @@ class Install extends Command
             ]
         );
 
-        if ($this->confirm('Would you like to install NPM dependencies now?')) {
+        if ($this->option('force') || $this->confirm('Would you like to install NPM dependencies now?')) {
             (new Process('npm install', base_path()))->setTimeout(null)->run();
         }
 
-        if ($this->confirm('Would you like to run Gulp now?')) {
+        if ($this->option('force') || $this->confirm('Would you like to run Gulp now?')) {
             (new Process('gulp', base_path()))->setTimeout(null)->run();
         }
 
