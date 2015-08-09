@@ -56,9 +56,11 @@
 								<td style="padding-top: 14px;">@{{ teamUser.name }}</td>
 
 								<td>
+									<!--
 									<button class="btn btn-primary" v-if="userOwns(team)" v-on="click: editTeamMember(teamUser)">
 										<i class="fa fa-btn fa-edit"></i>Edit
 									</button>
+									-->
 								</td>
 
 								<td>
