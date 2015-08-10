@@ -2,7 +2,7 @@
 
 <!-- Main Content -->
 @section('content')
-<div id="spark-token-screen" class="container-fluid spark-screen">
+<div id="spark-token-screen" class="container spark-screen">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
