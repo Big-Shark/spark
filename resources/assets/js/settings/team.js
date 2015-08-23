@@ -17,7 +17,7 @@ Vue.component('spark-team-settings-screen', {
 
 	events: {
 	    /*
-	     * Handle the "teamUpdated" event.
+	     * Handle the "teamUpdated" event. Broadcast back to all tabs.
 	     */
 		teamUpdated: function (team) {
 			this.team = team;

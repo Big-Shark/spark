@@ -86,11 +86,11 @@ class SubscriptionController extends Controller
         $plan = Spark::plans()->find($request->plan);
 
         if ($plan->price() === 0) {
-            return $this->cancelSubscription();
+            $this->cancelSubscription();
+        } else {
+            Auth::user()->subscription($request->plan)
+                    ->maintainTrial()->prorate()->swapAndInvoice();
         }
-
-        Auth::user()->subscription($request->plan)
-                ->maintainTrial()->prorate()->swapAndInvoice();
 
         event(new SubscriptionPlanChanged(Auth::user()));
 

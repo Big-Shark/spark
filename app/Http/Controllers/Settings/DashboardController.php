@@ -7,16 +7,27 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Laravel\Spark\Repositories\UserRepository;
 
 class DashboardController extends Controller
 {
     /**
+     * The user repository instance.
+     *
+     * @var \Laravel\Spark\Repositories\UserRepository
+     */
+    protected $users;
+
+    /**
      * Create a new controller instance.
      *
+     * @param  \Laravel\Spark\Repositories\UserRepository  $users
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
+        $this->users = $users;
+
         $this->middleware('auth');
     }
 
@@ -31,7 +42,7 @@ class DashboardController extends Controller
         $data = [
             'activeTab' => $request->get('tab', Spark::firstSettingsTabKey()),
             'invoices' => [],
-            'user' => Spark::user(),
+            'user' => $this->users->getCurrentUser(),
         ];
 
         if (Auth::user()->stripe_id) {
