@@ -395,6 +395,8 @@ Vue.component('spark-settings-subscription-screen', {
                 .success(function (user) {
                     this.user = user;
 
+                    this.$dispatch('updateUser');
+
                     /*
                      * We need to re-initialize the tooltips on the screen because
                      * some of the plans may not have been displayed yet if the
