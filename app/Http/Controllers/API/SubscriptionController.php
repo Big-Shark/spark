@@ -38,6 +38,8 @@ class SubscriptionController extends Controller
     /**
      * Get the coupon for a given code.
      *
+     * Used for the registration page.
+     *
      * @param  string  $code
      * @return \Illuminate\Http\Response
      */
@@ -60,6 +62,8 @@ class SubscriptionController extends Controller
 
     /**
      * Get the current coupon for the authenticated user.
+     *
+     * Used to display current discount on settings -> subscription tab.
      *
      * @return \Illuminate\Http\Response
      */

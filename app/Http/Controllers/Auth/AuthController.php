@@ -75,14 +75,26 @@ class AuthController extends Controller
     protected function authenticated(Request $request, Authenticatable $user)
     {
         if (Spark::supportsTwoFactorAuth() && Spark::twoFactorProvider()->isEnabled($user)) {
-            Auth::logout();
-
-            $request->session()->put('spark:auth:id', $user->id);
-
-            return redirect('login/token');
+            return $this->logoutAndRedirectToTokenScreen($request, $user);
         }
 
         return redirect()->intended($this->redirectPath());
+    }
+
+    /**
+     * Generate a redirect response to the two-factor token screen.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $users
+     * @return \Illuminate\Http\Response
+     */
+    protected function logoutAndRedirectToTokenScreen(Request $request, Authenticatable $user)
+    {
+        Auth::logout();
+
+        $request->session()->put('spark:auth:id', $user->id);
+
+        return redirect('login/token');
     }
 
     /**

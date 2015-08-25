@@ -42,7 +42,7 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function storeTeam(Request $request)
+    public function store(Request $request)
     {
         $user = $request->user();
 
@@ -64,7 +64,7 @@ class TeamController extends Controller
      * @param  int  $teamId
      * @return \Illuminate\Http\Response
      */
-    public function editTeam(Request $request, $teamId)
+    public function edit(Request $request, $teamId)
     {
         $user = $request->user();
 
@@ -84,7 +84,7 @@ class TeamController extends Controller
      * @param  int  $teamId
      * @return \Illuminate\Http\Response
      */
-    public function updateTeam(Request $request, $teamId)
+    public function update(Request $request, $teamId)
     {
         $user = $request->user();
 
@@ -253,7 +253,7 @@ class TeamController extends Controller
      * @param  string  $teamId
      * @return \Illuminate\Http\Response
      */
-    public function destroyTeam(Request $request, $teamId)
+    public function destroy(Request $request, $teamId)
     {
         $user = $request->user();
 

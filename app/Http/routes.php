@@ -11,10 +11,10 @@ $router->put('settings/user', 'Settings\ProfileController@updateUserProfile');
 
 // Team Routes...
 if (Laravel\Spark\Spark::usingTeams()) {
-    $router->post('settings/teams', 'Settings\TeamController@storeTeam');
-    $router->get('settings/teams/{id}', 'Settings\TeamController@editTeam');
-    $router->put('settings/teams/{id}', 'Settings\TeamController@updateTeam');
-    $router->delete('settings/teams/{id}', 'Settings\TeamController@destroyTeam');
+    $router->post('settings/teams', 'Settings\TeamController@store');
+    $router->get('settings/teams/{id}', 'Settings\TeamController@edit');
+    $router->put('settings/teams/{id}', 'Settings\TeamController@update');
+    $router->delete('settings/teams/{id}', 'Settings\TeamController@destroy');
     $router->get('settings/teams/switch/{id}', 'Settings\TeamController@switchCurrentTeam');
     $router->post('settings/teams/{id}/invitations', 'Settings\TeamController@sendTeamInvitation');
     $router->post('settings/teams/invitations/{invite}/accept', 'Settings\TeamController@acceptTeamInvitation');
