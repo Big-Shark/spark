@@ -33,6 +33,13 @@ class User extends Model implements TwoFactorAuthenticatableContract, BillableCo
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['using_two_factor_auth'];
+
+    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array

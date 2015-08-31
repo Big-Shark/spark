@@ -1,6 +1,7 @@
 <!-- Enable Two-Factor Authentication -->
-@if (Laravel\Spark\Spark::supportsTwoFactorAuth() && ! Laravel\Spark\Spark::twoFactorProvider()->isEnabled($user))
-	<div class="panel panel-default">
+
+@if (Laravel\Spark\Spark::supportsTwoFactorAuth())
+	<div class="panel panel-default" v-if=" ! user.using_two_factor_auth">
 		<div class="panel-heading">Two-Factor Authentication</div>
 
 		<div class="panel-body">
@@ -9,29 +10,33 @@
 				<a href="https://authy.com" target="_blank">Authy</a> application on your phone.
 			</div>
 
-			@include('spark::common.errors', ['form' => 'twoFactor'])
+			<spark-errors form="@{{ twoFactorForm }}"></spark-errors>
 
-			<form method="POST" action="/settings/user/two-factor" class="form-horizontal" role="form">
-				{!! csrf_field() !!}
-
+			<form class="form-horizontal" role="form">
 				<div class="form-group">
 					<label class="col-md-3 control-label">Country Code</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" name="country_code" value="{{ old('country_code', $user->getAuthCountryCode()) }}" placeholder="1">
+						<input type="text" class="form-control" name="country_code" v-model="twoFactorForm.country_code" placeholder="1">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label class="col-md-3 control-label">Phone Number</label>
 					<div class="col-md-6">
-						<input type="text" class="form-control" name="phone_number" value="{{ old('phone_number', $user->getAuthPhoneNumber()) }}" placeholder="555-555-5555">
+						<input type="text" class="form-control" name="phone_number" v-model="twoFactorForm.phone_number" placeholder="555-555-5555">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-md-6 col-md-offset-3">
-						<button type="submit" class="btn btn-primary">
-							<i class="fa fa-btn fa-phone"></i> Enable
+						<button type="submit" class="btn btn-primary" v-on="click: enableTwoFactorAuth" v-attr="disabled: twoFactorForm.updating">
+							<span v-if="twoFactorForm.enabling">
+								<i class="fa fa-btn fa-spinner fa-spin"></i> Enabling
+							</span>
+
+							<span v-if=" ! twoFactorForm.enabling">
+								<i class="fa fa-btn fa-phone"></i> Enable
+							</span>
 						</button>
 					</div>
 				</div>
@@ -41,8 +46,8 @@
 @endif
 
 <!-- Disable Two-Factor Authentication -->
-@if (Laravel\Spark\Spark::supportsTwoFactorAuth() && Laravel\Spark\Spark::twoFactorProvider()->isEnabled($user))
-	<div class="panel panel-default">
+@if (Laravel\Spark\Spark::supportsTwoFactorAuth())
+	<div class="panel panel-default" v-if="user.using_two_factor_auth">
 		<div class="panel-heading">Two-Factor Authentication</div>
 
 		<div class="panel-body">
@@ -51,18 +56,19 @@
 				<a href="https://authy.com" target="_blank">Authy</a> application on your phone.
 			</div>
 
-			@if (session('twoFactorEnabled'))
-				<div class="alert alert-success">
-					<strong>Nice!</strong> Two-factor authentication is enabled for your account.
-				</div>
-			@endif
+			<div class="alert alert-success" v-if="twoFactorForm.enabled">
+				<strong>Nice!</strong> Two-factor authentication is enabled for your account.
+			</div>
 
-			<form method="POST" action="/settings/user/two-factor" role="form">
-				{!! csrf_field() !!}
-				<input type="hidden" name="_method" value="DELETE">
+			<form role="form">
+				<button type="submit" class="btn btn-danger" v-on="click: disableTwoFactorAuth" v-attr="disabled: disableTwoFactorForm.disabling">
+					<span v-if="disableTwoFactorForm.disabling">
+						<i class="fa fa-btn fa-spinner fa-spin"></i> Disabling
+					</span>
 
-				<button type="submit" class="btn btn-danger">
-					<i class="fa fa-btn fa-times"></i>Disable
+					<span v-if=" ! disableTwoFactorForm.disabling">
+						<i class="fa fa-btn fa-times"></i> Disable
+					</span>
 				</button>
 			</form>
 		</div>

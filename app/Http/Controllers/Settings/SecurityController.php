@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Spark\Events\User\ProfileUpdated;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Laravel\Spark\Contracts\Repositories\UserRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
 class SecurityController extends Controller
@@ -19,12 +20,22 @@ class SecurityController extends Controller
     use ValidatesRequests;
 
     /**
+     * The user repository implementation.
+     *
+     * @var \Laravel\Spark\Contracts\Repositories\UserRepository
+     */
+    protected $users;
+
+    /**
      * Create a new controller instance.
      *
+     * @param  \Laravel\Spark\Contracts\Repositories\UserRepository  $users
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
+        $this->users = $users;
+
         $this->middleware('auth');
     }
 
@@ -36,28 +47,20 @@ class SecurityController extends Controller
      */
     public function updatePassword(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'old_password' => 'required',
             'password' => 'required|confirmed|max:6',
         ]);
 
-        if ($validator->fails()) {
-            return redirect('settings?tab=security')->withErrors($validator, 'updatePassword');
-        }
-
         if (! Hash::check($request->old_password, Auth::user()->password)) {
-            return redirect('settings?tab=security')
-                    ->withErrors([
-                        'The old password you provided is incorrect.',
-                    ], 'updatePassword');
+            return response()->json(
+                ['The old password you provided is incorrect.'], 422
+            );
         }
 
         Auth::user()->password = Hash::make($request->password);
 
         Auth::user()->save();
-
-        return redirect('settings?tab=security')
-                    ->with('updatePasswordSuccessful', true);
     }
 
     /**
@@ -83,15 +86,12 @@ class SecurityController extends Controller
         } catch (Exception $e) {
             app(ExceptionHandler::class)->report($e);
 
-            return redirect('settings?tab=security')
-                        ->withInput()
-                        ->withErrors(['The provided phone information is invalid.'], 'twoFactor');
+            return response()->json(['The provided phone information is invalid.'], 422);
         }
 
         $user->save();
 
-        return redirect('settings?tab=security')
-                    ->with('twoFactorEnabled', true);
+        return $this->users->getCurrentUser();
     }
 
     /**
@@ -114,8 +114,7 @@ class SecurityController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('settings?tab=security')
-                        ->withInput()->withErrors($validator, 'twoFactor');
+            return response()->json($validator->errors()->all(), 422);
         }
     }
 
@@ -131,6 +130,6 @@ class SecurityController extends Controller
 
         Auth::user()->save();
 
-        return redirect('settings?tab=security');
+        return $this->users->getCurrentUser();
     }
 }

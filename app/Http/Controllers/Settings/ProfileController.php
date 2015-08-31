@@ -77,15 +77,10 @@ class ProfileController extends Controller
         if (Spark::$validateProfileUpdatesWith) {
             return $this->validateUserProfileWithCustomValidator($request);
         } else {
-            $validator = Validator::make($request->all(), [
+            $this->validate($request, [
                 'name' => 'required|max:255',
                 'email' => 'required|email|unique:users,email,'.Auth::id()
             ]);
-
-            if ($validator->fails()) {
-                return redirect('settings?tab=profile')
-                            ->withErrors($validator, 'updateProfile');
-            }
         }
     }
 
@@ -104,7 +99,7 @@ class ProfileController extends Controller
                         : Validator::make($request->all(), $validator);
 
         if ($validator->fails()) {
-            return redirect('settings?tab=profile')->withErrors($validator, 'userProfile');
+            return response()->json($validator->errors()->all(), 422);
         }
     }
 

@@ -2,27 +2,27 @@ Vue.component('spark-settings-profile-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
-	ready: function () {
-		//
-	},
+    ready: function () {
+        //
+    },
 
 
     /*
      * Initial state of the component's data.
      */
-	data: function () {
-		return {
-			user: null,
+    data: function () {
+        return {
+            user: null,
 
-			updateProfileForm: {
-				name: '',
-				email: '',
-				errors: [],
-				updating: false,
-				updated: false
-			}
-		};
-	},
+            updateProfileForm: {
+                name: '',
+                email: '',
+                errors: [],
+                updating: false,
+                updated: false
+            }
+        };
+    },
 
 
     events: {
@@ -38,30 +38,30 @@ Vue.component('spark-settings-profile-screen', {
     },
 
 
-	methods: {
-		/**
-		 * Update the user's profile information.
-		 */
-		updateProfile: function (e) {
-			e.preventDefault();
+    methods: {
+        /**
+         * Update the user's profile information.
+         */
+        updateProfile: function (e) {
+            e.preventDefault();
 
-			this.updateProfileForm.errors = [];
-			this.updateProfileForm.updated = false;
-			this.updateProfileForm.updating = true;
+            this.updateProfileForm.errors = [];
+            this.updateProfileForm.updated = false;
+            this.updateProfileForm.updating = true;
 
-			this.$http.put('/settings/user', this.updateProfileForm)
-				.success(function (user) {
-					this.user = user;
+            this.$http.put('/settings/user', this.updateProfileForm)
+                .success(function (user) {
+                    this.user = user;
 
                     this.$dispatch('updateUser');
 
-					this.updateProfileForm.updated = true;
-					this.updateProfileForm.updating = false;
-				})
-				.error(function (errors) {
-					this.updateProfileForm.errors = errors;
-					this.updateProfileForm.updating = false;
-				});
-		}
-	}
+                    this.updateProfileForm.updated = true;
+                    this.updateProfileForm.updating = false;
+                })
+                .error(function (errors) {
+                    setErrorsOnForm(this.updateProfileForm, errors);
+                    this.updateProfileForm.updating = false;
+                });
+        }
+    }
 });

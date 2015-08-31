@@ -9,7 +9,7 @@
 				<strong>Great!</strong> Your profile was successfully updated.
 			</div>
 
-			<form method="POST" class="form-horizontal" role="form">
+			<form class="form-horizontal" role="form">
 				<div class="form-group">
 					<label class="col-md-3 control-label">Name</label>
 					<div class="col-md-6">
@@ -26,7 +26,7 @@
 
 				<div class="form-group">
 					<div class="col-md-6 col-md-offset-3">
-						<button type="submit" class="btn btn-primary" v-on="click: updateProfile">
+						<button type="submit" class="btn btn-primary" v-on="click: updateProfile" v-attr="disabled: updateProfileForm.updating">
 							<span v-if="updateProfileForm.updating">
 								<i class="fa fa-btn fa-spinner fa-spin"></i> Updating
 							</span>

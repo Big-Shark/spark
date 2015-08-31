@@ -2,43 +2,44 @@
 	<div class="panel-heading">Update Password</div>
 
 	<div class="panel-body">
-		@include('spark::common.errors', ['form' => 'updatePassword'])
+		<spark-errors form="@{{ updatePasswordForm }}"></spark-errors>
 
-		@if (session('updatePasswordSuccessful'))
-			<div class="alert alert-success">
-				<strong>Great!</strong> Your password was successfully updated.
-			</div>
-		@endif
+		<div class="alert alert-success" v-if="updatePasswordForm.updated">
+			<strong>Great!</strong> Your password was successfully updated.
+		</div>
 
-		<form method="POST" action="/settings/user/password" class="form-horizontal" role="form">
-			{!! csrf_field() !!}
-			<input type="hidden" name="_method" value="PUT">
-
+		<form class="form-horizontal" role="form">
 			<div class="form-group">
 				<label class="col-md-3 control-label">Current Password</label>
 				<div class="col-md-6">
-					<input type="password" class="form-control" name="old_password">
+					<input type="password" class="form-control" name="old_password" v-model="updatePasswordForm.old_password">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">New Password</label>
 				<div class="col-md-6">
-					<input type="password" class="form-control" name="password">
+					<input type="password" class="form-control" name="password" v-model="updatePasswordForm.password">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label class="col-md-3 control-label">Confirm Password</label>
 				<div class="col-md-6">
-					<input type="password" class="form-control" name="password_confirmation">
+					<input type="password" class="form-control" name="password_confirmation" v-model="updatePasswordForm.password_confirmation">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<div class="col-md-6 col-md-offset-3">
-					<button type="submit" class="btn btn-primary">
-						<i class="fa fa-btn fa-save"></i> Update
+					<button type="submit" class="btn btn-primary" v-on="click: updatePassword">
+						<span v-if="updatePasswordForm.updating">
+							<i class="fa fa-btn fa-spinner fa-spin"></i> Updating
+						</span>
+
+						<span v-if=" ! updatePasswordForm.updating">
+							<i class="fa fa-btn fa-save"></i> Update
+						</span>
 					</button>
 				</div>
 			</div>

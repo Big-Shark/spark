@@ -72,4 +72,16 @@ trait Authenticatable
 	{
 		$this->two_factor_options = json_encode($options);
 	}
+
+	/**
+	 * Determine if the user is using two-factor authentication.
+	 *
+	 * @return bool
+	 */
+	public function getUsingTwoFactorAuthAttribute()
+	{
+		$options = $this->getTwoFactorAuthProviderOptions();
+
+		return isset($options['id']);
+	}
 }
