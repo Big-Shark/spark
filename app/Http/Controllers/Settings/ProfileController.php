@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Spark\Events\User\ProfileUpdated;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Laravel\Spark\Contracts\Repositories\UserRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 
 class ProfileController extends Controller
@@ -17,12 +18,22 @@ class ProfileController extends Controller
     use ValidatesRequests;
 
     /**
+     * The user repository implementation.
+     *
+     * @var \Laravel\Spark\Contracts\Repositories\UserRepository
+     */
+    protected $users;
+
+    /**
      * Create a new controller instance.
      *
+     * @param  \Laravel\Spark\Contracts\Repositories\UserRepository  $users
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $users)
     {
+        $this->users = $users;
+
         $this->middleware('auth');
     }
 
@@ -52,8 +63,7 @@ class ProfileController extends Controller
 
         event(new ProfileUpdated(Auth::user()));
 
-        return redirect('settings?tab=profile')
-                    ->with('updateProfileSuccessful', true);
+        return $this->users->getCurrentUser();
     }
 
     /**

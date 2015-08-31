@@ -69,6 +69,7 @@ Vue.component('spark-settings-subscription-screen', {
         };
     },
 
+
     computed: {
         /*
          * Determine if the user has been loaded from the database.
