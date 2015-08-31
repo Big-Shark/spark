@@ -1,7 +1,5 @@
 <?php
 
-use Laravel\Spark\Spark;
-
 // Terms Routes...
 $router->get('terms', 'TermsController@show');
 

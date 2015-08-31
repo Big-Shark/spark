@@ -64,10 +64,10 @@ class SparkServiceProvider extends ServiceProvider
             $this->publishes([
                 SPARK_PATH.'/resources/views/nav' => base_path('resources/views/vendor/spark/nav'),
                 SPARK_PATH.'/resources/views/emails' => base_path('resources/views/vendor/spark/emails'),
-                SPARK_PATH.'/resources/views/app.blade.php' => base_path('resources/views/vendor/spark/app.blade.php'),
                 SPARK_PATH.'/resources/views/nav.blade.php' => base_path('resources/views/vendor/spark/nav.blade.php'),
-                SPARK_PATH.'/resources/views/footer.blade.php' => base_path('resources/views/vendor/spark/footer.blade.php'),
                 SPARK_PATH.'/resources/views/welcome.blade.php' => base_path('resources/views/vendor/spark/welcome.blade.php'),
+                SPARK_PATH.'/resources/views/layouts/app.blade.php' => base_path('resources/views/vendor/spark/layouts/app.blade.php'),
+                SPARK_PATH.'/resources/views/common/footer.blade.php' => base_path('resources/views/vendor/spark/common/footer.blade.php'),
                 SPARK_PATH.'/resources/views/settings/tabs/profile.blade.php' => base_path('resources/views/vendor/spark/settings/tabs/profile.blade.php'),
                 SPARK_PATH.'/resources/views/settings/tabs/security.blade.php' => base_path('resources/views/vendor/spark/settings/tabs/security.blade.php'),
                 SPARK_PATH.'/resources/views/settings/team/tabs/owner.blade.php' => base_path('resources/views/vendor/spark/settings/team/tabs/owner.blade.php'),
@@ -86,6 +86,10 @@ class SparkServiceProvider extends ServiceProvider
     {
         if (! defined('SPARK_PATH')) {
             define('SPARK_PATH', realpath(__DIR__.'/../../'));
+        }
+
+        if (! class_exists('Spark')) {
+            class_alias('Laravel\Spark\Spark', 'Spark');
         }
 
         config([

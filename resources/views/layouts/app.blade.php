@@ -36,7 +36,7 @@
         @yield('content')
 
         <!-- Footer -->
-        @include('spark::footer')
+        @include('spark::common.footer')
 
         <!-- JavaScript Application -->
         <script src="/js/app.js"></script>

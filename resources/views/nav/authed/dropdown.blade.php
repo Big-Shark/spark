@@ -15,7 +15,7 @@
 		</li>
 
 		<!-- Team Settings / List -->
-		@if (Laravel\Spark\Spark::usingTeams())
+		@if (Spark::usingTeams())
 			@include('spark::nav.authed.dropdown.teams')
 		@endif
 

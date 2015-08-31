@@ -1,4 +1,4 @@
-@if (Laravel\Spark\Spark::supportsTwoFactorAuth())
+@if (Spark::supportsTwoFactorAuth())
 	<spark-settings-security-two-factor-screen inline-template>
 		<!-- Enable Two-Factor Authentication -->
 		<div class="panel panel-default" v-if=" ! user.using_two_factor_auth">

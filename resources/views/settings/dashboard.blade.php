@@ -1,4 +1,4 @@
-@extends('spark::app')
+@extends('spark::layouts.app')
 
 <!-- Scripts -->
 @section('scripts')
@@ -27,7 +27,7 @@
 					<div class="panel-body">
 						<div class="spark-settings-tabs">
 							<ul class="nav spark-settings-tabs-stacked" role="tablist">
-								@foreach (Laravel\Spark\Spark::settingsTabs()->displayable() as $tab)
+								@foreach (Spark::settingsTabs()->displayable() as $tab)
 									<li role="presentation"{!! $tab->key === $activeTab ? ' class="active"' : '' !!}>
 										<a href="#{{ $tab->key }}" aria-controls="{{ $tab->key }}" role="tab" data-toggle="tab">
 											<i class="fa fa-btn fa-fw {{ $tab->icon }}"></i>&nbsp;{{ $tab->name }}</span>
@@ -43,7 +43,7 @@
 			<!-- Tab Panes -->
 			<div class="col-md-8">
 				<div class="tab-content">
-					@foreach (Laravel\Spark\Spark::settingsTabs()->displayable() as $tab)
+					@foreach (Spark::settingsTabs()->displayable() as $tab)
 						<div role="tabpanel" class="tab-pane{{ $tab->key == $activeTab ? ' active' : '' }}" id="{{ $tab->key }}">
 							@include($tab->view)
 						</div>

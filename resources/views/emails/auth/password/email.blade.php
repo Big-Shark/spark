@@ -14,4 +14,4 @@ Thanks!
 
 <br>
 
-{{ Laravel\Spark\Spark::generateInvoicesWith()['product'] }}
+{{ Spark::generateInvoicesWith()['product'] }}

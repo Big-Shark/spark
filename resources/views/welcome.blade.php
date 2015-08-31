@@ -185,7 +185,7 @@
         </div>
 
         <!-- Pricing Variables -->
-        <?php $plans = Laravel\Spark\Spark::plans()->monthly()->active(); ?>
+        <?php $plans = Spark::plans()->monthly()->active(); ?>
 
         <?php
             switch (count($plans)) {
@@ -324,7 +324,7 @@
             <!-- Company Information -->
             <div class="col-md-10 col-md-offset-1 splash-footer">
                 <div class="pull-left splash-footer-company">
-                    Copyright © {{ Laravel\Spark\Spark::company() }} - <a href="/terms">Terms Of Service</a>
+                    Copyright © {{ Spark::company() }} - <a href="/terms">Terms Of Service</a>
                 </div>
 
                 <!-- Social Icons -->

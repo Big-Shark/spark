@@ -7,7 +7,7 @@
     window.USER_ID = {!! Auth::user() ? Auth::id() : 'null' !!};
 
     // Current Team ID
-    @if (Auth::user() && Laravel\Spark\Spark::usingTeams() && Auth::user()->hasTeams())
+    @if (Auth::user() && Spark::usingTeams() && Auth::user()->hasTeams())
         window.CURRENT_TEAM_ID = {{ Auth::user()->currentTeam->id }};
     @else
         window.CURRENT_TEAM_ID = null;

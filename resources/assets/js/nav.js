@@ -9,6 +9,7 @@ Vue.component('spark-nav-bar', {
 		};
 	},
 
+
 	events: {
         /**
          * Handle the "userRetrieved" event.

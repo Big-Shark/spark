@@ -1,9 +1,9 @@
-@extends('spark::app')
+@extends('spark::layouts.app')
 
 @section('content')
 <!-- Main Content -->
 <div class="container spark-screen">
-	@if (Laravel\Spark\Spark::usingTeams() && ! Auth::user()->hasTeams())
+	@if (Spark::usingTeams() && ! Auth::user()->hasTeams())
 
 		<!-- Teams Are Enabled, But The User Doesn't Have One -->
 		<div class="row">
@@ -13,8 +13,7 @@
 
 					<div class="panel-body bg-warning">
 						It looks like you haven't created a team!
-						You can create one in your
-						<a href="/settings?tab=teams">account settings</a>.
+						You can create one in your <a href="/settings?tab=teams">account settings</a>.
 					</div>
 				</div>
 			</div>

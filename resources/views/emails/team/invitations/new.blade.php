@@ -13,4 +13,4 @@ click the following link to get started:
 
 See you soon,
 <br>
-{{ Laravel\Spark\Spark::company() }}
+{{ Spark::company() }}

@@ -4,7 +4,7 @@
 		<spark-errors form="@{{ registerForm }}"></spark-errors>
 
 		<form class="form-horizontal" role="form">
-			@if (Laravel\Spark\Spark::usingTeams())
+			@if (Spark::usingTeams())
 				<div class="form-group" v-if=" ! invitation">
 					<label class="col-md-4 control-label">Team Name</label>
 					<div class="col-md-6">

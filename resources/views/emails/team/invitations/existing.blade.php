@@ -15,4 +15,4 @@ See you soon,
 
 <br>
 
-{{ Laravel\Spark\Spark::company() }}
+{{ Spark::company() }}
