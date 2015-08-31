@@ -92,19 +92,13 @@ class TeamController extends Controller
                 ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
-        $validator = Validator::make($request->all(), [
+        $this->validate($request, [
             'name' => 'required|max:255',
         ]);
 
-        if ($validator->fails()) {
-            return redirect('settings/teams/'.$teamId.'?tab=owner-settings')
-                        ->withErrors($validator, 'updateTeam');
-        }
-
         $team->fill(['name' => $request->name])->save();
 
-        return redirect('settings/teams/'.$teamId.'?tab=owner-settings')
-                        ->with('updateTeamSuccessful', true);
+        return $this->teams->getTeam($user, $teamId);
     }
 
     /**

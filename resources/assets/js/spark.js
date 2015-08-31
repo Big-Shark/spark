@@ -37,6 +37,15 @@ module.exports = {
 			this.getUser();
 		},
 
+
+		/**
+		 * Handle requests to update the teams from a child component.
+		 */
+		updateTeams: function () {
+			this.getTeams();
+		},
+
+
 		/**
 		 * Receive an updated team list from a child component.
 		 */
