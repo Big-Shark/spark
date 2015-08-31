@@ -1,4 +1,4 @@
-@extends('spark::layouts.settings')
+@extends('spark::layouts.spark')
 
 <!-- Scripts -->
 @section('scripts')

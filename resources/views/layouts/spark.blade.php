@@ -17,6 +17,10 @@
     <!-- Spark Globals -->
     @include('spark::scripts.globals')
 
+    <script>
+        window.SHOWING_SPARK_SCREEN = true;
+    </script>
+
     <!-- Injected Scripts -->
     @yield('scripts', '')
 
@@ -30,7 +34,7 @@
 <body>
     <div id="spark-app" v-cloak>
         <!-- Navigation -->
-        @include('spark::nav')
+        @include('spark::nav.spark')
 
         <!-- Main Content -->
         @yield('content')

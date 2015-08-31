@@ -15,28 +15,11 @@
 
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				@if (Auth::guest())
-					<!-- Guest -->
-				@else
-					<li><a href="/home">Home</a></li>
-				@endif
+				<li><a href="/home">Home</a></li>
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				@if (Auth::guest())
-
-					<li><a href="/login">Login</a></li>
-					<li><a href="/register">Register</a></li>
-
-				@else
-
-					@if (Request::is('settings*'))
-						@include('spark::nav.settings.dropdown')
-					@else
-						@include('spark::nav.app.dropdown')
-					@endif
-
-				@endif
+				@include('spark::nav.app.dropdown')
 			</ul>
 		</div>
 	</div>

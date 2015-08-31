@@ -10,7 +10,7 @@
 		       class="spark-toggle spark-toggle-round-flat"
 		       v-model="planTypeState">
 
-		<label for="plan-type-toggle" v-on="click: alertStatus"></label>
+		<label for="plan-type-toggle"></label>
 
 		<span class="spark-plan-selector-interval">
 			&nbsp; Yearly

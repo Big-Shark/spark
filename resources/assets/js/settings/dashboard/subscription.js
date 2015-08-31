@@ -150,7 +150,7 @@ Vue.component('spark-settings-subscription-screen', {
             var self = this;
 
             return _.find(this.plans, function (plan) {
-                return plan.id == this.subscribeForm.plan;
+                return plan.id == self.subscribeForm.plan;
             });
         },
 

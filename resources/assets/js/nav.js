@@ -1,4 +1,4 @@
-Vue.component('spark-nav-bar', {
+Vue.component('spark-nav-bar-dropdown', {
     /*
      * Initial state of the component's data.
      */
