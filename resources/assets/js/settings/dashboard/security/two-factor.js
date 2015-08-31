@@ -1,4 +1,4 @@
-Vue.component('spark-settings-security-screen', {
+Vue.component('spark-settings-security-two-factor-screen', {
     /*
      * Bootstrap the component. Load the initial data.
      */
@@ -13,15 +13,6 @@ Vue.component('spark-settings-security-screen', {
     data: function () {
         return {
             user: null,
-
-            updatePasswordForm: {
-                old_password: '',
-                password: '',
-                password_confirmation: '',
-                errors: [],
-                updating: false,
-                updated: false
-            },
 
             twoFactorForm: {
                 country_code: '',
@@ -52,32 +43,6 @@ Vue.component('spark-settings-security-screen', {
 
 
     methods: {
-        /**
-         * Update the user's password.
-         */
-        updatePassword: function (e) {
-            e.preventDefault();
-
-            this.updatePasswordForm.errors = [];
-            this.updatePasswordForm.updated = false;
-            this.updatePasswordForm.updating = true;
-
-            this.$http.put('/settings/user/password', this.updatePasswordForm)
-                .success(function () {
-                    this.updatePasswordForm.updated = true;
-                    this.updatePasswordForm.updating = false;
-
-                    this.updatePasswordForm.old_password = '';
-                    this.updatePasswordForm.password = '';
-                    this.updatePasswordForm.password_confirmation = '';
-                })
-                .error(function (errors) {
-                    setErrorsOnForm(this.updatePasswordForm, errors);
-                    this.updatePasswordForm.updating = false;
-                });
-        },
-
-
         /**
          * Enable two-factor authentication for the user.
          */
