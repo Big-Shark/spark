@@ -6,7 +6,11 @@
 <body>
     <div id="spark-app" v-cloak>
         <!-- Navigation -->
-        @include('spark::nav')
+        @if (Auth::check())
+            @include('spark::nav.authenticated')
+        @else
+            @include('spark::nav.guest')
+        @endif
 
         <!-- Main Content -->
         @yield('content')

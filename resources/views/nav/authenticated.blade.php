@@ -19,30 +19,18 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<!-- Left Side Of Navbar -->
 			<ul class="nav navbar-nav">
-				@if (Auth::check())
-					<li><a href="/home">Home</a></li>
+				<li><a href="/home">Home</a></li>
 
-					@if ( ! Spark::isDisplayingSettingsScreen())
-						<!-- Additional User Defined Navbar Items -->
-						<!-- Best To Leave Left Side Empty On Settings To Avoid Vue.js Conflicts -->
-					@endif
+				@if ( ! Spark::isDisplayingSettingsScreen())
+					<!-- Additional User Defined Navbar Items -->
+					<!-- Best To Leave Left Side Empty On Settings To Avoid Vue.js Conflicts -->
 				@endif
 			</ul>
 
 			<!-- Right Side Of Navbar -->
 			<ul class="nav navbar-nav navbar-right">
-				@if (Auth::check())
-
-					<!-- Settings Dropdown -->
-					@include('spark::nav.dropdown')
-
-				@else
-
-					<!-- Authentication / Registration Links -->
-					<li><a href="/login">Login</a></li>
-					<li><a href="/register">Register</a></li>
-
-				@endif
+				<!-- Settings Dropdown -->
+				@include('spark::nav.dropdown')
 			</ul>
 		</div>
 	</div>

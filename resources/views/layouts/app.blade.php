@@ -5,7 +5,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    @include('spark::nav')
+    @include('spark::nav.authenticated')
 
     <!-- Main Content -->
     @yield('content')
