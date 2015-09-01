@@ -17,20 +17,11 @@ Vue.component('spark-team-settings-membership-screen', {
             roles: [],
             leavingTeam: false,
 
-            editingTeamMember: null,
-
             sendInviteForm: {
                 email: '',
                 errors: [],
                 sending: false,
                 sent: false
-            },
-
-            updateTeamMemberForm: {
-                role: '',
-                errors: [],
-                updating: false,
-                updated: false
             }
         };
     },
@@ -54,17 +45,7 @@ Vue.component('spark-team-settings-membership-screen', {
             return _.reject(this.team.users, function (user) {
                 return user.id === self.user.id;
             });
-        },
-
-
-        /**
-         * Get the roles that may be assigned to users.
-         */
-        assignableRoles: function () {
-            return _.reject(this.roles, function (role) {
-                return role.value == 'owner';
-            });
-        },
+        }
     },
 
 
@@ -139,35 +120,7 @@ Vue.component('spark-team-settings-membership-screen', {
          * Edit an existing team member.
          */
         editTeamMember: function (member) {
-            this.editingTeamMember = member;
-
-            this.updateTeamMemberForm.role = member.pivot.role;
-
-            $('#modal-edit-team-member').modal('show');
-        },
-
-
-        /*
-         * Edit a given team member.
-         */
-        updateTeamMember: function () {
-            this.updateTeamMemberForm.errors = [];
-            this.updateTeamMemberForm.updating = true;
-            this.updateTeamMemberForm.updated = false;
-
-            this.$http.put('/settings/teams/' + this.team.id + '/members/' + this.editingTeamMember.id, this.updateTeamMemberForm)
-                .success(function (team) {
-                    this.$dispatch('teamUpdated', team);
-
-                    this.updateTeamMemberForm.updated = true;
-                    this.updateTeamMemberForm.updating = false;
-
-                    $('#modal-edit-team-member').modal('hide');
-                })
-                .error(function (errors) {
-                    this.updateTeamMemberForm.errors = errors;
-                    this.updateTeamMemberForm.updating = false;
-                });
+            this.$broadcast('teamMemberEditRequested', member);
         },
 
 
