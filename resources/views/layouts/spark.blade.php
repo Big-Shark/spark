@@ -4,6 +4,7 @@
     @include('spark::layouts.common.head')
 </head>
 <body>
+    <!-- Vue App For Spark Screens -->
     <div id="spark-app" v-cloak>
         <!-- Navigation -->
         @if (Auth::check())
