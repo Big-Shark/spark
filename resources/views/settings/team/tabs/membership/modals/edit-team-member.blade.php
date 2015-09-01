@@ -23,7 +23,6 @@
 					</form>
 				</div>
 
-				<!-- Action Buttons -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
