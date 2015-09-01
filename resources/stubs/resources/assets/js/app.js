@@ -22,6 +22,11 @@ require('laravel-spark/core/dependencies');
  |
  */
 
-var spark = require('laravel-spark');
+require('laravel-spark/settings/dashboard/profile')
+require('laravel-spark/settings/dashboard/security/password')
+require('laravel-spark/settings/dashboard/security/two-factor')
 
-new Vue(spark);
+require('laravel-spark/settings/team/owner')
+require('laravel-spark/settings/team/membership/edit-team-member')
+
+new Vue(require('laravel-spark'));
