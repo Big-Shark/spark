@@ -23,7 +23,7 @@ trait CanJoinTeams
     {
         return $this->belongsToMany(
             Spark::model('teams', Team::class), 'user_teams', 'user_id', 'team_id'
-        )->orderBy('name', 'asc');
+        )->withPivot(['role'])->orderBy('name', 'asc');
     }
 
     /**
@@ -107,6 +107,21 @@ trait CanJoinTeams
         }
 
         return $this->id === $team->owner_id;
+    }
+
+    /**
+     * Get the user's role on a given team.
+     *
+     * @param  \Laravel\Spark\Teams\Team  $team
+     * @return string
+     */
+    public function teamRole($team)
+    {
+        $team = $this->teams->find($team->id);
+
+        if ($team) {
+            return $team->pivot->role;
+        }
     }
 
     /**

@@ -39,7 +39,7 @@
 			</div>
 
 			<!-- Team Member List -->
-			<div class="panel panel-default" v-if="teamUsersExceptMe.length > 0">
+			<div class="panel panel-default" v-if="teamMembersExceptMe.length > 0">
 				<div class="panel-heading">Team Members</div>
 
 				<div class="panel-body">
@@ -52,19 +52,17 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-repeat="teamUser : teamUsersExceptMe">
-								<td style="padding-top: 14px;">@{{ teamUser.name }}</td>
+							<tr v-repeat="teamMember : teamMembersExceptMe">
+								<td style="padding-top: 14px;">@{{ teamMember.name }}</td>
 
 								<td>
-									<!--
-									<button class="btn btn-primary" v-if="userOwns(team)" v-on="click: editTeamMember(teamUser)">
+									<button class="btn btn-primary" v-if="userOwns(team)" v-on="click: editTeamMember(teamMember)">
 										<i class="fa fa-btn fa-edit"></i>Edit
 									</button>
-									-->
 								</td>
 
 								<td>
-									<button class="btn btn-danger" v-if="userOwns(team)" v-on="click: removeTeamMember(teamUser)">
+									<button class="btn btn-danger" v-if="userOwns(team)" v-on="click: removeTeamMember(teamMember)">
 										<i class="fa fa-btn fa-times"></i>Remove
 									</button>
 								</td>
@@ -118,4 +116,36 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="modal-edit-team-member" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content" v-if="editingTeamMember">
+				<div class="modal-header">
+					<button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title"><i class="fa fa-btn fa-edit"></i>Edit Team Member (@{{ editingTeamMember.name }})</h4>
+				</div>
+
+				<div class="modal-body">
+					<spark-errors form="@{{ updateTeamMemberForm }}"></spark-errors>
+
+					<p>Edit this team member!</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+					<button type="button" class="btn btn-danger" v-on="click: updateTeamMember" v-attr="disabled: updateTeamMemberForm.updating">
+						<span v-if="updateTeamMemberForm.updating">
+							<i class="fa fa-btn fa-spinner fa-spin"></i> Updating
+						</span>
+
+						<span v-if=" ! updateTeamMemberForm.updating">
+							<i class="fa fa-btn fa-save"></i> Update
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </spark-team-settings-membership-screen>

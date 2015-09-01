@@ -15,9 +15,9 @@ class TeamRepository implements Contract
      */
     public function create($user, array $data)
     {
-        $team = $user->teams()->create([
-                'name' => $data['name'],
-            ]);
+        $team = $user->teams()->create(
+            ['name' => $data['name']], ['role' => 'owner']
+        );
 
         $team->owner_id = $user->id;
 

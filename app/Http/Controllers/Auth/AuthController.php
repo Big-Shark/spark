@@ -322,7 +322,7 @@ class AuthController extends Controller
         $invitation = (new $inviteModel)->where('token', $invitation)->first();
 
         if ($invitation) {
-            $invitation->team->users()->attach([$user->id]);
+            $invitation->team->users()->attach([$user->id], ['role' => 'member']);
 
             $user->switchToTeam($invitation->team);
 

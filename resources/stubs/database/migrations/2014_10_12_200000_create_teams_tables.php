@@ -24,6 +24,7 @@ class CreateTeamsTables extends Migration
         Schema::create('user_teams', function (Blueprint $table) {
             $table->integer('team_id');
             $table->integer('user_id');
+            $table->string('role', 25);
 
             $table->unique(['team_id', 'user_id']);
         });

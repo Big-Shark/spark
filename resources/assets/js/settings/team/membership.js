@@ -16,11 +16,19 @@ Vue.component('spark-team-settings-membership-screen', {
             team: null,
             leavingTeam: false,
 
+            editingTeamMember: null,
+
             sendInviteForm: {
                 email: '',
                 errors: [],
                 sending: false,
                 sent: false
+            },
+
+            updateTeamMemberForm: {
+                errors: [],
+                updating: false,
+                updated: false
             }
         };
     },
@@ -38,7 +46,7 @@ Vue.component('spark-team-settings-membership-screen', {
         /*
          * Get all users except for the current user.
          */
-        teamUsersExceptMe: function () {
+        teamMembersExceptMe: function () {
             var self = this;
 
             return _.reject(this.team.users, function (user) {
@@ -110,20 +118,30 @@ Vue.component('spark-team-settings-membership-screen', {
         /*
          * Edit an existing team member.
          */
-        editTeamMember: function (teamUser) {
-            //
+        editTeamMember: function (member) {
+            this.editingTeamMember = member;
+
+            $('#modal-edit-team-member').modal('show');
+        },
+
+
+        /*
+         * Edit a given team member.
+         */
+        updateTeamMember: function () {
+            $('#modal-edit-team-member').modal('hide');
         },
 
 
         /*
          * Remove an existing team member from the team.
          */
-        removeTeamMember: function (teamUser) {
+        removeTeamMember: function (teamMember) {
             this.team.users = _.reject(this.team.users, function (u) {
-                return u.id == teamUser.id;
+                return u.id == teamMember.id;
             });
 
-            this.$http.delete('/settings/teams/' + TEAM_ID + '/members/' + teamUser.id)
+            this.$http.delete('/settings/teams/' + TEAM_ID + '/members/' + teamMember.id)
                 .success(function (team) {
                     this.$dispatch('teamUpdated', team);
                 });
