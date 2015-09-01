@@ -201,6 +201,42 @@ class TeamController extends Controller
     }
 
     /**
+     * Update a team member on the given team.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $teamId
+     * @param  string  $userId
+     * @return \Illuminate\Http\Response
+     */
+    public function updateTeamMember(Request $request, $teamId, $userId)
+    {
+        $user = $request->user();
+
+        $team = $user->teams()
+                ->where('owner_id', $user->id)->findOrFail($teamId);
+
+        $userToUpdate = $team->users->find($userId);
+
+        if (! $userToUpdate) {
+            abort(404);
+        }
+
+        $availableRoles = implode(
+            ',', array_except(array_keys(Spark::roles()), 'owner')
+        );
+
+        $this->validate($request, [
+            'role' => 'required|in:'.$availableRoles
+        ]);
+
+        $userToUpdate->teams()->updateExistingPivot(
+            $team->id, ['role' => $request->role]
+        );
+
+        return $this->teams->getTeam($user, $teamId);
+    }
+
+    /**
      * Remove a team member from the team.
      *
      * @param  \Illuminate\Http\Request  $request

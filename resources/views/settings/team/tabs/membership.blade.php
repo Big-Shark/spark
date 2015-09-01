@@ -38,40 +38,7 @@
 				</div>
 			</div>
 
-			<!-- Team Member List -->
-			<div class="panel panel-default" v-if="teamMembersExceptMe.length > 0">
-				<div class="panel-heading">Team Members</div>
-
-				<div class="panel-body">
-					<table class="table table-responsive">
-						<thead>
-							<tr>
-								<th>Name</th>
-								<th></th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr v-repeat="teamMember : teamMembersExceptMe">
-								<td style="padding-top: 14px;">@{{ teamMember.name }}</td>
-
-								<td>
-									<button class="btn btn-primary" v-if="userOwns(team)" v-on="click: editTeamMember(teamMember)">
-										<i class="fa fa-btn fa-edit"></i>Edit
-									</button>
-								</td>
-
-								<td>
-									<button class="btn btn-danger" v-if="userOwns(team)" v-on="click: removeTeamMember(teamMember)">
-										<i class="fa fa-btn fa-times"></i>Remove
-									</button>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-
+			<!-- Pending Invitations -->
 			<div class="panel panel-default" v-if="userOwns(team) && team.invitations.length > 0">
 				<div class="panel-heading">Pending Invitations</div>
 
@@ -85,11 +52,54 @@
 						</thead>
 						<tbody>
 							<tr v-repeat="invite : team.invitations">
-								<td style="padding-top: 14px;">@{{ invite.email }}</td>
+								<td class="spark-table-cell">
+									@{{ invite.email }}
+								</td>
 
 								<td>
 									<button class="btn btn-danger" v-on="click: cancelInvite(invite)">
 										<i class="fa fa-btn fa-times"></i>Cancel
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- Team Member List -->
+			<div class="panel panel-default" v-if="teamMembersExceptMe.length > 0">
+				<div class="panel-heading">Team Members</div>
+
+				<div class="panel-body">
+					<table class="table table-responsive">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Role</th>
+								<th></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-repeat="teamMember : teamMembersExceptMe">
+								<td class="spark-table-cell">
+									@{{ teamMember.name }}
+								</td>
+
+								<td class="spark-table-cell">
+									@{{ teamMember.pivot.role | role }}
+								</td>
+
+								<td>
+									<button class="btn btn-primary" v-if="userOwns(team)" v-on="click: editTeamMember(teamMember)">
+										<i class="fa fa-btn fa-edit"></i>Edit
+									</button>
+								</td>
+
+								<td>
+									<button class="btn btn-danger" v-if="userOwns(team)" v-on="click: removeTeamMember(teamMember)">
+										<i class="fa fa-btn fa-times"></i>Remove
 									</button>
 								</td>
 							</tr>
@@ -117,6 +127,7 @@
 		</div>
 	</div>
 
+	<!-- Edit Team Member Modal -->
 	<div class="modal fade" id="modal-edit-team-member" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content" v-if="editingTeamMember">
@@ -128,13 +139,22 @@
 				<div class="modal-body">
 					<spark-errors form="@{{ updateTeamMemberForm }}"></spark-errors>
 
-					<p>Edit this team member!</p>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-md-3 control-label">Role</label>
+
+							<div class="col-md-8">
+								<select class="form-control" v-model="updateTeamMemberForm.role" options="assignableRoles">
+								</select>
+							</div>
+						</div>
+					</form>
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
-					<button type="button" class="btn btn-danger" v-on="click: updateTeamMember" v-attr="disabled: updateTeamMemberForm.updating">
+					<button type="button" class="btn btn-primary" v-on="click: updateTeamMember" v-attr="disabled: updateTeamMemberForm.updating">
 						<span v-if="updateTeamMemberForm.updating">
 							<i class="fa fa-btn fa-spinner fa-spin"></i> Updating
 						</span>

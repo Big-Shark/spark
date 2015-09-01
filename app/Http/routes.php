@@ -20,6 +20,7 @@ if (Spark::usingTeams()) {
     $router->post('settings/teams/invitations/{invite}/accept', 'Settings\TeamController@acceptTeamInvitation');
     $router->delete('settings/teams/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForUser');
     $router->delete('settings/teams/{team}/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForOwner');
+    $router->put('settings/teams/{team}/members/{user}', 'Settings\TeamController@updateTeamMember');
     $router->delete('settings/teams/{team}/members/{user}', 'Settings\TeamController@removeTeamMember');
     $router->delete('settings/teams/{team}/membership', 'Settings\TeamController@leaveTeam');
 }
@@ -65,6 +66,7 @@ $router->get('spark/api/users/me', 'API\UserController@getCurrentUser');
 // Team API Routes...
 if (Spark::usingTeams()) {
     $router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
+    $router->get('spark/api/teams/roles', 'API\TeamController@getTeamRoles');
     $router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
     $router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
     $router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');

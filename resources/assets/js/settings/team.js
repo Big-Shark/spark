@@ -4,6 +4,7 @@ Vue.component('spark-team-settings-screen', {
      */
 	ready: function () {
 		this.getTeam();
+		this.getRoles();
 	},
 
 
@@ -38,6 +39,19 @@ Vue.component('spark-team-settings-screen', {
 
                 	this.$broadcast('teamRetrieved', team);
                 });
+		},
+
+
+		/**
+		 * Get all of the roles that may be assigned to users.
+		 */
+		getRoles: function () {
+			this.$http.get('/spark/api/teams/roles')
+				.success(function (roles) {
+					this.roles = roles;
+
+					this.$broadcast('rolesRetrieved', roles);
+				});
 		}
 	}
 });

@@ -11,6 +11,20 @@ use Laravel\Spark\Services\Auth\TwoFactor\Authy;
 class Spark
 {
     /**
+     * The default role that is assigned to new team members.
+     *
+     * @var string
+     */
+    protected static $defaultRole;
+
+    /**
+     * The team roles that may be assigned to users.
+     *
+     * @var array
+     */
+    protected static $roles = [];
+
+    /**
      * The Spark plan collection instance.
      *
      * @var \Laravel\Spark\Subscriptions\Plans
@@ -141,6 +155,36 @@ class Spark
     public static function model($key, $default = null)
     {
         return array_get(static::$options, 'models.'.$key, $default);
+    }
+
+    /**
+     * Get or define the default role for team members.
+     *
+     * @param  string|null  $role
+     * @return string|vpid
+     */
+    public static function defaultRole($role = null)
+    {
+        if (is_null($role)) {
+            return static::$defaultRole;
+        } else {
+            static::$defaultRole = $role;
+        }
+    }
+
+    /**
+     * Get or define the team roles that can be assigned to a user.
+     *
+     * @param  array|null  $roles
+     * @return array|void
+     */
+    public static function roles(array $roles = null)
+    {
+        if (is_null($roles)) {
+            return array_merge(static::$roles, ['owner' => 'Owner']);
+        } else {
+            static::$roles = $roles;
+        }
     }
 
     /**

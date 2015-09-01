@@ -29,7 +29,7 @@ class Team extends Model
     {
         return $this->belongsToMany(
             config('auth.model'), 'user_teams', 'team_id', 'user_id'
-        );
+        )->withPivot('role');
     }
 
     /**

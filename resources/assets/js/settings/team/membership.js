@@ -14,6 +14,7 @@ Vue.component('spark-team-settings-membership-screen', {
         return {
             user: null,
             team: null,
+            roles: [],
             leavingTeam: false,
 
             editingTeamMember: null,
@@ -26,6 +27,7 @@ Vue.component('spark-team-settings-membership-screen', {
             },
 
             updateTeamMemberForm: {
+                role: '',
                 errors: [],
                 updating: false,
                 updated: false
@@ -52,7 +54,17 @@ Vue.component('spark-team-settings-membership-screen', {
             return _.reject(this.team.users, function (user) {
                 return user.id === self.user.id;
             });
-        }
+        },
+
+
+        /**
+         * Get the roles that may be assigned to users.
+         */
+        assignableRoles: function () {
+            return _.reject(this.roles, function (role) {
+                return role.value == 'owner';
+            });
+        },
     },
 
 
@@ -70,6 +82,14 @@ Vue.component('spark-team-settings-membership-screen', {
          */
         teamRetrieved: function (team) {
             this.team = team;
+        },
+
+
+        /*
+         * Handle the "rolesRetrieved" event.
+         */
+        rolesRetrieved: function (roles) {
+            this.roles = roles;
         }
     },
 
@@ -121,6 +141,8 @@ Vue.component('spark-team-settings-membership-screen', {
         editTeamMember: function (member) {
             this.editingTeamMember = member;
 
+            this.updateTeamMemberForm.role = member.pivot.role;
+
             $('#modal-edit-team-member').modal('show');
         },
 
@@ -129,7 +151,23 @@ Vue.component('spark-team-settings-membership-screen', {
          * Edit a given team member.
          */
         updateTeamMember: function () {
-            $('#modal-edit-team-member').modal('hide');
+            this.updateTeamMemberForm.errors = [];
+            this.updateTeamMemberForm.updating = true;
+            this.updateTeamMemberForm.updated = false;
+
+            this.$http.put('/settings/teams/' + this.team.id + '/members/' + this.editingTeamMember.id, this.updateTeamMemberForm)
+                .success(function (team) {
+                    this.$dispatch('teamUpdated', team);
+
+                    this.updateTeamMemberForm.updated = true;
+                    this.updateTeamMemberForm.updating = false;
+
+                    $('#modal-edit-team-member').modal('hide');
+                })
+                .error(function (errors) {
+                    this.updateTeamMemberForm.errors = errors;
+                    this.updateTeamMemberForm.updating = false;
+                });
         },
 
 
@@ -170,6 +208,18 @@ Vue.component('spark-team-settings-membership-screen', {
             }
 
             return this.user.id === team.owner_id;
+        }
+    },
+
+
+    filters: {
+        /**
+         * Filter the role to its displayable name.
+         */
+        role: function (value) {
+            return _.find(this.roles, function (role) {
+                return role.value == value;
+            }).text;
         }
     }
 });

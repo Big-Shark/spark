@@ -70,6 +70,21 @@ class SparkServiceProvider extends ServiceProvider
     }
 
     /**
+     * Customize the roles that may be assigned to team members.
+     *
+     * @return void
+     */
+    protected function customizeRoles()
+    {
+        Spark::defaultRole('member');
+
+        Spark::roles([
+            'admin' => 'Administrator',
+            'member' => 'Member',
+        ]);
+    }
+
+    /**
      * Customize the tabs on the settings screen.
      *
      * @return void

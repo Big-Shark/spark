@@ -57,6 +57,22 @@ class TeamController extends Controller
     }
 
     /**
+     * Get all of the available roles that may be assigned to team members.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTeamRoles()
+    {
+        $roles = [];
+
+        foreach (Spark::roles() as $key => $value) {
+            $roles[] = ['value' => $key, 'text' => $value];
+        }
+
+        return response()->json($roles);
+    }
+
+    /**
      * Get all of the pending invitations for the user.
      *
      * @param  \Illuminate\Http\Request  $request
