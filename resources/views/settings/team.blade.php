@@ -21,6 +21,10 @@
 						Team Settings (@{{ team.name }})
 					</div>
 
+					<div class="panel-heading" v-if=" ! team">
+						Loading &nbsp;&nbsp; <i class="fa fa-spinner fa-spin"></i>
+					</div>
+
 					<div class="panel-body">
 						<div class="spark-settings-tabs">
 							<ul class="nav spark-settings-tabs-stacked" role="tablist">
