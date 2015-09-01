@@ -1,3 +1,4 @@
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -29,4 +30,6 @@ require('laravel-spark/settings/dashboard/security/two-factor')
 require('laravel-spark/settings/team/owner')
 require('laravel-spark/settings/team/membership/edit-team-member')
 
-new Vue(require('laravel-spark'));
+if ($('#spark-app').length > 0) {
+	new Vue(require('laravel-spark'));
+}
