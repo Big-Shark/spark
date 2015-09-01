@@ -5,7 +5,11 @@
 </head>
 <body>
     <!-- Navigation -->
-    @include('spark::nav.authenticated')
+    @if (Auth::check())
+        @include('spark::nav.authenticated')
+    @else
+        @include('spark::nav.guest')
+    @endif
 
     <!-- Main Content -->
     @yield('content')
