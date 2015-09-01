@@ -23,7 +23,7 @@
 
 				@if ( ! Spark::isDisplayingSettingsScreen())
 					<!-- Additional User Defined Navbar Items -->
-					<!-- Best To Leave Left Side Empty On Settings To Avoid Vue.js Conflicts -->
+					<!-- Best To Leave Left Side Nav Empty On Settings To Avoid Vue.js Conflicts -->
 				@endif
 			</ul>
 
