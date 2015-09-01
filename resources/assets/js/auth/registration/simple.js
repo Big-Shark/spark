@@ -69,7 +69,7 @@ Vue.component('spark-simple-registration-screen', {
                 })
                 .error(function(errors) {
                     this.registerForm.registering = false;
-                    setErrorsOnForm(this.registerForm, errors);
+                    Spark.setErrorsOnForm(this.registerForm, errors);
                 });
         }
     }

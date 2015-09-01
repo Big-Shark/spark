@@ -358,7 +358,7 @@ Vue.component('spark-settings-subscription-screen', {
                     this.subscribeForm.subscribing = false;
                 })
                 .error(function (errors) {
-                    setErrorsOnForm(this.subscribeForm, errors);
+                    Spark.setErrorsOnForm(this.subscribeForm, errors);
                     this.subscribeForm.subscribing = false;
                 });
         },
@@ -411,7 +411,7 @@ Vue.component('spark-settings-subscription-screen', {
                 })
                 .error(function (errors) {
                     this.changePlanForm.changing = false;
-                    setErrorsOnForm(this.changePlanForm, errors);
+                    Spark.setErrorsOnForm(this.changePlanForm, errors);
                 });
         },
 
@@ -466,7 +466,7 @@ Vue.component('spark-settings-subscription-screen', {
                 })
                 .error(function (errors) {
                     this.updateCardForm.updating = false;
-                    setErrorsOnForm(this.updateCardForm, errors);
+                    Spark.setErrorsOnForm(this.updateCardForm, errors);
                 });
         },
 
@@ -485,7 +485,7 @@ Vue.component('spark-settings-subscription-screen', {
                     this.extraBillingInfoForm.updating = false;
                 })
                 .error(function (errors) {
-                    setErrorsOnForm(this.extraBillingInfoForm, errors);
+                    Spark.setErrorsOnForm(this.extraBillingInfoForm, errors);
                     this.extraBillingInfoForm.updating = false;
                 });
         },
@@ -520,7 +520,7 @@ Vue.component('spark-settings-subscription-screen', {
                 })
                 .error(function (errors) {
                     this.cancelSubscriptionForm.cancelling = false;
-                    setErrorsOnForm(this.cancelSubscriptionForm, errors);
+                    Spark.setErrorsOnForm(this.cancelSubscriptionForm, errors);
                 });
         },
 
@@ -539,7 +539,7 @@ Vue.component('spark-settings-subscription-screen', {
                 })
                 .error(function (errors) {
                     this.resumeSubscriptionForm.resuming = false;
-                    setErrorsOnForm(this.resumeSubscriptionForm, errors);
+                    Spark.setErrorsOnForm(this.resumeSubscriptionForm, errors);
                 });
         },
 

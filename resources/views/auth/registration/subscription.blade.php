@@ -8,8 +8,6 @@
 		STRIPE_KEY = '{{ config('services.stripe.key') }}';
 	</script>
 
-	@include('spark::scripts.common')
-
 	<script src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.15.2/URI.min.js"></script>
 @endsection
 

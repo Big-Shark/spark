@@ -74,7 +74,7 @@ Vue.component('spark-settings-teams-screen', {
                     this.createTeamForm.creating = false;
                 })
                 .error(function (errors) {
-                    setErrorsOnForm(this.createTeamForm, errors);
+                    Spark.setErrorsOnForm(this.createTeamForm, errors);
                     this.createTeamForm.creating = false;
                 });
         },

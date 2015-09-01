@@ -354,7 +354,7 @@ Vue.component('spark-subscription-register-screen', {
                 })
                 .error(function(errors) {
                     this.registerForm.registering = false;
-                    setErrorsOnForm(this.registerForm, errors);
+                    Spark.setErrorsOnForm(this.registerForm, errors);
                 });
         },
 

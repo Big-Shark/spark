@@ -87,7 +87,7 @@ Vue.component('spark-team-settings-membership-screen', {
                 })
                 .error(function (errors) {
                     this.sendInviteForm.sending = false;
-                    setErrorsOnForm(this.sendInviteForm, errors);
+                    Spark.setErrorsOnForm(this.sendInviteForm, errors);
                 });
         },
 

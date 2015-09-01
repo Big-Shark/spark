@@ -57,7 +57,7 @@ Vue.component('spark-settings-security-password-screen', {
                     this.updatePasswordForm.password_confirmation = '';
                 })
                 .error(function (errors) {
-                    setErrorsOnForm(this.updatePasswordForm, errors);
+                    Spark.setErrorsOnForm(this.updatePasswordForm, errors);
                     this.updatePasswordForm.updating = false;
                 });
         }

@@ -7,8 +7,6 @@
 	<script>
 		STRIPE_KEY = '{{ config('services.stripe.key') }}';
 	</script>
-
-	@include('spark::scripts.common')
 @append
 
 <!-- Main Content -->

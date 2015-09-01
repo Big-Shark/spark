@@ -62,7 +62,7 @@ Vue.component('spark-team-settings-owner-screen', {
     				this.updateTeamForm.updating = false;
     			})
     			.error(function (errors) {
-                    setErrorsOnForm(this.updateTeamForm, errors);
+                    Spark.setErrorsOnForm(this.updateTeamForm, errors);
     				this.updateTeamForm.updating = false;
     			});
     	}

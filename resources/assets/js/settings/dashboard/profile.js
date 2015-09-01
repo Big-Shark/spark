@@ -59,7 +59,7 @@ Vue.component('spark-settings-profile-screen', {
                     this.updateProfileForm.updating = false;
                 })
                 .error(function (errors) {
-                    setErrorsOnForm(this.updateProfileForm, errors);
+                    Spark.setErrorsOnForm(this.updateProfileForm, errors);
                     this.updateProfileForm.updating = false;
                 });
         }

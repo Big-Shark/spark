@@ -17,11 +17,11 @@ module.exports = {
             $('.spark-first-field').filter(':visible:first').focus();
         });
 
-		if (USER_ID) {
+		if (Spark.userId) {
 			this.getUser();
 		}
 
-		if (CURRENT_TEAM_ID) {
+		if (Spark.currentTeamId) {
 			this.getTeams();
 		}
 

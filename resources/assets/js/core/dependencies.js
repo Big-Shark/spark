@@ -6,7 +6,7 @@
 window.Vue = require('vue');
 
 require('vue-resource');
-Vue.http.headers.common['X-CSRF-TOKEN'] = CSRF_TOKEN;
+Vue.http.headers.common['X-CSRF-TOKEN'] = Spark.csrfToken;
 
 /*
  * Load Underscore.js, used for map / reduce on arrays.
