@@ -431,22 +431,12 @@ class Spark
     }
 
     /**
-     * Get the full path to a Spark resource.
+     * Determine if the application is currently displaying a Spark settings screen.
      *
-     * @param  string  $path
-     * @return string
+     * @return bool
      */
-    public static function resource($path)
+    public static function isDisplayingSettingsScreen()
     {
-        $paths = [
-            base_path().'/resources/assets/vendor/spark',
-            SPARK_PATH.'/resources/assets/'
-        ];
-
-        foreach ($paths as $basePath) {
-            if (file_exists($basePath.$path)) {
-                return $basePath.$path;
-            }
-        }
+        return app('request')->is('settings*');
     }
 }
