@@ -49,11 +49,11 @@
 				</thead>
 				<tbody>
 					<tr v-repeat="team : teams">
-						<td class="spark-table-cell">
+						<td class="spark-table-pad">
 							@{{ team.name }}
 						</td>
 
-						<td class="spark-table-cell">
+						<td class="spark-table-pad">
 							<span v-if="userOwns(team)">
 								You
 							</span>
@@ -104,11 +104,11 @@
 				</thead>
 				<tbody>
 					<tr v-repeat="invite : invitations">
-						<td class="spark-table-cell">
+						<td class="spark-table-pad">
 							@{{ invite.team.name }}
 						</td>
 
-						<td class="spark-table-cell">
+						<td class="spark-table-pad">
 							@{{ invite.team.owner.name }}
 						</td>
 

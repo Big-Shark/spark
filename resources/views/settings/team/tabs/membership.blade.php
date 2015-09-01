@@ -52,7 +52,7 @@
 						</thead>
 						<tbody>
 							<tr v-repeat="invite : team.invitations">
-								<td class="spark-table-cell">
+								<td class="spark-table-pad">
 									@{{ invite.email }}
 								</td>
 
@@ -83,11 +83,11 @@
 						</thead>
 						<tbody>
 							<tr v-repeat="teamMember : teamMembersExceptMe">
-								<td class="spark-table-cell">
+								<td class="spark-table-pad">
 									@{{ teamMember.name }}
 								</td>
 
-								<td class="spark-table-cell">
+								<td class="spark-table-pad">
 									@{{ teamMember.pivot.role | role }}
 								</td>
 
