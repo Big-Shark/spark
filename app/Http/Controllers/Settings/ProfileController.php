@@ -45,14 +45,12 @@ class ProfileController extends Controller
      */
     public function updateUserProfile(Request $request)
     {
-        if (! is_null($response = $this->validateUserProfile($request))) {
-            return $response;
-        }
+        $this->validateUserProfile($request);
 
         $originalEmail = Auth::user()->email;
 
         if (Spark::$updateProfilesWith) {
-            call_user_func(Spark::$updateProfilesWith, $request);
+            $this->callCustomUpdater(Spark::$updateProfilesWith, $request);
         } else {
             Auth::user()->fill($request->all())->save();
         }
@@ -70,12 +68,12 @@ class ProfileController extends Controller
      * Validate the incoming request to update the user's profile.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return mixed
+     * @return void
      */
     protected function validateUserProfile(Request $request)
     {
         if (Spark::$validateProfileUpdatesWith) {
-            return $this->getResponseFromCustomValidator(
+            $this->callCustomValidator(
                 Spark::$validateProfileUpdatesWith, $request
             );
         } else {

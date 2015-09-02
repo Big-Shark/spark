@@ -20,7 +20,6 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Laravel\Spark\Contracts\Repositories\TeamRepository;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Laravel\Spark\Contracts\Auth\Registrar as RegistrarContract;
 use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
 
 class AuthController extends Controller
@@ -183,13 +182,9 @@ class AuthController extends Controller
      */
     protected function register(Request $request, $withSubscription = false)
     {
-        $registrar = app(RegistrarContract::class);
+        $this->validateRegistration($request, $withSubscription);
 
-        $this->validateRegistration(
-            $request, $registrar->validator($request), $withSubscription
-        );
-
-        $user = $this->createUser($request, $registrar, $withSubscription);
+        $user = $this->createUser($request, $withSubscription);
 
         if ($request->team_name) {
             $team = $this->teams->create($user, ['name' => $request->team_name]);
@@ -214,12 +209,36 @@ class AuthController extends Controller
      * Validate the new registration.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Validation\Validator  $validator
      * @param  bool  $withSubscription
      * @return void
      */
-    protected function validateRegistration(Request $request, $validator, $withSubscription = false)
+    protected function validateRegistration(Request $request, $withSubscription = false)
     {
+        if (Spark::$validateProfileUpdatesWith) {
+            $this->callCustomValidator(
+                Spark::$validateProfileUpdatesWith, $request, [$withSubscription]
+            );
+        } else {
+            $this->validateDefaultRegistration($request, $withSubscription);
+        }
+    }
+
+    /**
+     * Validate a new registration using the default rules.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool  $withSubscription
+     * @return void
+     */
+    protected function validateDefaultRegistration(Request $request, $withSubscription)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:6',
+            'terms' => 'required|accepted',
+        ]);
+
         if ($withSubscription) {
             $validator->mergeRules('stripe_token', 'required');
 
@@ -263,14 +282,17 @@ class AuthController extends Controller
      * Create a new user of the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Laravel\Spark\Contracts\Auth\Registrar  $registrar
      * @param  bool  $withSubscription
      * @return \Illuminate\Contracts\Auth\Authenticatable
      */
-    protected function createUser(Request $request, $registrar, $withSubscription = false)
+    protected function createUser(Request $request, $withSubscription = false)
     {
-        return DB::transaction(function () use ($request, $registrar, $withSubscription) {
-            $user = $registrar->create($request);
+        return DB::transaction(function () use ($request, $withSubscription) {
+            if (Spark::$createUsersWith) {
+                $user = $this->callCustomUpdater(Spark::$createUsersWith, $request, [$withSubscription]);
+            } else {
+                $user = $this->createDefaultUser($request);
+            }
 
             if ($withSubscription) {
                 $this->createSubscriptionOnStripe($request, $user);
@@ -278,6 +300,23 @@ class AuthController extends Controller
 
             return $user;
         });
+    }
+
+    /**
+     * Create the default user instance for a new registration.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    protected function createDefaultUser(Request $request)
+    {
+        $model = config('auth.model');
+
+        $user = (new $model)->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
     }
 
     /**

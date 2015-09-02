@@ -92,12 +92,10 @@ class TeamController extends Controller
                 ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
-        if (! is_null($response = $this->validateTeamUpdate($request))) {
-            return $response;
-        }
+        $this->validateTeamUpdate($request, $team);
 
         if (Spark::$updateTeamsWith) {
-            call_user_func(Spark::$updateTeamsWith, $request, $team);
+            $this->callCustomUpdater(Spark::$updateTeamsWith, $request, [$team]);
         } else {
             $team->fill(['name' => $request->name])->save();
         }
@@ -109,13 +107,14 @@ class TeamController extends Controller
      * Validate a team update request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return mixed
+     * @param  \Laravel\Spark\Teams\Team
+     * @return void
      */
-    protected function validateTeamUpdate(Request $request)
+    protected function validateTeamUpdate(Request $request, $team)
     {
         if (Spark::$validateTeamUpdatesWith) {
-            return $this->getResponseFromCustomValidator(
-                Spark::$validateTeamUpdatesWith, $request
+            $this->callCustomValidator(
+                Spark::$validateTeamUpdatesWith, $request, [$team]
             );
         } else {
             $this->validate($request, [
@@ -244,19 +243,40 @@ class TeamController extends Controller
             abort(404);
         }
 
-        $availableRoles = implode(
-            ',', array_except(array_keys(Spark::roles()), 'owner')
-        );
+        $this->validateTeamMemberUpdate($request, $team, $userToUpdate);
 
-        $this->validate($request, [
-            'role' => 'required|in:'.$availableRoles
-        ]);
-
-        $userToUpdate->teams()->updateExistingPivot(
-            $team->id, ['role' => $request->role]
-        );
+        if (Spark::$updateTeamMembersWith) {
+            $this->callCustomUpdater(Spark::$updateTeamMembersWith, $request, [$team, $userToUpdate]);
+        } else {
+            $userToUpdate->teams()->updateExistingPivot(
+                $team->id, ['role' => $request->role]
+            );
+        }
 
         return $this->teams->getTeam($user, $teamId);
+    }
+
+    /**
+     * Validate a team update request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    protected function validateTeamMemberUpdate(Request $request, $team, $user)
+    {
+        if (Spark::$validateTeamMemberUpdatesWith) {
+            $this->callCustomValidator(
+                Spark::$validateTeamMemberUpdatesWith, $request, [$team, $user]
+            );
+        } else {
+            $availableRoles = implode(
+                ',', array_except(array_keys(Spark::roles()), 'owner')
+            );
+
+            $this->validate($request, [
+                'role' => 'required|in:'.$availableRoles
+            ]);
+        }
     }
 
     /**

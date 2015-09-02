@@ -88,18 +88,32 @@ class Spark
     public static $updateProfilesWith;
 
     /**
-     * The callback used to retrieve the user profile validator.
+     * The callback used to retrieve the team validator.
      *
      * @var callable|null
      */
     public static $validateTeamUpdatesWith;
 
     /**
-     * The callback used to update the user's profiles.
+     * The callback used to update teams.
      *
      * @var callable|null
      */
     public static $updateTeamsWith;
+
+    /**
+     * The callback used to retrieve the team member validator.
+     *
+     * @var callable|null
+     */
+    public static $validateTeamMemberUpdatesWith;
+
+    /**
+     * The callback used to update a team member.
+     *
+     * @var callable|null
+     */
+    public static $updateTeamMembersWith;
 
     /**
      * The invoice's meta attributes.
@@ -307,10 +321,10 @@ class Spark
     /**
      * Set a callback to be used to retrieve the user validator.
      *
-     * @param  callable  $callback
+     * @param  callable|string  $callback
      * @return void
      */
-    public static function validateRegistrationsWith(callable $callback)
+    public static function validateRegistrationsWith($callback)
     {
         static::$validateRegistrationsWith = $callback;
     }
@@ -318,10 +332,10 @@ class Spark
     /**
      * Set a callback to be used to create the users.
      *
-     * @param  callable  $callback
+     * @param  callable|string  $callback
      * @return void
      */
-    public static function createUsersWith(callable $callback)
+    public static function createUsersWith($callback)
     {
         static::$createUsersWith = $callback;
     }
@@ -372,10 +386,10 @@ class Spark
     /**
      * Set a callback to be used to retrieve the user profile validator.
      *
-     * @param  callable  $callback
+     * @param  callable|string  $callback
      * @return void
      */
-    public static function validateProfileUpdatesWith(callable $callback)
+    public static function validateProfileUpdatesWith($callback)
     {
         static::$validateProfileUpdatesWith = $callback;
     }
@@ -383,10 +397,10 @@ class Spark
     /**
      * Set a callback to be used to update the user's profiles.
      *
-     * @param  callable  $callback
+     * @param  callable|string  $callback
      * @return void
      */
-    public static function updateProfilesWith(callable $callback)
+    public static function updateProfilesWith($callback)
     {
         static::$updateProfilesWith = $callback;
     }
@@ -394,10 +408,10 @@ class Spark
     /**
      * Set a callback to be used to retrieve the team update validator.
      *
-     * @param  callable  $callback
+     * @param  callable|string  $callback
      * @return void
      */
-    public static function validateTeamUpdatesWith(callable $callback)
+    public static function validateTeamUpdatesWith($callback)
     {
         static::$validateTeamUpdatesWith = $callback;
     }
@@ -405,12 +419,34 @@ class Spark
     /**
      * Set a callback to be used to update teams.
      *
-     * @param  callable  $callback
+     * @param  callable|string  $callback
      * @return void
      */
-    public static function updateTeamsWith(callable $callback)
+    public static function updateTeamsWith($callback)
     {
         static::$updateTeamsWith = $callback;
+    }
+
+    /**
+     * Set a callback to be used to retrieve the team member update validator.
+     *
+     * @param  callable|string  $callback
+     * @return void
+     */
+    public static function validateTeamMemberUpdatesWith($callback)
+    {
+        static::$validateTeamMemberUpdatesWith = $callback;
+    }
+
+    /**
+     * Set a callback to be used to update team members.
+     *
+     * @param  callable|string  $callback
+     * @return void
+     */
+    public static function updateTeamMembersWith($callback)
+    {
+        static::$updateTeamMembersWith = $callback;
     }
 
     /**

@@ -11,20 +11,46 @@ class Controller extends BaseController
 	/**
 	 * Get the repsonse from a custom validator callback.
 	 *
-	 * @param  callable  $callback
+	 * @param  callable|string  $callback
 	 * @param  \Illuminate\Http\Request  $request
-	 * @return mixed
+	 * @param  array  $arguments
+	 * @return void
 	 */
-	public function getResponseFromCustomValidator(callable $callback, Request $request)
+	public function callCustomValidator($callback, Request $request, array $arguments = [])
 	{
-        $validator = call_user_func($callback, $request);
+		if (is_string($callback)) {
+			list($class, $method) = explode('@', $callback);
+
+			$callback = [app($class), $method];
+		}
+
+        $validator = call_user_func($callback, array_merge([$request], $arguments));
 
         $validator = $validator instanceof ValidatorContract
                         ? $validator
                         : Validator::make($request->all(), $validator);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors()->all(), 422);
+            $this->throwValidationException($request, $validator);
         }
+	}
+
+	/**
+	 * Call a custom Spark updater callback.
+	 *
+	 * @param  callable|string  $callback
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  array  $arguments
+	 * @return mixed
+	 */
+	public function callCustomUpdater($callback, Request $request, array $arguments = [])
+	{
+		if (is_string($callback)) {
+			list($class, $method) = explode('@', $callback);
+
+			$callback = [app($class), $method];
+		}
+
+        return call_user_func_array(Spark::$updateTeamsWith, array_merge([$request], $arguments));
 	}
 }
