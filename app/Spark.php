@@ -88,6 +88,20 @@ class Spark
     public static $updateProfilesWith;
 
     /**
+     * The callback used to retrieve the user profile validator.
+     *
+     * @var callable|null
+     */
+    public static $validateTeamUpdatesWith;
+
+    /**
+     * The callback used to update the user's profiles.
+     *
+     * @var callable|null
+     */
+    public static $updateTeamsWith;
+
+    /**
      * The invoice's meta attributes.
      *
      * @var array
@@ -375,6 +389,28 @@ class Spark
     public static function updateProfilesWith(callable $callback)
     {
         static::$updateProfilesWith = $callback;
+    }
+
+    /**
+     * Set a callback to be used to retrieve the team update validator.
+     *
+     * @param  callable  $callback
+     * @return void
+     */
+    public static function validateTeamUpdatesWith(callable $callback)
+    {
+        static::$validateTeamUpdatesWith = $callback;
+    }
+
+    /**
+     * Set a callback to be used to update teams.
+     *
+     * @param  callable  $callback
+     * @return void
+     */
+    public static function updateTeamsWith(callable $callback)
+    {
+        static::$updateTeamsWith = $callback;
     }
 
     /**

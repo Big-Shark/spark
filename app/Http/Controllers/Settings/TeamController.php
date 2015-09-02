@@ -5,9 +5,9 @@ namespace Laravel\Spark\Http\Controllers\Settings;
 use Exception;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Spark\Http\Controllers\Controller;
 use Laravel\Spark\Events\Team\Deleting as DeletingTeam;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Laravel\Spark\Contracts\Repositories\TeamRepository;
@@ -92,13 +92,32 @@ class TeamController extends Controller
                 ->where('owner_id', $user->id)
                 ->findOrFail($teamId);
 
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ]);
+        if (! is_null($response = $this->validateTeamUpdate($request))) {
+            return $response;
+        }
 
         $team->fill(['name' => $request->name])->save();
 
         return $this->teams->getTeam($user, $teamId);
+    }
+
+    /**
+     * Validate a team update request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function validateTeamUpdate(Request $request)
+    {
+        if (Spark::$validateTeamUpdatesWith) {
+            return $this->getResponseFromCustomValidator(
+                Spark::$validateTeamUpdatesWith, $request
+            );
+        } else {
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ]);
+        }
     }
 
     /**

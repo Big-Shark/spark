@@ -20,11 +20,6 @@ class UserRepository implements Contract
 			$user->currentTeam;
 		}
 
-		// Force "last_four" into JSON results...
-		$user->setHidden(array_flip(
-			array_except(array_flip($user->getHidden()), 'last_four')
-		));
-
-		return $user;
+		return $user->withHidden(['last_four', 'extra_billing_info']);
 	}
 }

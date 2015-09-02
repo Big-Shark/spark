@@ -5,10 +5,10 @@ namespace Laravel\Spark\Http\Controllers\Settings;
 use Exception;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Spark\Events\User\ProfileUpdated;
+use Laravel\Spark\Http\Controllers\Controller;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Laravel\Spark\Contracts\Repositories\UserRepository;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
@@ -75,31 +75,14 @@ class ProfileController extends Controller
     protected function validateUserProfile(Request $request)
     {
         if (Spark::$validateProfileUpdatesWith) {
-            return $this->validateUserProfileWithCustomValidator($request);
+            return $this->getResponseFromCustomValidator(
+                Spark::$validateProfileUpdatesWith, $request
+            );
         } else {
             $this->validate($request, [
                 'name' => 'required|max:255',
                 'email' => 'required|email|unique:users,email,'.Auth::id()
             ]);
-        }
-    }
-
-    /**
-     * Validate the incoming request to update the user's profile with a custom validator.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
-    protected function validateUserProfileWithCustomValidator(Request $request)
-    {
-        $validator = call_user_func(Spark::$validateProfileUpdatesWith, $request);
-
-        $validator = $validator instanceof ValidatorContract
-                        ? $validator
-                        : Validator::make($request->all(), $validator);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->all(), 422);
         }
     }
 
