@@ -1,7 +1,7 @@
 
 /*
  |--------------------------------------------------------------------------
- | The Spark Application
+ | Laravel Spark
  |--------------------------------------------------------------------------
  |
  | First we will load all of the "core" dependencies for Spark, which are
