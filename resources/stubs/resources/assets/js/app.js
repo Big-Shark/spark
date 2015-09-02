@@ -1,35 +1,23 @@
 
 /*
  |--------------------------------------------------------------------------
- | Elixir Asset Management
+ | The Spark Application
  |--------------------------------------------------------------------------
  |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Less
- | file for our application, as well as publishing vendor resources.
+ | First we will load all of the "core" dependencies for Spark, which are
+ | libraries such as Vue and jQuery. Then, we will load the components
+ | which manage the Spark screens such as the user settings screens.
+ |
+ | Next, we will create the root Vue application for Spark. We'll only do
+ | this if a "spark-app" ID exists on the page. Otherwise, we will not
+ | attempt to create this Vue application so we can avoid conflicts.
  |
  */
-
-require('laravel-spark/core/dependencies');
-
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Less
- | file for our application, as well as publishing vendor resources.
- |
- */
-
-require('laravel-spark/settings/dashboard/profile')
-require('laravel-spark/settings/dashboard/security/password')
-require('laravel-spark/settings/dashboard/security/two-factor')
-
-require('laravel-spark/settings/team/owner')
-require('laravel-spark/settings/team/membership/edit-team-member')
 
 if ($('#spark-app').length > 0) {
+	require('laravel-spark/core/dependencies');
+
+	require('./spark/components')
+
 	new Vue(require('laravel-spark'));
 }
