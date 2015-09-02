@@ -29,8 +29,16 @@
 
 			<!-- Right Side Of Navbar -->
 			<ul class="nav navbar-nav navbar-right">
+
 				<!-- Settings Dropdown -->
-				@include('spark::nav.dropdown')
+				@if (Spark::isDisplayingSettingsScreen())
+					{{-- This Dropdown Is For Spark Settings Sreens - Vue Based --}}
+					{{-- Vue Based Dropdown Provides Better UX Experience On Settings Screens --}}
+					@include('spark::nav.spark.dropdown')
+				@else
+					{{-- This Dropdown Is For Other User Constructed App Screens - Blade Based --}}
+					@include('spark::nav.app.dropdown')
+				@endif
 			</ul>
 		</div>
 	</div>
