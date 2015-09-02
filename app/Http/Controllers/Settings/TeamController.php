@@ -96,7 +96,11 @@ class TeamController extends Controller
             return $response;
         }
 
-        $team->fill(['name' => $request->name])->save();
+        if (Spark::$updateTeamsWith) {
+            call_user_func(Spark::$updateTeamsWith, $request, $team);
+        } else {
+            $team->fill(['name' => $request->name])->save();
+        }
 
         return $this->teams->getTeam($user, $teamId);
     }
