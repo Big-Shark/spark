@@ -2,6 +2,7 @@
 
 namespace Laravel\Spark\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
@@ -51,6 +52,6 @@ class Controller extends BaseController
 			$callback = [app($class), $method];
 		}
 
-        return call_user_func_array(Spark::$updateTeamsWith, array_merge([$request], $arguments));
+        return call_user_func_array($callback, array_merge([$request], $arguments));
 	}
 }
