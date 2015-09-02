@@ -13,7 +13,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Laravel\Spark\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatable;
 use Laravel\Spark\Contracts\Auth\TwoFactor\Authenticatable as TwoFactorAuthenticatableContract;
 
-class User extends Model implements Authorizable,
+class User extends Model implements AuthorizableContract,
                                     BillableContract,
                                     CanResetPasswordContract,
                                     TwoFactorAuthenticatableContract
