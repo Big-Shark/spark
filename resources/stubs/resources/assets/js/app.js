@@ -14,9 +14,9 @@
  |
  */
 
-if ($('#spark-app').length > 0) {
-	require('laravel-spark/core/dependencies');
+require('laravel-spark/core/dependencies');
 
+if ($('#spark-app').length > 0) {
 	require('./spark/components')
 
 	new Vue(require('laravel-spark'));
