@@ -1,10 +1,10 @@
 
 /*
  |--------------------------------------------------------------------------
- | Laravel Spark
+ | Laravel Spark - Creating Amazing Experiences.
  |--------------------------------------------------------------------------
  |
- | First we will load all of the "core" dependencies for Spark, which are
+ | First, we will load all of the "core" dependencies for Spark which are
  | libraries such as Vue and jQuery. Then, we will load the components
  | which manage the Spark screens such as the user settings screens.
  |
