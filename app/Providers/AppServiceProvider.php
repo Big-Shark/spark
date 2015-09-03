@@ -29,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
             $this->customizeRegistration();
         }
 
+        if (method_exists($this, 'customizeRoles')) {
+            $this->customizeRoles();
+        }
+
         if (method_exists($this, 'customizeProfileUpdates')) {
             $this->customizeProfileUpdates();
         }
