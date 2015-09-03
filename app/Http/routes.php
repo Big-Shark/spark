@@ -16,10 +16,12 @@ if (Spark::usingTeams()) {
     $router->put('settings/teams/{id}', 'Settings\TeamController@update');
     $router->delete('settings/teams/{id}', 'Settings\TeamController@destroy');
     $router->get('settings/teams/switch/{id}', 'Settings\TeamController@switchCurrentTeam');
-    $router->post('settings/teams/{id}/invitations', 'Settings\TeamController@sendTeamInvitation');
-    $router->post('settings/teams/invitations/{invite}/accept', 'Settings\TeamController@acceptTeamInvitation');
-    $router->delete('settings/teams/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForUser');
-    $router->delete('settings/teams/{team}/invitations/{invite}', 'Settings\TeamController@destroyTeamInvitationForOwner');
+
+    $router->post('settings/teams/{id}/invitations', 'Settings\InvitationController@sendTeamInvitation');
+    $router->post('settings/teams/invitations/{invite}/accept', 'Settings\InvitationController@acceptTeamInvitation');
+    $router->delete('settings/teams/invitations/{invite}', 'Settings\InvitationController@destroyTeamInvitationForUser');
+    $router->delete('settings/teams/{team}/invitations/{invite}', 'Settings\InvitationController@destroyTeamInvitationForOwner');
+
     $router->put('settings/teams/{team}/members/{user}', 'Settings\TeamController@updateTeamMember');
     $router->delete('settings/teams/{team}/members/{user}', 'Settings\TeamController@removeTeamMember');
     $router->delete('settings/teams/{team}/membership', 'Settings\TeamController@leaveTeam');
@@ -65,11 +67,11 @@ $router->get('spark/api/users/me', 'API\UserController@getCurrentUser');
 
 // Team API Routes...
 if (Spark::usingTeams()) {
-    $router->get('spark/api/teams/invitations', 'API\TeamController@getPendingInvitationsForUser');
+    $router->get('spark/api/teams/invitations', 'API\InvitationController@getPendingInvitationsForUser');
     $router->get('spark/api/teams/roles', 'API\TeamController@getTeamRoles');
     $router->get('spark/api/teams/{id}', 'API\TeamController@getTeam');
     $router->get('spark/api/teams', 'API\TeamController@getAllTeamsForUser');
-    $router->get('spark/api/teams/invitation/{code}', 'API\TeamController@getInvitation');
+    $router->get('spark/api/teams/invitation/{code}', 'API\InvitationController@getInvitation');
 }
 
 // Subscription API Routes...
