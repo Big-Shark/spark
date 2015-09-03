@@ -312,7 +312,7 @@ class AuthController extends Controller
     {
         $model = config('auth.model');
 
-        $user = (new $model)->create([
+        return (new $model)->create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
