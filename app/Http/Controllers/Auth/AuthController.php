@@ -370,6 +370,23 @@ class AuthController extends Controller
     }
 
     /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getLogout(Request $request)
+    {
+        if (Auth::user()) {
+            $request->session()->flush();
+        }
+
+        Auth::logout();
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
+    /**
      * Get the post register / login redirect path.
      *
      * @return string
