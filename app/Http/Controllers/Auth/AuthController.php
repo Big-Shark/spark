@@ -377,9 +377,7 @@ class AuthController extends Controller
      */
     public function getLogout(Request $request)
     {
-        if (Auth::user()) {
-            $request->session()->flush();
-        }
+        $request->session()->flush();
 
         Auth::logout();
 
