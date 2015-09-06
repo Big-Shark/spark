@@ -39,7 +39,7 @@ class UserRepository implements Contract
 	public function createUserFromRegistrationRequest(Request $request, $withSubscription = false)
 	{
         return DB::transaction(function () use ($request, $withSubscription) {
-            $user = $this->createUser($request, $withSubscription);
+            $user = $this->createNewUser($request, $withSubscription);
 
             if ($withSubscription) {
                 $this->createSubscriptionOnStripe($request, $user);
@@ -56,7 +56,7 @@ class UserRepository implements Contract
      * @param  bool  $withSubscription
      * @return \Illuminate\Contracts\Auth\Authenticatable
      */
-    protected function createNewUser(Request $requset, $withSubscription)
+    protected function createNewUser(Request $request, $withSubscription)
     {
         if (Spark::$createUsersWith) {
             return $this->callCustomUpdater(Spark::$createUsersWith, $request, [$withSubscription]);
