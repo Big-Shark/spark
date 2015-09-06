@@ -6,10 +6,13 @@ use DB;
 use Carbon\Carbon;
 use Laravel\Spark\Spark;
 use Illuminate\Http\Request;
+use Laravel\Spark\InteractsWithSparkHooks;
 use Laravel\Spark\Contracts\Repositories\UserRepository as Contract;
 
 class UserRepository implements Contract
 {
+    use InteractsWithSparkHooks;
+
 	/**
 	 * Get the current user of the application.
 	 *
@@ -36,11 +39,7 @@ class UserRepository implements Contract
 	public function createUserFromRegistrationRequest(Request $request, $withSubscription = false)
 	{
         return DB::transaction(function () use ($request, $withSubscription) {
-            if (Spark::$createUsersWith) {
-                $user = $this->callCustomUpdater(Spark::$createUsersWith, $request, [$withSubscription]);
-            } else {
-                $user = $this->createDefaultUser($request);
-            }
+            $user = $this->createUser($request, $withSubscription);
 
             if ($withSubscription) {
                 $this->createSubscriptionOnStripe($request, $user);
@@ -49,6 +48,22 @@ class UserRepository implements Contract
             return $user;
         });
 	}
+
+    /**
+     * Create a new user of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  bool  $withSubscription
+     * @return \Illuminate\Contracts\Auth\Authenticatable
+     */
+    protected function createNewUser(Request $requset, $withSubscription)
+    {
+        if (Spark::$createUsersWith) {
+            return $this->callCustomUpdater(Spark::$createUsersWith, $request, [$withSubscription]);
+        } else {
+            return $this->createDefaultUser($request);
+        }
+    }
 
     /**
      * Create the default user instance for a new registration.
