@@ -37,6 +37,7 @@ class Install extends Command
         $this->installModels();
         $this->installMigrations();
         $this->installViews();
+        $this->updateAuthConfig();
         $this->installJavaScript();
         $this->installSass();
         $this->installEnvironmentVariables();
@@ -183,6 +184,20 @@ class Install extends Command
             SPARK_PATH.'/resources/views/home.blade.php',
             base_path('resources/views/home.blade.php')
         );
+    }
+
+    /**
+     * Update the "auth" configuration file.
+     *
+     * @return void
+     */
+    protected function updateAuthConfig()
+    {
+        $path = config_path('auth.php');
+
+        file_put_contents($path, str_replace(
+            'emails.password', 'spark::emails.auth.password.email', file_get_contents($path)
+        ));
     }
 
     /**
