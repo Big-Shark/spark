@@ -18,6 +18,7 @@ use Laravel\Spark\Events\User\Subscribed;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Laravel\Spark\Contracts\Repositories\UserRepository;
 use Laravel\Spark\Contracts\Repositories\TeamRepository;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
@@ -25,6 +26,13 @@ use Laravel\Spark\Contracts\Auth\Subscriber as SubscriberContract;
 class AuthController extends Controller
 {
     use AuthenticatesAndRegistersUsers, ThrottlesLogins, ValidatesRequests;
+
+    /**
+     * The user repository instance.
+     *
+     * @var \Laravel\Spark\Contracts\Repositories\UserRepository
+     */
+    protected $users;
 
     /**
      * The team repository instance.
@@ -43,11 +51,13 @@ class AuthController extends Controller
     /**
      * Create a new authentication controller instance.
      *
+     * @param  \Laravel\Spark\Contracts\Repositories\UserRepository  $users
      * @param  \Laravel\Spark\Contracts\Repositories\TeamRepository  $teams
      * @return void
      */
-    public function __construct(TeamRepository $teams)
+    public function __construct(UserRepository $users, TeamRepository $teams)
     {
+        $this->users = $users;
         $this->teams = $teams;
         $this->plans = Spark::plans();
 
@@ -184,14 +194,16 @@ class AuthController extends Controller
     {
         $this->validateRegistration($request, $withSubscription);
 
-        $user = $this->createUser($request, $withSubscription);
+        $user = $this->users->createUserFromRegistrationRequest(
+            $request, $withSubscription
+        );
 
         if ($request->team_name) {
             $team = $this->teams->create($user, ['name' => $request->team_name]);
         }
 
         if ($request->invitation) {
-            $this->attachUserToTeam($request->invitation, $user);
+            $this->teams->attachUserToTeamByInvitation($request->invitation, $user);
         }
 
         event(new Registered($user));
@@ -276,97 +288,6 @@ class AuthController extends Controller
         }
 
         $validator->errors()->add('coupon', 'The provided coupon code is invalid.');
-    }
-
-    /**
-     * Create a new user of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  bool  $withSubscription
-     * @return \Illuminate\Contracts\Auth\Authenticatable
-     */
-    protected function createUser(Request $request, $withSubscription = false)
-    {
-        return DB::transaction(function () use ($request, $withSubscription) {
-            if (Spark::$createUsersWith) {
-                $user = $this->callCustomUpdater(Spark::$createUsersWith, $request, [$withSubscription]);
-            } else {
-                $user = $this->createDefaultUser($request);
-            }
-
-            if ($withSubscription) {
-                $this->createSubscriptionOnStripe($request, $user);
-            }
-
-            return $user;
-        });
-    }
-
-    /**
-     * Create the default user instance for a new registration.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Auth\Authenticatable
-     */
-    protected function createDefaultUser(Request $request)
-    {
-        $model = config('auth.model');
-
-        return (new $model)->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-    }
-
-    /**
-     * Create the subscription on Stripe.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return void
-     */
-    protected function createSubscriptionOnStripe(Request $request, $user)
-    {
-        $plan = $this->plans->find($request->plan);
-
-        $subscription = $user->subscription($plan->id);
-
-        if ($plan->hasTrial()) {
-            $subscription->trialFor(Carbon::now()->addDays($plan->trialDays));
-        }
-
-        if ($request->coupon) {
-            $subscription->withCoupon($request->coupon);
-        }
-
-        $subscription->create($request->stripe_token, [
-            'email' => $user->email,
-        ]);
-    }
-
-    /**
-     * Attach the given user to the team based on the invitation code.
-     *
-     * @param  string  $invitation
-     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
-     * @return void
-     */
-    protected function attachUserToTeam($invitation, $user)
-    {
-        $userModel = get_class($user);
-
-        $inviteModel = get_class((new $userModel)->invitations()->getQuery()->getModel());
-
-        $invitation = (new $inviteModel)->where('token', $invitation)->first();
-
-        if ($invitation) {
-            $invitation->team->users()->attach([$user->id], ['role' => Spark::defaultRole()]);
-
-            $user->switchToTeam($invitation->team);
-
-            $invitation->delete();
-        }
     }
 
     /**

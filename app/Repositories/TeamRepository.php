@@ -75,4 +75,28 @@ class TeamRepository implements Contract
 
         return $invitations;
     }
+
+    /**
+     * Attach a user to a given team based on their invitation.
+     *
+     * @param  string  $invitationId
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return void
+     */
+    public function attachUserToTeamByInvitation($invitationId, $user)
+    {
+        $userModel = get_class($user);
+
+        $inviteModel = get_class((new $userModel)->invitations()->getQuery()->getModel());
+
+        $invitation = (new $inviteModel)->where('token', $invitation)->first();
+
+        if ($invitation) {
+            $invitation->team->users()->attach([$user->id], ['role' => Spark::defaultRole()]);
+
+            $user->switchToTeam($invitation->team);
+
+            $invitation->delete();
+        }
+    }
 }

@@ -37,4 +37,13 @@ interface TeamRepository
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getPendingInvitationsForUser($user);
+
+    /**
+     * Attach a user to a given team based on their invitation.
+     *
+     * @param  string  $invitationId
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return void
+     */
+    public function attachUserToTeamByInvitation($invitationId, $user);
 }
