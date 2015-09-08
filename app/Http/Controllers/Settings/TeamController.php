@@ -46,9 +46,15 @@ class TeamController extends Controller
     {
         $user = $request->user();
 
-        $this->validate($request, [
-            'name' => 'required|max:255',
-        ]);
+        if (Spark::$validateNewTeamsWith) {
+            $this->callCustomValidator(
+                Spark::$validateNewTeamsWith, $request
+            );
+        } else {
+            $this->validate($request, [
+                'name' => 'required|max:255',
+            ]);
+        }
 
         $team = $this->teams->create(
             $user, ['name' => $request->name]

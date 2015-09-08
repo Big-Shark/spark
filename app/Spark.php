@@ -88,6 +88,13 @@ class Spark
     public static $updateProfilesWith;
 
     /**
+     * The callback used to retrieve the new team validator.
+     *
+     * @var callable|null
+     */
+    public static $validateNewTeamsWith;
+
+    /**
      * The callback used to retrieve the team validator.
      *
      * @var callable|null
@@ -403,6 +410,17 @@ class Spark
     public static function updateProfilesWith($callback)
     {
         static::$updateProfilesWith = $callback;
+    }
+
+    /**
+     * Set a callback to be used to retrieve the new team validator.
+     *
+     * @param  callable|string  $callback
+     * @return void
+     */
+    public static function validateNewTeamsWith($callback)
+    {
+        static::$validateNewTeamsWith = $callback;
     }
 
     /**
