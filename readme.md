@@ -23,4 +23,4 @@ After installing Spark, be sure to migrate your database, install the NPM depend
 <a name="defining-subscription-plans"></a>
 ## Defining Subscription Plans
 
-
+Subscription plans may be defined in your `app/Providers/SparkServiceProvider.php` file. This file contains a `customizeSubscriptionPlans` method. Within this method, you may define all of your application's subscription plans. There are a few examples in the method to get you started.
