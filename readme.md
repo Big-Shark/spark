@@ -1,6 +1,7 @@
 # Laravel Spark
 
 - [Installation](#installation)
+- [Defining Subscription Plans](#defining-subscription-plans)
 
 <a name="installation"></a>
 ## Installation
@@ -18,3 +19,8 @@ Next, create a new Laravel application and install Spark:
 	spark install
 
 After installing Spark, be sure to migrate your database, install the NPM dependencies, and run the `gulp` command. You should also set the `AUTHY_KEY`, `STRIPE_KEY`, and `STRIPE_SECRET` environment variables in your `.env` file.
+
+<a name="defining-subscription-plans"></a>
+## Defining Subscription Plans
+
+
