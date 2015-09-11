@@ -34,6 +34,10 @@ To use a coupon, simply create the coupon on Stripe and access the `/register` r
 
 	http://stripe.app/register?coupon=code
 
+Site-wide promotions may be run using the `Spark::promotion` method within your `SparkServiceProvider`:
+
+	Spark::promotion('coupon-code');
+
 <a name="exporting-spark-views"></a>
 ## Exporting Spark Views
 
