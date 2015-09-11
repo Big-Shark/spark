@@ -29,6 +29,17 @@ You may also wish to review the `SparkServiceProvider` class that was installed 
 
 Subscription plans may be defined in your `app/Providers/SparkServiceProvider.php` file. This file contains a `customizeSubscriptionPlans` method. Within this method, you may define all of your application's subscription plans. There are a few examples in the method to get you started.
 
+### Yearly Plans
+
+To define a yearly plan, simply call the `yearly` method on the plan definition:
+
+	Spark::plan('Basic', 'basic-yearly')
+		->price(100)
+		->yearly()
+		->features(
+			//
+		);
+
 ### Coupons
 
 To use a coupon, simply create the coupon on Stripe and access the `/register` route with a `coupon` query string variable that matches the ID of the coupon on Stripe.
