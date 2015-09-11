@@ -32,6 +32,15 @@ You may also wish to review the `SparkServiceProvider` class that was installed 
 
 Subscription plans may be defined in your `app/Providers/SparkServiceProvider.php` file. This file contains a `customizeSubscriptionPlans` method. Within this method, you may define all of your application's subscription plans. There are a few examples in the method to get you started.
 
+When defining a Spark plan, the `plan` method accepts two arguments: the name of the plan and the Stripe ID of the plan. Be sure that the Stripe ID given to the `plan` method corresponds to a plan ID on your Stripe account:
+
+	Spark::plan('Display Name', 'stripe-id')
+		->price(10);
+		->features([
+			//
+		]);
+
+
 ### Yearly Plans
 
 To define a yearly plan, simply call the `yearly` method on the plan definition:
