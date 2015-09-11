@@ -2,6 +2,7 @@
 
 - [Installation](#installation)
 - [Defining Subscription Plans](#defining-subscription-plans)
+- [Teams](#teams)
 - [Exporting Spark Views](#exporting-spark-views)
 
 <a name="installation"></a>
@@ -37,6 +38,17 @@ To use a coupon, simply create the coupon on Stripe and access the `/register` r
 Site-wide promotions may be run using the `Spark::promotion` method within your `SparkServiceProvider`:
 
 	Spark::promotion('coupon-code');
+
+<a name="teams"></a>
+## Teams
+
+To enable teams, simply use the `CanJoinTeams` trait on your `User` model. The trait has already been imported in the top of the file, so you only need to add it to the model itself:
+
+	class User extends Model implements TwoFactorAuthenticatableContract, BillableContract,
+	                                    CanResetPasswordContract
+	{
+	    use Billable, CanJoinTeams, CanResetPassword, TwoFactorAuthenticatable;
+	}
 
 <a name="exporting-spark-views"></a>
 ## Exporting Spark Views
