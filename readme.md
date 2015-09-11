@@ -17,3 +17,4 @@ Next, create a new Laravel application and install Spark:
 
 	spark install
 
+After installation, you may set the `AUTHY_KEY`, `STRIPE_KEY`, and `STRIPE_SECRET` environment variables in your `.env` file.
