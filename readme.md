@@ -51,6 +51,10 @@ To enable teams, simply use the `CanJoinTeams` trait on your `User` model. The t
 	    use Billable, CanJoinTeams, CanResetPassword, TwoFactorAuthenticatable;
 	}
 
+Once teams are enabled, a team name will be required during registration, and a `Teams` tab will be available in the user settings dashboard.
+
+Team roles may be defined in the `customizeRoles` method of the `SparkServiceProvider`.
+
 <a name="exporting-spark-views"></a>
 ## Exporting Spark Views
 
