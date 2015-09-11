@@ -9,6 +9,8 @@
 <a name="installation"></a>
 ## Installation
 
+**This is an Alpha release of Laravel Spark. Things will change. Things will break. Thank you for testing!**
+
 First, install the Spark installer and make sure that the global Composer `bin` directory is within your system's `$PATH`:
 
 	composer global require "laravel/spark-installer=~1.0"
