@@ -8,7 +8,7 @@
 <a name="installation"></a>
 ## Installation
 
-First, install the Spark installer. Make sure that the global Composer `bin` directory is within your system's `$PATH`:
+First, install the Spark installer and make sure that the global Composer `bin` directory is within your system's `$PATH`:
 
 	composer global require "laravel/spark-installer=~1.0"
 
