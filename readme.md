@@ -44,7 +44,8 @@ Site-wide promotions may be run using the `Spark::promotion` method within your 
 
 To enable teams, simply use the `CanJoinTeams` trait on your `User` model. The trait has already been imported in the top of the file, so you only need to add it to the model itself:
 
-	class User extends Model implements TwoFactorAuthenticatableContract, BillableContract,
+	class User extends Model implements TwoFactorAuthenticatableContract,
+	                                    BillableContract,
 	                                    CanResetPasswordContract
 	{
 	    use Billable, CanJoinTeams, CanResetPassword, TwoFactorAuthenticatable;
