@@ -3,7 +3,8 @@
 - [Installation](#installation)
 - [Defining Subscription Plans](#defining-subscription-plans)
 - [Teams](#teams)
-- [Exporting Spark Views](#exporting-spark-views)
+- [Customizing Spark Views](#customizing-spark-views)
+- [Customizing Spark JavaScript](#customizing-spark-javascript)
 
 <a name="installation"></a>
 ## Installation
@@ -68,11 +69,18 @@ Once teams are enabled, a team name will be required during registration, and a 
 
 Team roles may be defined in the `customizeRoles` method of the `SparkServiceProvider`.
 
-<a name="exporting-spark-views"></a>
-## Exporting Spark Views
+<a name="customizing-spark-views"></a>
+## Customizing Spark Views
 
 You may publish Spark's Blade views by using the `vendor:publish` command:
 
 	php artisan vendor:publish --tag=spark-basics
 
 The published views will be placed in `resources/views/vendor/spark`.
+
+<a name="customizing-spark-javascript"></a>
+## Customizing Spark JavaScript
+
+The `resources/js/spark/components.js` file contains the statements to load some common Spark Vue components. [Vue](http://vuejs.org) is the JavaScript framework used by the Spark registration and settings screens.
+
+You are free to change any of these require statements to load your own Vue component for a given screen. Most likely, you will want to copy the original component as a starting point for your customization.
